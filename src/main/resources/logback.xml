@@ -12,12 +12,12 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>/home/anonimous/programming/projects/current/epsdWeb/logs/Application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
+      		<fileNamePattern>/home/anonimous/programming/projects/current/epsd-web/logs/Application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
       		<maxHistory>7</maxHistory>
     	</rollingPolicy>
 	</appender>
 
-	<logger name="com.epsm.epsdWeb.model" level="INFO" additivity="false">
+	<logger name="com.epsm.epsdWeb" level="DEBUG" additivity="false">
 		<appender-ref ref="Application" />
 	</logger>
 
