@@ -8,7 +8,7 @@
 
 	<appender name="Application" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>%d{HH:mm:ss.SSS}  %-5level %-12([%thread]) %-34(%logger{34}) - %msg%n</Pattern>
+			<Pattern>%d{HH:mm:ss.SSS}  %-5level %-23([%thread]) %-34(%logger{34}) - %msg%n</Pattern>
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -17,7 +17,7 @@
     	</rollingPolicy>
 	</appender>
 
-	<logger name="com.epsm.epsdWeb" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdWeb" level="INFO" additivity="false">
 		<appender-ref ref="Application" />
 	</logger>
 
