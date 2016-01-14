@@ -12,28 +12,13 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>/home/anonimous/programming/projects/current/ElectricPowerSystemDispatcher/logs/Application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
-      		<maxHistory>7</maxHistory>
-    	</rollingPolicy>
-	</appender>
-	
-	<appender name="System" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>%d{HH:mm:ss.SSS}  %-5level %-8([%thread]) %-44(%logger{44}) - %msg%n</Pattern>
-		</encoder>
-
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>/home/anonimous/programming/projects/current/ElectricPowerSystemDispatcher/logs/System.%d{dd-MM-yyy}.log.zip</fileNamePattern>
+      		<fileNamePattern>/home/anonimous/programming/projects/current/epsdWeb/logs/Application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
       		<maxHistory>7</maxHistory>
     	</rollingPolicy>
 	</appender>
 
-	<logger name="com.epsm.electricPowerSystemDispatcher.model" level="INFO" additivity="false">
+	<logger name="com.epsm.epsdWeb.model" level="INFO" additivity="false">
 		<appender-ref ref="Application" />
-	</logger>
-	
-	<logger name="com.epsm.electricPowerSystemDispatcher" level="INFO" additivity="false">
-		<appender-ref ref="System" />
 	</logger>
 
 	<root level="INFO">
