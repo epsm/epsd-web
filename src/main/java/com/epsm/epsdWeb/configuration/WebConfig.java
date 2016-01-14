@@ -9,5 +9,5 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @ComponentScan("com.epsm.epsdWeb.controller")
 public class WebConfig extends WebMvcConfigurerAdapter{
-	
+
 }
