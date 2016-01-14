@@ -36,7 +36,7 @@ public class ConsumerControllerTest {
 	private IncomingMessageService service;
 	
 	@Before
-	public void initialize(){
+	public void setUp(){
 		mockMvc = standaloneSetup(controller).build();
 		mapper = new ObjectMapper();
 		mapper.findAndRegisterModules();

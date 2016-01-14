@@ -13,12 +13,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.epsm.epsdWeb.service.IncomingMessageService;
-import com.epsm.epsdWeb.util.UrlRequestSender;
 import com.epsm.epsmCore.model.generation.GeneratorParameters;
 import com.epsm.epsmCore.model.generation.GeneratorState;
 import com.epsm.epsmCore.model.generation.PowerStationParameters;
@@ -26,7 +24,6 @@ import com.epsm.epsmCore.model.generation.PowerStationState;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Import(UrlRequestSender.class)
 @RunWith(MockitoJUnitRunner.class)
 public class PowerStationControllerTest {
 	private MockMvc mockMvc;
@@ -41,7 +38,7 @@ public class PowerStationControllerTest {
 	private IncomingMessageService service;
 	
 	@Before
-	public void initialize(){
+	public void setUp(){
 		mockMvc = standaloneSetup(controller).build();
 		mapper = new ObjectMapper();
 		mapper.findAndRegisterModules();
