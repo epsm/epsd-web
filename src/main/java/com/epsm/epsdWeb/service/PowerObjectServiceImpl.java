@@ -1,17 +1,17 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedConsumerState;
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedGeneratorState;
-import com.epsm.electricPowerSystemDispatcher.repository.SavedConsumerStateDao;
-import com.epsm.electricPowerSystemDispatcher.repository.SavedGeneratorStateDao;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumerState;
-import com.epsm.electricPowerSystemModel.model.dispatch.State;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
+import com.epsm.epsdWeb.domain.SavedConsumerState;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
+import com.epsm.epsdWeb.repository.SavedConsumerStateDao;
+import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
+import com.epsm.epsmCore.model.consumption.ConsumerState;
+import com.epsm.epsmCore.model.dispatch.State;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 
 @Service
 public class PowerObjectServiceImpl implements PowerObjectService{

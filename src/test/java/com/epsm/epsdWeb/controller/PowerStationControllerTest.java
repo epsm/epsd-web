@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.controller;
+package com.epsm.epsdWeb.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,12 +17,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.epsm.electricPowerSystemDispatcher.service.IncomingMessageService;
-import com.epsm.electricPowerSystemModel.model.generation.GeneratorParameters;
-import com.epsm.electricPowerSystemModel.model.generation.GeneratorState;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationParameters;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
-import com.epsm.electricPowerSystemModel.util.UrlRequestSender;
+import com.epsm.epsdWeb.service.IncomingMessageService;
+import com.epsm.epsdWeb.util.UrlRequestSender;
+import com.epsm.epsmCore.model.generation.GeneratorParameters;
+import com.epsm.epsmCore.model.generation.GeneratorState;
+import com.epsm.epsmCore.model.generation.PowerStationParameters;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

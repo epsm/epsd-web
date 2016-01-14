@@ -1,6 +1,6 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
-import com.epsm.electricPowerSystemModel.model.dispatch.Command;
+import com.epsm.epsmCore.model.dispatch.Command;
 
 public interface OutgoingMessageService {
 	void sendCommand(Command command);

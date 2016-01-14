@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.controller;
+package com.epsm.epsdWeb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epsm.electricPowerSystemDispatcher.service.IncomingMessageService;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationParameters;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
+import com.epsm.epsdWeb.service.IncomingMessageService;
+import com.epsm.epsmCore.model.generation.PowerStationParameters;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 
 @RestController
 @RequestMapping("/api/powerstation")

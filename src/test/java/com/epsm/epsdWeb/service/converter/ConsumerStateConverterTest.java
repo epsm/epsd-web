@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service.ConsumerStateConverter;
+package com.epsm.epsdWeb.service.converter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -7,9 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedConsumerState;
-import com.epsm.electricPowerSystemDispatcher.service.ConsumerStateConverter;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumerState;
+import com.epsm.epsdWeb.domain.SavedConsumerState;
+import com.epsm.epsdWeb.service.ConsumerStateConverter;
+import com.epsm.epsmCore.model.consumption.ConsumerState;
 
 public class ConsumerStateConverterTest {
 	private ConsumerStateConverter converter;

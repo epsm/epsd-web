@@ -1,9 +1,9 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumerParametersStub;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumerState;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationParameters;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
+import com.epsm.epsmCore.model.consumption.ConsumerParametersStub;
+import com.epsm.epsmCore.model.consumption.ConsumerState;
+import com.epsm.epsmCore.model.generation.PowerStationParameters;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 
 public interface IncomingMessageService {
 	void establishConnectionWithConsumer(ConsumerParametersStub parameters);

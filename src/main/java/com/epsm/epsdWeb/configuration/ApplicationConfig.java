@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.configuration;
+package com.epsm.epsdWeb.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
-import com.epsm.electricPowerSystemModel.client.AbstractClient;
-import com.epsm.electricPowerSystemModel.model.generalModel.TimeService;
+import com.epsm.epsdWeb.client.AbstractClient;
+import com.epsm.epsmCore.model.generalModel.TimeService;
 
 @Configuration
 @ComponentScan("com.epsm.electricPowerSystemDispatcher")

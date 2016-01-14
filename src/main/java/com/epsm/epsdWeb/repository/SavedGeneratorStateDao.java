@@ -1,8 +1,8 @@
-package com.epsm.electricPowerSystemDispatcher.repository;
+package com.epsm.epsdWeb.repository;
 
 import java.util.List;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedGeneratorState;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
 
 public interface SavedGeneratorStateDao {
 	public List<SavedGeneratorState> getStatesByPowerStationNumber(long powerStationNumber);

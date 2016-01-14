@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,9 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedGeneratorState;
-import com.epsm.electricPowerSystemModel.model.generation.GeneratorState;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
+import com.epsm.epsmCore.model.generation.GeneratorState;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 
 public class PowerStationStateConverterTest {
 	private PowerStationStateConverter converter;

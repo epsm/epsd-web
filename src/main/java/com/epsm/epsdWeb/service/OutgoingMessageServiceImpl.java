@@ -1,13 +1,13 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.epsm.electricPowerSystemDispatcher.client.ConsumerClient;
-import com.epsm.electricPowerSystemDispatcher.client.PowerStationClient;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumptionPermissionStub;
-import com.epsm.electricPowerSystemModel.model.dispatch.Command;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationGenerationSchedule;
+import com.epsm.epsdWeb.client.ConsumerClient;
+import com.epsm.epsdWeb.client.PowerStationClient;
+import com.epsm.epsmCore.model.consumption.ConsumptionPermissionStub;
+import com.epsm.epsmCore.model.dispatch.Command;
+import com.epsm.epsmCore.model.generation.PowerStationGenerationSchedule;
 
 @Service
 public class OutgoingMessageServiceImpl implements OutgoingMessageService{

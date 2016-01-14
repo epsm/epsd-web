@@ -1,12 +1,12 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.stereotype.Component;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedConsumerState;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumerState;
+import com.epsm.epsdWeb.domain.SavedConsumerState;
+import com.epsm.epsmCore.model.consumption.ConsumerState;
 
 @Component
 public class ConsumerStateConverter {

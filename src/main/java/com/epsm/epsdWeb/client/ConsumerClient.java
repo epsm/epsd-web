@@ -3,8 +3,7 @@ package com.epsm.epsdWeb.client;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.epsm.electricPowerSystemModel.client.AbstractClient;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumptionPermissionStub;
+import com.epsm.epsmCore.model.consumption.ConsumptionPermissionStub;
 
 @Component
 public class ConsumerClient extends AbstractClient<ConsumptionPermissionStub>{

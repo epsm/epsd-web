@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,9 +8,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedGeneratorState;
-import com.epsm.electricPowerSystemModel.model.generation.GeneratorState;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
+import com.epsm.epsmCore.model.generation.GeneratorState;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 
 @Component
 public class PowerStationStateConverter {

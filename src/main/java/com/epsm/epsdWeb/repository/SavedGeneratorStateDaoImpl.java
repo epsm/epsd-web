@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.repository;
+package com.epsm.epsdWeb.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedGeneratorState;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
 
 @Repository
 public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{

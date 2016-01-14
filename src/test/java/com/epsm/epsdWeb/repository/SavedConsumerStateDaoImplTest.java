@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.repository;
+package com.epsm.epsdWeb.repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.epsm.electricPowerSystemDispatcher.configuration.DbTestConfiguration;
+import com.epsm.epsdWeb.configuration.DbTestConfiguration;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;

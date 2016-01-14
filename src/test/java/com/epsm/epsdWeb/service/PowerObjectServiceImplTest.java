@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -18,12 +18,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.epsm.electricPowerSystemDispatcher.model.domain.SavedGeneratorState;
-import com.epsm.electricPowerSystemDispatcher.repository.SavedConsumerStateDao;
-import com.epsm.electricPowerSystemDispatcher.repository.SavedGeneratorStateDao;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumerState;
-import com.epsm.electricPowerSystemModel.model.dispatch.State;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationState;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
+import com.epsm.epsdWeb.repository.SavedConsumerStateDao;
+import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
+import com.epsm.epsmCore.model.consumption.ConsumerState;
+import com.epsm.epsmCore.model.dispatch.State;
+import com.epsm.epsmCore.model.generation.PowerStationState;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PowerObjectServiceImplTest {

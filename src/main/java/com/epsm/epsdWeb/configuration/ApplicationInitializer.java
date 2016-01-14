@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.configuration;
+package com.epsm.epsdWeb.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.service;
+package com.epsm.epsdWeb.service;
 
 import static org.mockito.Mockito.verify;
 
@@ -13,11 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.epsm.electricPowerSystemDispatcher.client.ConsumerClient;
-import com.epsm.electricPowerSystemDispatcher.client.PowerStationClient;
-import com.epsm.electricPowerSystemModel.model.consumption.ConsumptionPermissionStub;
-import com.epsm.electricPowerSystemModel.model.dispatch.Command;
-import com.epsm.electricPowerSystemModel.model.generation.PowerStationGenerationSchedule;
+import com.epsm.epsdWeb.client.ConsumerClient;
+import com.epsm.epsdWeb.client.PowerStationClient;
+import com.epsm.epsmCore.model.consumption.ConsumptionPermissionStub;
+import com.epsm.epsmCore.model.dispatch.Command;
+import com.epsm.epsmCore.model.generation.PowerStationGenerationSchedule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OutgoingMessageServiceImplTest {

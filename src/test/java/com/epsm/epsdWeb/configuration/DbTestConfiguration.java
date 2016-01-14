@@ -1,4 +1,4 @@
-package com.epsm.electricPowerSystemDispatcher.configuration;
+package com.epsm.epsdWeb.configuration;
 
 import java.util.Properties;
 
