@@ -11,7 +11,7 @@ import com.epsm.epsdWeb.client.AbstractClient;
 import com.epsm.epsmCore.model.generalModel.TimeService;
 
 @Configuration
-@ComponentScan("com.epsm.electricPowerSystemDispatcher")
+@ComponentScan("com.epsm.epsdWeb")
 @Import({AbstractClient.class, TimeService.class})			
 public class ApplicationConfig{
 	

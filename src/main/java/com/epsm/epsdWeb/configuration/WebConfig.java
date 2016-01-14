@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.epsm.electricPowerSystemDispatcher.controller")
+@ComponentScan("com.epsm.epsdWeb.controller")
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
 }
