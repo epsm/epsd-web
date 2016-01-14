@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epsm.epsdWeb.domain.SavedConsumerState;
 import com.epsm.epsdWeb.domain.SavedGeneratorState;
@@ -14,6 +15,7 @@ import com.epsm.epsmCore.model.dispatch.State;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
 @Service
+@Transactional
 public class PowerObjectServiceImpl implements PowerObjectService{
 
 	@Autowired
