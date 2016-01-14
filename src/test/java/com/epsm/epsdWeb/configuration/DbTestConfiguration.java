@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.epsm.electricPowerSystemDispatcher.repository")
+@ComponentScan("com.epsm.epsdWeb.repository")
 public class DbTestConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -36,7 +36,7 @@ public class DbTestConfiguration extends WebMvcConfigurerAdapter {
         properties.put("hibernate.hbm2ddl.auto", "create");
         factory.setJpaVendorAdapter(adaptor);
         factory.setDataSource(dataSource());
-        factory.setPackagesToScan("com.epsm.electricPowerSystemDispatcher.model.domain");
+        factory.setPackagesToScan("com.epsm.epsdWeb.domain");
         factory.setJpaProperties(properties);
         factory.afterPropertiesSet();
 
