@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.epsm</groupId>
-	<artifactId>epsdWeb</artifactId>
+	<artifactId>epsd-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Electric power dystem dispatcher web wrapper.</name>
