@@ -6,13 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.epsm.epsdWeb.domain.SavedGeneratorState;
 
 @Repository
 public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
-
+	private Logger logger = LoggerFactory.getLogger(SavedGeneratorStateDaoImpl.class);
+	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -23,11 +26,15 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 				+ "= :powerStationId");
 		query.setParameter("powerStationId", powerStationId);
 		
+		logger.debug("List<SavedGeneratorState> requested for powerStationId# {}.", powerStationId);
+		
 		return (List<SavedGeneratorState>)query.getResultList();
 	}
 
 	@Override
 	public void saveState(SavedGeneratorState state) {
 		em.merge(state);
+		
+		logger.debug("SavedGeneratorState {} merged.", state);
 	}
 }

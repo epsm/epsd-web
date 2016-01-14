@@ -6,13 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.epsm.epsdWeb.domain.SavedConsumerState;
 
 @Repository
 public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
-
+	private Logger logger = LoggerFactory.getLogger(SavedConsumerStateDaoImpl.class);
+	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -23,11 +26,15 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 				+ "= :consumerId");
 		query.setParameter("consumerId", consumerId);
 		
+		logger.debug("List<SavedConsumerState> requested for consumerId# {}.", consumerId);
+		
 		return (List<SavedConsumerState>)query.getResultList();
 	}
 	
 	@Override
 	public void saveState(SavedConsumerState state) {
 		em.merge(state);
+		
+		logger.debug("SavedConsumerState {} merged.", state);
 	}
 }
