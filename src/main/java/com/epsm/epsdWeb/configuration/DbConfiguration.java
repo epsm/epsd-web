@@ -33,7 +33,7 @@ public class DbConfiguration{
         properties.put("hibernate.hbm2ddl.auto", "create");
         factory.setJpaVendorAdapter(adaptor);
         factory.setDataSource(dataSource());
-        factory.setPackagesToScan("com.epsm.electricPowerSystemDispatcher.model.domain");
+        factory.setPackagesToScan("com.epsm.epsdWeb.domain");
         factory.setJpaProperties(properties);
         factory.afterPropertiesSet();
 
