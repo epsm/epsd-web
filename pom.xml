@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.epsm.electricPowerSystemDispatcher</groupId>
-	<artifactId>epsd</artifactId>
+	<groupId>com.epsm</groupId>
+	<artifactId>epsdWeb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Electric Power System Dispatcher</name>
-	<description>Stub for electric power system dispatcher</description>
+	<name>Electric power dystem dispatcher web wrapper.</name>
+	<description> Electric power system dispatcher Spring WebMVC wrapper. Interacts with model through http using Json.</description>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -76,15 +76,16 @@
 
 		<!-- servlet -->
     	<dependency>
-   			<groupId>javax.servlet</groupId>
-   			<artifactId>javax.servlet-api</artifactId>
-    		<version>3.0.1</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- EPSM, installed to local repository -->	
 		<dependency>
-			<groupId>com.epsm.electricPowerSystemModel</groupId>
-			<artifactId>epsm</artifactId>
+			<groupId>com.epsm</groupId>
+			<artifactId>epsd-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
