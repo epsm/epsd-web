@@ -26,7 +26,7 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 				+ "= :consumerId");
 		query.setParameter("consumerId", consumerId);
 		
-		logger.debug("List<SavedConsumerState> requested for consumerId# {}.", consumerId);
+		logger.debug("Requested: List<SavedConsumerState> for consumerId#{}.", consumerId);
 		
 		return (List<SavedConsumerState>)query.getResultList();
 	}
@@ -35,6 +35,6 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 	public void saveState(SavedConsumerState state) {
 		em.merge(state);
 		
-		logger.debug("SavedConsumerState {} merged.", state);
+		logger.debug("Merged: {}.", state);
 	}
 }

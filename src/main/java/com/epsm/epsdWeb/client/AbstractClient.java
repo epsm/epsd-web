@@ -14,7 +14,7 @@ public class AbstractClient<T extends Message> {
 	private UrlRequestSender<T> sender;
 	
 	protected void sendMessage(T message, String url){
-		logger.debug("sending {} to {}.", message, url);
+		logger.debug("Sending: {} to {}.", message, url);
 		
 		sender.sendObjectInJsonToUrlWithPOST(url, message);
 	}

@@ -29,7 +29,7 @@ public class ConsumerController {
 	
 	@RequestMapping(value="/acceptstate", method=RequestMethod.POST)
 	public @ResponseBody void acceptConsumerState(@RequestBody ConsumerState state){
-		logger.debug("receiver {}.", state);
+		logger.debug("Received: {}.", state);
 		service.acceptConsumerState(state);
 	}
 }

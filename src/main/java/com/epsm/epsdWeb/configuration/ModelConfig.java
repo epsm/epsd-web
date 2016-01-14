@@ -13,8 +13,8 @@ import com.epsm.epsmCore.model.dispatch.Dispatcher;
 import com.epsm.epsmCore.model.generalModel.TimeService;
 
 @Configuration
-public class DispatcherConfig {
-	private Logger logger = LoggerFactory.getLogger(DispatcherConfig.class);
+public class ModelConfig {
+	private Logger logger = LoggerFactory.getLogger(ModelConfig.class);
 	
 	@Autowired
 	private TimeService timeService;
@@ -29,7 +29,7 @@ public class DispatcherConfig {
 	public Dispatcher createDisaptcher(){
 		DispatcherFactory factory = new DispatcherFactory(timeService, saver, connector);
 		
-		logger.info("Dispatcher model @Bean created.");
+		logger.info("EPS Dispatcher created and run.");
 		
 		return factory.createDispatcher();
 	}

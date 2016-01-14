@@ -26,7 +26,7 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 				+ "= :powerStationId");
 		query.setParameter("powerStationId", powerStationId);
 		
-		logger.debug("List<SavedGeneratorState> requested for powerStationId# {}.", powerStationId);
+		logger.debug("Requested: List<SavedGeneratorState> for powerStationId#{}.", powerStationId);
 		
 		return (List<SavedGeneratorState>)query.getResultList();
 	}
@@ -35,6 +35,6 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 	public void saveState(SavedGeneratorState state) {
 		em.merge(state);
 		
-		logger.debug("SavedGeneratorState {} merged.", state);
+		logger.debug("Merged: {}.", state);
 	}
 }

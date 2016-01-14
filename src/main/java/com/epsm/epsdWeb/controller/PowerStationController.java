@@ -23,13 +23,13 @@ public class PowerStationController {
 	
 	@RequestMapping(value="/esatblishconnection", method = RequestMethod.POST)
 	public @ResponseBody void establishConnection(@RequestBody PowerStationParameters parameters){
-		logger.debug("receiver {}.", parameters);
+		logger.debug("Received: {}.", parameters);
 		service.establishConnectionWithPowerStation(parameters);
 	}
 	
 	@RequestMapping(value="/acceptstate", method=RequestMethod.POST)
 	public @ResponseBody void acceptPowerStationState(@RequestBody PowerStationState state){
-		logger.debug("receiver {}.", state);
+		logger.debug("Received: {}.", state);
 		service.acceptPowerStationState(state);
 	}
 }
