@@ -43,7 +43,7 @@ public class ConsumerStateConverter {
 	
 	private void fillOutConvertedState(){
 		convertedState.setConsumerId(consumerId);
-		convertedState.setLoad(load);
+		convertedState.setLoadInMW(load);
 		convertedState.setSimulationTimeStamp(simulationTimeStamp);
 		convertedState.setRealTimeStamp(realTimeStamp);
 	}

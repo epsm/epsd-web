@@ -21,8 +21,8 @@ public class SavedConsumerState{
 	@Column(name="consumerId")
 	private long consumerId;
 	
-	@Column(name="load")
-	private float load;
+	@Column(name="loadInMW")
+	private float loadInMW;
 	
 	@Column(name="simulationTimeStamp")
 	private LocalTime simulationTimeStamp;
@@ -38,12 +38,12 @@ public class SavedConsumerState{
 		this.consumerId = consumerId;
 	}
 
-	public float getLoad() {
-		return load;
+	public float getLoadInMW() {
+		return loadInMW;
 	}
 
-	public void setLoad(float load) {
-		this.load = load;
+	public void setLoadInMW(float load) {
+		this.loadInMW = load;
 	}
 
 	public LocalTime getSimulationTimeStamp() {

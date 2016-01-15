@@ -35,7 +35,7 @@ public class ConsumerStateConverterTest {
 	
 	@Test
 	public void loadsAreEquals(){
-		Assert.assertEquals(LOAD, convertedState.getLoad(), 0);
+		Assert.assertEquals(LOAD, convertedState.getLoadInMW(), 0);
 	}
 	
 	@Test
