@@ -24,7 +24,7 @@ public class DbConfiguration{
 	private String databaseUrl;
 	
 	@Value("${database.username}")
-	private String user;
+	private String username;
 	
 	@Value("${database.password}")
 	private String password;
@@ -39,17 +39,10 @@ public class DbConfiguration{
 	private String hbm2ddlAuto;
 	
     @Bean
-    public DataSource dataSource() {
-    	System.out.println("url=" + databaseUrl);
-    	System.out.println("usr=" + user);
-    	System.out.println("pwd=" + password);
-    	System.out.println("dbd=" + databaseDriver);
-    	System.out.println("hdl=" + hibernateDialect);
-    	System.out.println("hbm=" + hbm2ddlAuto);
-    	
+    public DataSource dataSource() {    	
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(databaseUrl);
-        dataSource.setUsername(user);
+        dataSource.setUsername(username);
         dataSource.setPassword(password);
         dataSource.setDriverClassName(databaseDriver);
         
@@ -64,6 +57,7 @@ public class DbConfiguration{
         
         properties.put("hibernate.dialect", hibernateDialect);
         properties.put("hibernate.hbm2ddl.auto", hbm2ddlAuto);
+        
         factory.setJpaVendorAdapter(adaptor);
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("com.epsm.epsdWeb.domain");
