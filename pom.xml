@@ -142,6 +142,15 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -161,4 +170,38 @@
       		</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<api.powerstation.command>http://localhost:8080/epsm-web/api/powerstation/command</api.powerstation.command>
+				<api.consumer.command>http://localhost:8080/epsm-web/api/consumer/command</api.consumer.command>
+				
+				<database.url>jdbc:mysql://localhost:3306/eps_dispatcher</database.url>
+				<database.username></database.username>
+				<database.password></database.password>
+				<database.driver>com.mysql.jdbc.Driver</database.driver>
+				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+				<hbm2ddl.auto>update</hbm2ddl.auto>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<api.powerstation.command>http://model-epsm.rhcloud.com/api/powerstation/command</api.powerstation.command>
+				<api.consumer.command>http://model-epsm.rhcloud.com/api/consumer/command</api.consumer.command>
+				
+				<database.url>jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/dispatcher</database.url>
+				<database.username></database.username>
+				<database.password></database.password>
+				<database.driver>com.mysql.jdbc.Driver</database.driver>
+				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+				<hbm2ddl.auto>validate</hbm2ddl.auto>
+			</properties>
+		</profile>
+	</profiles>
 </project>
