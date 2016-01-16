@@ -13,6 +13,7 @@ import com.epsm.epsmCore.model.generalModel.TimeService;
 @RestController
 @RequestMapping("/")
 public class IndicatorController{
+	private StringBuilder builder = new StringBuilder();
 	private Logger logger = LoggerFactory.getLogger(IndicatorController.class);
 	
 	@Autowired
@@ -20,8 +21,15 @@ public class IndicatorController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody String indicate(){
+		builder.append("user.dir: " + System.getProperty("user.dir") + ". ");
+		builder.append("OPENSHIFT_MYSQL_DB_HOST: " + System.getenv("OPENSHIFT_MYSQL_DB_HOST") + ". ");
+		builder.append("OPENSHIFT_MYSQL_DB_PORT: " + System.getenv("OPENSHIFT_MYSQL_DB_PORT") + ". ");
+		builder.append("proc: " + Runtime.getRuntime().availableProcessors() + ".");
+		builder.append("#2  date and time on dispatcher server: ");
+		builder.append(timeService.getCurrentTime());
+		
 		logger.debug("Invoked.");
-		return String.format("date and time on dispatcher server: %s.",
-				timeService.getCurrentTime());
+		
+		return builder.toString();
 	}
 }
