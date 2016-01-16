@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+	<property resource="application.properties"/>
+
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} %-5level %-23([%thread]) %-47(%logger{48}) - %msg%n</pattern>
@@ -12,7 +15,7 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>/home/anonimous/programming/projects/current/epsd-web/logs/web-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
+      		<fileNamePattern>${logging.destination}/web-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
       		<maxHistory>7</maxHistory>
     	</rollingPolicy>
 	</appender>
@@ -23,7 +26,7 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>/home/anonimous/programming/projects/current/epsd-web/logs/core-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
+      		<fileNamePattern>${logging.destination}/core-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
       		<maxHistory>7</maxHistory>
     	</rollingPolicy>
 	</appender>
@@ -32,7 +35,7 @@
 		<appender-ref ref="web-application" />
 	</logger>
 	
-	<logger name="com.epsm.epsdCore.model" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdCore" level="DEBUG" additivity="false">
 		<appender-ref ref="core-application" />
 	</logger>
 
