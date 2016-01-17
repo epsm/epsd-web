@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
 	<property resource="application.properties"/>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -11,11 +10,11 @@
 
 	<appender name="web-application" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>%d{HH:mm:ss.SSS}  %-5level %-23([%thread]) %-34(%logger{34}) - %msg%n</Pattern>
+			<Pattern>%d{HH:mm:ss.SSS}  %-5level %-23([%thread]) %-58(%logger{34}) - %msg%n</Pattern>
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>${logging.destination}/web-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
+      		<fileNamePattern>${logging.destination}/epsd-web/web-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
       		<maxHistory>7</maxHistory>
     	</rollingPolicy>
 	</appender>
@@ -26,7 +25,7 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      		<fileNamePattern>${logging.destination}/core-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
+      		<fileNamePattern>${logging.destination}/epsd-web/core-application.%d{dd-MM-yyy}.log.zip</fileNamePattern>
       		<maxHistory>7</maxHistory>
     	</rollingPolicy>
 	</appender>
@@ -37,6 +36,10 @@
 	
 	<logger name="com.epsm.epsdCore" level="DEBUG" additivity="false">
 		<appender-ref ref="core-application" />
+	</logger>
+	
+	<logger name="com.epsm.epsmCore.model.utils" level="DEBUG" additivity="false">
+		<appender-ref ref="web-application" />
 	</logger>
 
 	<root level="INFO">

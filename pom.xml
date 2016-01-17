@@ -146,9 +146,6 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
-				<includes>
-					<include>*.properties</include>
-				</includes>
 			</resource>
 		</resources>
 		<plugins>
@@ -181,7 +178,7 @@
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
 				<hbm2ddl.auto>create-drop</hbm2ddl.auto>
 				
-				<logging.destination></logging.destination>
+				<logging.destination>${catalina.base}/logs</logging.destination>
 			</properties>
 			<build>
 				<finalName>dispatcher</finalName>
