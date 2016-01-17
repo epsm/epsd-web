@@ -35,6 +35,6 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 	public void saveState(SavedGeneratorState state) {
 		em.merge(state);
 		
-		logger.debug("Merged: {}.", state);
+		logger.debug("Merged: {} st.#{}.", state.getClass().getSimpleName(), state.getPowerStationId());
 	}
 }
