@@ -172,8 +172,8 @@
 				<api.consumer.command>http://localhost:8080/epsm-web/api/consumer/command</api.consumer.command>
 				
 				<database.url>jdbc:mysql://localhost:3306/eps_dispatcher</database.url>
-				<database.username></database.username>
-				<database.password></database.password>
+				<database.username>root</database.username>
+				<database.password>mValera</database.password>
 				<database.driver>com.mysql.jdbc.Driver</database.driver>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
 				<hbm2ddl.auto>create-drop</hbm2ddl.auto>
@@ -191,7 +191,6 @@
           					<failOnMissingWebXml>false</failOnMissingWebXml>
         				</configuration>
       				</plugin>
-      				
 				</plugins>
 			</build>
 		</profile>
@@ -202,8 +201,8 @@
 				<api.consumer.command>http://model-epsm.rhcloud.com/api/consumer/command</api.consumer.command>
 				
 				<database.url>jdbc:mysql://127.3.125.130:3306/dispatcher</database.url>
-				<database.username></database.username>
-				<database.password></database.password>
+				<database.username>adminBxqSIMx</database.username>
+				<database.password>dZXbg_vEUkZ_</database.password>
 				<database.driver>com.mysql.jdbc.Driver</database.driver>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
 				<hbm2ddl.auto>validate</hbm2ddl.auto>
@@ -219,6 +218,13 @@
 						<configuration>
 							<warName>ROOT</warName>
           					<failOnMissingWebXml>false</failOnMissingWebXml>
+							<webResources>
+            					<resource>
+              						<directory>WildFlyDeploymentStructure</directory>
+							           <targetPath>WEB-INF</targetPath>
+							           <filtering>true</filtering>
+            					</resource>
+          					</webResources>
         				</configuration>
 					</plugin>
 				</plugins>
