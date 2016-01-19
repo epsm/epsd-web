@@ -54,7 +54,7 @@ public class ConsumerControllerTest {
 	}
 	
 	private void prepareParemetersAsJSONString() throws JsonProcessingException{
-		objectToSerialize = new ConsumerParametersStub(0, LocalDateTime.MIN, LocalTime.MIN);
+		objectToSerialize = new ConsumerParametersStub(0, LocalDateTime.of(1, 2, 3, 4, 5, 6, 7), LocalTime.MIN);
 		objectInJsonString = mapper.writeValueAsString(objectToSerialize);
 	}
 	
