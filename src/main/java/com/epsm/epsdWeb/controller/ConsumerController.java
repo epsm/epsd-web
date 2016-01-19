@@ -23,7 +23,7 @@ public class ConsumerController {
 	
 	@RequestMapping(value="/esatblishconnection", method = RequestMethod.POST)
 	public @ResponseBody void establishConnection(@RequestBody ConsumerParametersStub parameters){
-		logger.debug("receiver {}.", parameters);
+		logger.debug("Receiver: {}.", parameters);
 		service.establishConnectionWithConsumer(parameters);
 	}
 	

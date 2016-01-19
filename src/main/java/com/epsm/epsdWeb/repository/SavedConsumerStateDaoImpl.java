@@ -35,6 +35,7 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 	public void saveState(SavedConsumerState state) {
 		em.merge(state);
 		
-		logger.debug("Merged: {} consId#{}.", state.getClass().getName(), state.getConsumerId());
+		logger.debug("Saved: {} consId#{}.", state.getClass().getSimpleName(),
+				state.getConsumerId());
 	}
 }
