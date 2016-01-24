@@ -1,7 +1,6 @@
 package com.epsm.epsdWeb.service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ public class ConsumerStateConverter {
 	private ConsumerState consumerState;
 	private long consumerId;
 	private float load;
-	private LocalTime simulationTimeStamp;
+	private LocalDateTime simulationTimeStamp;
 	private LocalDateTime realTimeStamp;
 	private SavedConsumerState convertedState;
 	

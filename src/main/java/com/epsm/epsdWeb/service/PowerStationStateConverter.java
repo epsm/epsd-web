@@ -1,7 +1,6 @@
 package com.epsm.epsdWeb.service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,7 @@ public class PowerStationStateConverter {
 	private List<SavedGeneratorState> convertedStates;
 	private long powerStationId;
 	private float frequency;
-	private LocalTime simulationTimeStamp;
+	private LocalDateTime simulationTimeStamp;
 	private LocalDateTime realTimeStamp;
 	private int generatorNumber;
 	private float generationInMW;
@@ -79,8 +78,8 @@ public class PowerStationStateConverter {
 		savedGeneratorState.setGeneratorNumber(generatorNumber);
 		savedGeneratorState.setGenerationInMW(generationInMW);
 		savedGeneratorState.setFrequency(frequency);
-		//savedGeneratorState.setSimulationTimeStamp(simulationTimeStamp);
-		//savedGeneratorState.setRealTimeStamp(realTimeStamp);
+		savedGeneratorState.setSimulationTimeStamp(simulationTimeStamp);
+		savedGeneratorState.setRealTimeStamp(realTimeStamp);
 	}
 	
 	private void addSavedGeneratorStateToList(){

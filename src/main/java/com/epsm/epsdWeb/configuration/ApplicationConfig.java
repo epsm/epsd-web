@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
+import com.epsm.epsdCore.model.DispatcherFactory;
+import com.epsm.epsdCore.model.ObjectsConnector;
+import com.epsm.epsdCore.model.PowerObjectsDateTimeSource;
+import com.epsm.epsdCore.model.StateSaver;
+import com.epsm.epsmCore.model.dispatch.Dispatcher;
 import com.epsm.epsmCore.model.generalModel.TimeService;
 
 @Configuration
@@ -28,7 +33,25 @@ public class ApplicationConfig{
 	
 	@Bean
 	public TimeService createTimeService(){
-		logger.debug("Timeservice @Bean created.");
+		logger.debug("TimeService @Bean created.");
 		return new TimeService();
+	}
+	
+	@Bean
+	public PowerObjectsDateTimeSource createPowerObjectsDateTimeSource(){
+		logger.debug("PowerObjectsDateTimeSource @Bean created.");
+		return new PowerObjectsDateTimeSource();
+	}
+	
+	@Bean
+	public Dispatcher createDisaptcher(TimeService timeService, StateSaver saver,
+			ObjectsConnector connector, PowerObjectsDateTimeSource dateTimeSource){
+		
+		DispatcherFactory factory
+				= new DispatcherFactory(timeService, saver, connector, dateTimeSource);
+		
+		logger.info("EPS Dispatcher created and run.");
+		
+		return factory.createDispatcher();
 	}
 }

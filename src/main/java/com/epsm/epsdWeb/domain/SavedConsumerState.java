@@ -1,7 +1,6 @@
 package com.epsm.epsdWeb.domain;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,10 +24,10 @@ public class SavedConsumerState{
 	private float loadInMW;
 	
 	@Column(name="simulationTimeStamp")
-	private LocalTime simulationTimeStamp;
+	private LocalDateTime simulationTimeStamp;
 	
 	@Column(name="realTimeStamp")
-	protected LocalDateTime realTimeStamp;
+	private LocalDateTime realTimeStamp;
 
 	public long getConsumerId() {
 		return consumerId;
@@ -46,11 +45,11 @@ public class SavedConsumerState{
 		this.loadInMW = load;
 	}
 
-	public LocalTime getSimulationTimeStamp() {
+	public LocalDateTime getSimulationTimeStamp() {
 		return simulationTimeStamp;
 	}
 
-	public void setSimulationTimeStamp(LocalTime simulationTimeStamp) {
+	public void setSimulationTimeStamp(LocalDateTime simulationTimeStamp) {
 		this.simulationTimeStamp = simulationTimeStamp;
 	}
 
