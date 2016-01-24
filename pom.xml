@@ -14,6 +14,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<hibernate.version>5.0.2.Final</hibernate.version>
+		
+		<api.powerstation.command>/api/powerstation/command</api.powerstation.command>
+		<api.consumer.command>/api/consumer/command</api.consumer.command>
 	</properties>
 
 	<dependencies>
@@ -168,8 +171,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<api.powerstation.command>http://localhost:8080/epsm-web/api/powerstation/command</api.powerstation.command>
-				<api.consumer.command>http://localhost:8080/epsm-web/api/consumer/command</api.consumer.command>
+				<model.url>http://localhost:8080/epsm-web</model.url>
 				
 				<database.url>jdbc:mysql://localhost:3306/eps_dispatcher</database.url>
 				<database.username></database.username>
@@ -196,8 +198,7 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<api.powerstation.command>http://model-epsm.rhcloud.com/api/powerstation/command</api.powerstation.command>
-				<api.consumer.command>http://model-epsm.rhcloud.com/api/consumer/command</api.consumer.command>
+				<model.url>http://model-epsm.rhcloud.com</model.url>
 				
 				<database.url>jdbc:mysql://127.3.125.130:3306/dispatcher</database.url>
 				<database.username></database.username>
