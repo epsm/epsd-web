@@ -25,7 +25,6 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 		Query query = em.createQuery("SELECT c FROM SavedGeneratorState c WHERE c.powerStationId "
 				+ "= :powerStationId");
 		query.setParameter("powerStationId", powerStationId);
-		
 		logger.debug("Requested: List<SavedGeneratorState> for powerStationId#{}.", powerStationId);
 		
 		return (List<SavedGeneratorState>)query.getResultList();
@@ -33,8 +32,7 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 
 	@Override
 	public void saveState(SavedGeneratorState state) {
-		em.merge(state);
-		
-		logger.debug("Saved: {} st.#{}.", state.getClass().getSimpleName(), state.getPowerStationId());
+		em.persist(state);
+		logger.debug("Saved: {}.", state);
 	}
 }

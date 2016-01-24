@@ -35,7 +35,6 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 	public void saveState(SavedConsumerState state) {
 		em.persist(state);
 		
-		logger.debug("Saved: {} consId#{}.", state.getClass().getSimpleName(),
-				state.getConsumerId());
+		logger.debug("Saved: {} cons.Id#{}.", state.getClass().getSimpleName(), state.getConsumerId());
 	}
 }

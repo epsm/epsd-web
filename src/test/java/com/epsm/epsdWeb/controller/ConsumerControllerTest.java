@@ -1,5 +1,7 @@
 package com.epsm.epsdWeb.controller;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -42,19 +44,48 @@ public class ConsumerControllerTest {
 	}
 	
 	@Test
-	public void registeriConsumerMethodAceptsConsumerParameters() throws Exception{
+	public void registeriConsumerMethodReturnsOKIfServiceRegisterConsumer() throws Exception{
 		prepareParemetersAsJSONString();
-		
-		mockMvc.perform(
-				post("/api/consumer/esatblishconnection")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectInJsonString))
-				.andExpect(status().isOk());
+		makeServiceRegisterConsumer();
+		performRequestAndWaitOK();
 	}
 	
 	private void prepareParemetersAsJSONString() throws JsonProcessingException{
 		objectToSerialize = new ConsumerParametersStub(0, LocalDateTime.MIN, LocalDateTime.MIN);
 		objectInJsonString = mapper.writeValueAsString(objectToSerialize);
+	}
+	
+	private void makeServiceRegisterConsumer(){
+		when(service.registerConsumer(any())).thenReturn(true);
+	}
+	
+	private void performRequestAndWaitOK() throws Exception{
+		mockMvc.perform(
+				post("/api/consumer/register")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectInJsonString))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void registerConsumerMethodReturnsCONFLICTIfServiceDoesNotRegisterConsumer()
+			throws Exception{
+		
+		prepareParemetersAsJSONString();
+		makeServiceNotToRegisterConsumer();
+		performRequestAndWaitCONFLICT();
+	}
+	
+	private void makeServiceNotToRegisterConsumer(){
+		when(service.registerConsumer(any())).thenReturn(false);
+	}
+	
+	private void performRequestAndWaitCONFLICT() throws Exception{
+		mockMvc.perform(
+				post("/api/consumer/register")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectInJsonString))
+				.andExpect(status().isConflict());
 	}
 	
 	@Test

@@ -6,8 +6,8 @@ import com.epsm.epsmCore.model.generation.PowerStationParameters;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
 public interface IncomingMessageService{
-	void registerConsumer(ConsumerParametersStub parameters);
+	boolean registerConsumer(ConsumerParametersStub parameters);
 	void acceptConsumerState(ConsumerState state);
-	void registerPowerStation(PowerStationParameters parameters);
+	boolean registerPowerStation(PowerStationParameters parameters);
 	void acceptPowerStationState(PowerStationState state);
 }

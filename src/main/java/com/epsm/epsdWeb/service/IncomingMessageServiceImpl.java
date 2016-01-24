@@ -16,8 +16,8 @@ public class IncomingMessageServiceImpl implements IncomingMessageService{
 	private Dispatcher dispatcher;
 	
 	@Override
-	public void registerConsumer(ConsumerParametersStub parameters) {
-		dispatcher.registerObject(parameters);
+	public boolean registerConsumer(ConsumerParametersStub parameters) {
+		return dispatcher.registerObject(parameters);
 	}
 
 	@Override
@@ -26,8 +26,8 @@ public class IncomingMessageServiceImpl implements IncomingMessageService{
 	}
 
 	@Override
-	public void registerPowerStation(PowerStationParameters parameters) {
-		dispatcher.registerObject(parameters);
+	public boolean registerPowerStation(PowerStationParameters parameters) {
+		return dispatcher.registerObject(parameters);
 	}
 
 	@Override

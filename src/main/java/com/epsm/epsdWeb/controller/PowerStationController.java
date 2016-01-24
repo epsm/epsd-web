@@ -3,6 +3,8 @@ package com.epsm.epsdWeb.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,15 +23,24 @@ public class PowerStationController {
 	@Autowired
 	private IncomingMessageService service;
 	
-	@RequestMapping(value="/esatblishconnection", method = RequestMethod.POST)
-	public @ResponseBody void establishConnection(@RequestBody PowerStationParameters parameters){
-		logger.debug("Received: {}.", parameters);
-		service.registerPowerStation(parameters);
+	@RequestMapping(value="/register", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<String> registerPowerStation(
+			@RequestBody PowerStationParameters parameters){
+		
+		logger.debug("Received stat.par.: {}.", parameters);
+		
+		if(service.registerPowerStation(parameters)){
+			logger.debug("Returned OK (request was {})", parameters);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}else{
+			logger.warn("Returned CONFLICT (request was {})", parameters);
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+		}
 	}
 	
 	@RequestMapping(value="/acceptstate", method=RequestMethod.POST)
 	public @ResponseBody void acceptPowerStationState(@RequestBody PowerStationState state){
-		logger.debug("Received: {}.", state);
+		logger.debug("Received stat.state: {}.", state);
 		service.acceptPowerStationState(state);
 	}
 }

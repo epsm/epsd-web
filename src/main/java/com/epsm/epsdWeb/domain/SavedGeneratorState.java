@@ -87,4 +87,10 @@ public class SavedGeneratorState{
 	public long getId() {
 		return id;
 	}
+	
+	@Override
+	public String toString(){
+		return String.format("SavedGeneratorState toString() stub. p.st.#%d, gen.#%d",
+				powerStationId, generatorNumber);
+	}
 }

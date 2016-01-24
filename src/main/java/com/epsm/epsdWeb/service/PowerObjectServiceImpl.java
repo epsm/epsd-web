@@ -47,8 +47,7 @@ public class PowerObjectServiceImpl implements PowerObjectService{
 	}
 	
 	private void saveGeneratorState(PowerStationState powerStationState){
-		List<SavedGeneratorState> 
-		states = powerStationConverter.convert(powerStationState);
+		List<SavedGeneratorState> states = powerStationConverter.convert(powerStationState);
 		
 		for(SavedGeneratorState generatorState: states){
 			generatorDao.saveState(generatorState);

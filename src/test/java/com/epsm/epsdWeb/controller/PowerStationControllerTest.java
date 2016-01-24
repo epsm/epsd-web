@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,14 +46,12 @@ public class PowerStationControllerTest {
 	}
 	
 	@Test
-	public void registerPowerStationMethodAcceptsPowerStationParameters() throws Exception {
-		prepareParemetersAsJSONString();
+	public void registerPowerStationReturnsOKifServiceRegistersPowerStation()
+			throws Exception {
 		
-		mockMvc.perform(
-				post("/api/powerstation/esatblishconnection")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectInJsonString))
-				.andExpect(status().isOk());
+		prepareParemetersAsJSONString();
+		makeServiceRegisterPowerStation();
+		performRequestAndWaitOK();
 	}
 	
 	private void prepareParemetersAsJSONString() throws JsonProcessingException{
@@ -62,6 +62,39 @@ public class PowerStationControllerTest {
 		stationParameters.addGeneratorParameters(generatorParameters);
 		objectToSerialize = stationParameters;
 		objectInJsonString = mapper.writeValueAsString(objectToSerialize);
+	}
+	
+	private void makeServiceRegisterPowerStation(){
+		when(service.registerPowerStation(any())).thenReturn(true);
+	}
+	
+	private void performRequestAndWaitOK() throws Exception{
+		mockMvc.perform(
+				post("/api/powerstation/register")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectInJsonString))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void registerPowerStationReturnsCONFLICTifServiceDoesNotRegisterPowerStation()
+			throws Exception{
+		
+		prepareParemetersAsJSONString();
+		makeServiceNotToRegisterPowerStation();
+		perfotmRequestAndWaitCONFLICT();
+	}
+	
+	private void makeServiceNotToRegisterPowerStation(){
+		when(service.registerPowerStation(any())).thenReturn(false);
+	}
+	
+	private void perfotmRequestAndWaitCONFLICT() throws Exception{
+		mockMvc.perform(
+				post("/api/powerstation/register")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectInJsonString))
+				.andExpect(status().isConflict());
 	}
 	
 	@Test
