@@ -1,7 +1,6 @@
 package com.epsm.epsdWeb.domain;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,10 +31,10 @@ public class SavedGeneratorState{
 	private float frequency;
 
 	@Column(name="simulationTimeStamp")
-	private LocalTime simulationTimeStamp;
+	private Date simulationTimeStamp;
 	
 	@Column(name="realTimeStamp")
-	protected LocalDateTime realTimeStamp;
+	protected Date realTimeStamp;
 
 	public long getPowerStationId() {
 		return powerStationId;
@@ -69,19 +68,19 @@ public class SavedGeneratorState{
 		this.frequency = frequency;
 	}
 
-	public LocalTime getSimulationTimeStamp() {
+	public Date getSimulationTimeStamp() {
 		return simulationTimeStamp;
 	}
 
-	public void setSimulationTimeStamp(LocalTime simulationTimeStamp) {
+	public void setSimulationTimeStamp(Date simulationTimeStamp) {
 		this.simulationTimeStamp = simulationTimeStamp;
 	}
 
-	public LocalDateTime getRealTimeStamp() {
+	public Date getRealTimeStamp() {
 		return realTimeStamp;
 	}
 
-	public void setRealTimeStamp(LocalDateTime realTimeStamp) {
+	public void setRealTimeStamp(Date realTimeStamp) {
 		this.realTimeStamp = realTimeStamp;
 	}
 

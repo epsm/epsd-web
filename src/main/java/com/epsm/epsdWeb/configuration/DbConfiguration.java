@@ -35,9 +35,6 @@ public class DbConfiguration{
 	@Value("${hibernate.dialect}")
 	private String hibernateDialect;
 	
-	@Value("${hbm2ddl.auto}")
-	private String hbm2ddlAuto;
-	
     @Bean
     public DataSource dataSource() {    	
         BasicDataSource dataSource = new BasicDataSource();
@@ -56,8 +53,8 @@ public class DbConfiguration{
         Properties properties = new Properties();
         
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.hbm2ddl.auto", hbm2ddlAuto);
-        
+        properties.put("hbm2ddl.auto", "update");
+               
         factory.setJpaVendorAdapter(adaptor);
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("com.epsm.epsdWeb.domain");

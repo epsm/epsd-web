@@ -176,7 +176,6 @@
 				<database.password>mValera</database.password>
 				<database.driver>com.mysql.jdbc.Driver</database.driver>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-				<hbm2ddl.auto>create-drop</hbm2ddl.auto>
 				
 				<logging.destination>${catalina.base}/logs</logging.destination>
 			</properties>
@@ -205,7 +204,6 @@
 				<database.password>dZXbg_vEUkZ_</database.password>
 				<database.driver>com.mysql.jdbc.Driver</database.driver>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-				<hbm2ddl.auto>validate</hbm2ddl.auto>
 				
 				<logging.destination>/var/lib/openshift/569a41e789f5cff670000021/app-root/logs</logging.destination>
 			</properties>

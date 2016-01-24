@@ -79,8 +79,8 @@ public class PowerStationStateConverter {
 		savedGeneratorState.setGeneratorNumber(generatorNumber);
 		savedGeneratorState.setGenerationInMW(generationInMW);
 		savedGeneratorState.setFrequency(frequency);
-		savedGeneratorState.setSimulationTimeStamp(simulationTimeStamp);
-		savedGeneratorState.setRealTimeStamp(realTimeStamp);
+		//savedGeneratorState.setSimulationTimeStamp(simulationTimeStamp);
+		//savedGeneratorState.setRealTimeStamp(realTimeStamp);
 	}
 	
 	private void addSavedGeneratorStateToList(){

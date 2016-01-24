@@ -26,7 +26,7 @@ public class IndicatorController{
 		builder.append("OPENSHIFT_MYSQL_DB_PORT: " + System.getenv("OPENSHIFT_MYSQL_DB_PORT") + ". ");
 		builder.append("proc: " + Runtime.getRuntime().availableProcessors() + ".");
 		builder.append("#2  date and time on dispatcher server: ");
-		builder.append(timeService.getCurrentTime());
+		builder.append(timeService.getCurrentDateTime());
 		
 		logger.debug("Invoked.");
 		

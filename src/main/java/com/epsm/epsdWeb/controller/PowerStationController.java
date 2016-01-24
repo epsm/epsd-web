@@ -24,7 +24,7 @@ public class PowerStationController {
 	@RequestMapping(value="/esatblishconnection", method = RequestMethod.POST)
 	public @ResponseBody void establishConnection(@RequestBody PowerStationParameters parameters){
 		logger.debug("Received: {}.", parameters);
-		service.establishConnectionWithPowerStation(parameters);
+		service.registerPowerStation(parameters);
 	}
 	
 	@RequestMapping(value="/acceptstate", method=RequestMethod.POST)

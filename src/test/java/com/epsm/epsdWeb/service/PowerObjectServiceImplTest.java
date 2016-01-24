@@ -5,7 +5,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class PowerObjectServiceImplTest {
 	
 	@Test
 	public void savesPowerStationState(){
-		powerStationState = new PowerStationState(1, LocalDateTime.MIN, LocalTime.MIN, 1, 1);
+		powerStationState = new PowerStationState(1, LocalDateTime.MIN, LocalDateTime.MIN, 1, 1);
 		
 		service.savePowerObjectState(powerStationState);
 		
@@ -75,7 +74,7 @@ public class PowerObjectServiceImplTest {
 	
 	@Test
 	public void usesPowerStationStateConverterToConvertPowerStationState(){
-		powerStationState = new PowerStationState(1, LocalDateTime.MIN, LocalTime.MIN, 1, 1);
+		powerStationState = new PowerStationState(1, LocalDateTime.MIN, LocalDateTime.MIN, 1, 1);
 		
 		service.savePowerObjectState(powerStationState);
 		
@@ -84,7 +83,7 @@ public class PowerObjectServiceImplTest {
 	
 	@Test
 	public void savesConsumerState(){
-		consumerState = new ConsumerState(1, LocalDateTime.MIN, LocalTime.MIN, 1);
+		consumerState = new ConsumerState(1, LocalDateTime.MIN, LocalDateTime.MIN, 1);
 		
 		service.savePowerObjectState(consumerState);
 		
@@ -93,7 +92,7 @@ public class PowerObjectServiceImplTest {
 	
 	@Test
 	public void usesConsumerStateConverterToConvertConsumerState(){
-		consumerState = new ConsumerState(1, LocalDateTime.MIN, LocalTime.MIN, 1);
+		consumerState = new ConsumerState(1, LocalDateTime.MIN, LocalDateTime.MIN, 1);
 		
 		service.savePowerObjectState(consumerState);
 		
@@ -105,11 +104,13 @@ public class PowerObjectServiceImplTest {
 		expectedEx.expect(IllegalArgumentException.class);
 	    expectedEx.expectMessage("Unsuported type of State: UnsupportedState.");
 		
-		service.savePowerObjectState(new UnsupportedState(1, LocalDateTime.MIN, LocalTime.MIN));
+		service.savePowerObjectState(new UnsupportedState(1, LocalDateTime.MIN, LocalDateTime.MIN));
 	}
 	
 	private class UnsupportedState extends State{
-		public UnsupportedState(long powerObjectId, LocalDateTime realTimeStamp, LocalTime simulationTimeStamp) {
+		public UnsupportedState(long powerObjectId, LocalDateTime realTimeStamp,
+				LocalDateTime simulationTimeStamp) {
+			
 			super(powerObjectId, realTimeStamp, simulationTimeStamp);
 		}
 

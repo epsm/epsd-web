@@ -3,7 +3,6 @@ package com.epsm.epsdWeb.service;
 import static org.mockito.Mockito.verify;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class OutgoingMessageServiceImplTest {
 	
 	@Test
 	public void sendsPowerStationGenerationScheduleWithScheduleSender(){
-		schedule = new PowerStationGenerationSchedule(1, LocalDateTime.MIN, LocalTime.MIN, 1);
+		schedule = new PowerStationGenerationSchedule(1, LocalDateTime.MIN, LocalDateTime.MIN, 1);
 		
 		service.sendCommand(schedule);
 		
@@ -55,7 +54,7 @@ public class OutgoingMessageServiceImplTest {
 	
 	@Test
 	public void sendsPowerConsumerPermissioneWithPermissionSender(){
-		permission = new ConsumptionPermissionStub(1, LocalDateTime.MIN, LocalTime.MIN);
+		permission = new ConsumptionPermissionStub(1, LocalDateTime.MIN, LocalDateTime.MIN);
 		
 		service.sendCommand(permission);
 		
@@ -67,11 +66,13 @@ public class OutgoingMessageServiceImplTest {
 		expectedEx.expect(IllegalArgumentException.class);
 	    expectedEx.expectMessage("Unsuported type of Command: UnsupportedCommand.");
 		
-		service.sendCommand(new UnsupportedCommand(1, LocalDateTime.MIN, LocalTime.MIN));
+		service.sendCommand(new UnsupportedCommand(1, LocalDateTime.MIN, LocalDateTime.MIN));
 	}
 	
 	private class UnsupportedCommand extends Command{
-		public UnsupportedCommand(long powerObjectId, LocalDateTime realTimeStamp, LocalTime simulationTimeStamp) {
+		public UnsupportedCommand(long powerObjectId, LocalDateTime realTimeStamp,
+				LocalDateTime simulationTimeStamp) {
+			
 			super(powerObjectId, realTimeStamp, simulationTimeStamp);
 		}
 

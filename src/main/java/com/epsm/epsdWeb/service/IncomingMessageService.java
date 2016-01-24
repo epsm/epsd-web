@@ -1,13 +1,14 @@
 package com.epsm.epsdWeb.service;
 
+import com.epsm.epsdCore.model.PowerObjectsDateTimeSource;
 import com.epsm.epsmCore.model.consumption.ConsumerParametersStub;
 import com.epsm.epsmCore.model.consumption.ConsumerState;
 import com.epsm.epsmCore.model.generation.PowerStationParameters;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
-public interface IncomingMessageService {
-	void establishConnectionWithConsumer(ConsumerParametersStub parameters);
+public interface IncomingMessageService extends PowerObjectsDateTimeSource {
+	void registerConsumer(ConsumerParametersStub parameters);
 	void acceptConsumerState(ConsumerState state);
-	void establishConnectionWithPowerStation(PowerStationParameters parameters);
+	void registerPowerStation(PowerStationParameters parameters);
 	void acceptPowerStationState(PowerStationState state);
 }

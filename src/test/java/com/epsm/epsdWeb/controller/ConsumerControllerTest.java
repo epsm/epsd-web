@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public class ConsumerControllerTest {
 	}
 	
 	@Test
-	public void registerigConsumerMethodAceptsConsumerParameters() throws Exception{
+	public void registeriConsumerMethodAceptsConsumerParameters() throws Exception{
 		prepareParemetersAsJSONString();
 		
 		mockMvc.perform(
@@ -54,7 +53,7 @@ public class ConsumerControllerTest {
 	}
 	
 	private void prepareParemetersAsJSONString() throws JsonProcessingException{
-		objectToSerialize = new ConsumerParametersStub(0, LocalDateTime.of(1, 2, 3, 4, 5, 6, 7), LocalTime.MIN);
+		objectToSerialize = new ConsumerParametersStub(0, LocalDateTime.MIN, LocalDateTime.MIN);
 		objectInJsonString = mapper.writeValueAsString(objectToSerialize);
 	}
 	
@@ -70,7 +69,7 @@ public class ConsumerControllerTest {
 	}
 	
 	private void prepareStateAsJSONString() throws JsonProcessingException{
-		objectToSerialize = new ConsumerState(0, LocalDateTime.MIN, LocalTime.MIN, 20);
+		objectToSerialize = new ConsumerState(0, LocalDateTime.MIN, LocalDateTime.MIN, 20);
 		objectInJsonString = mapper.writeValueAsString(objectToSerialize);
 	}
 }

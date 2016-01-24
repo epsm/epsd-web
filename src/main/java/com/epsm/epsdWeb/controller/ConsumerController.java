@@ -24,7 +24,7 @@ public class ConsumerController {
 	@RequestMapping(value="/esatblishconnection", method = RequestMethod.POST)
 	public @ResponseBody void establishConnection(@RequestBody ConsumerParametersStub parameters){
 		logger.debug("Receiver: {}.", parameters);
-		service.establishConnectionWithConsumer(parameters);
+		service.registerConsumer(parameters);
 	}
 	
 	@RequestMapping(value="/acceptstate", method=RequestMethod.POST)

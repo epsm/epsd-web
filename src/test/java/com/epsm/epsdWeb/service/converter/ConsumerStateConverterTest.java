@@ -1,7 +1,6 @@
 package com.epsm.epsdWeb.service.converter;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +17,7 @@ public class ConsumerStateConverterTest {
 	private final int CONSUMER_ID = 684646;
 	private final float LOAD = 49.6567f;
 	private final LocalDateTime REAL_TIME_TIMESTAMP = LocalDateTime.of(1, 2, 3, 4, 5, 6, 7);
-	private final LocalTime SIMULATION_TIMESTAMP = LocalTime.of(1, 2, 3, 4);
+	private final LocalDateTime SIMULATION_TIMESTAMP = LocalDateTime.of(7, 6, 5, 4, 3, 2, 1);
 	
 	@Before
 	public void setUp(){

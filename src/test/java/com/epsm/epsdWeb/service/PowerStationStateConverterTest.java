@@ -1,7 +1,6 @@
 package com.epsm.epsdWeb.service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.Assert;
@@ -19,7 +18,7 @@ public class PowerStationStateConverterTest {
 	private SavedGeneratorState firstConvertedGeneratoeState;
 	private SavedGeneratorState secondConvertedGeneratoeState;
 	private final LocalDateTime REAL_TIME_TIMESTAMP = LocalDateTime.of(1, 2, 3, 4, 5, 6, 7);
-	private final LocalTime SIMULATION_TIMESTAMP = LocalTime.of(1, 2, 3, 4);
+	private final LocalDateTime SIMULATION_TIMESTAMP = LocalDateTime.of(7, 6, 5, 4, 3, 2, 1);
 	private final int POWER_STATION_ID = 684646;
 	private final int QUANTITY_OF_GENERATORS = 2;
 	private final float FREQUENCY = 49.6567f;

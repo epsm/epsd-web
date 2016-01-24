@@ -33,7 +33,7 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 	
 	@Override
 	public void saveState(SavedConsumerState state) {
-		em.merge(state);
+		em.persist(state);
 		
 		logger.debug("Saved: {} consId#{}.", state.getClass().getSimpleName(),
 				state.getConsumerId());

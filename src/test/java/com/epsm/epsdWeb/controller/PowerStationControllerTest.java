@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class PowerStationControllerTest {
 	private void prepareParemetersAsJSONString() throws JsonProcessingException{
 		GeneratorParameters generatorParameters = new GeneratorParameters(1, 10, 5);
 		PowerStationParameters stationParameters = new PowerStationParameters(
-				0, LocalDateTime.MIN, LocalTime.MIN, 1);
+				0, LocalDateTime.MIN, LocalDateTime.MIN, 1);
 		
 		stationParameters.addGeneratorParameters(generatorParameters);
 		objectToSerialize = stationParameters;
@@ -78,7 +77,7 @@ public class PowerStationControllerTest {
 	
 	private void prepareStateAsJSONString() throws JsonProcessingException{
 		PowerStationState stationState = new PowerStationState(
-				0, LocalDateTime.MIN, LocalTime.MIN, 1, 1f);
+				0, LocalDateTime.MIN, LocalDateTime.MIN, 1, 1f);
 		GeneratorState generatorState = new GeneratorState(1, 10);
 		
 		stationState.addGeneratorState(generatorState);
