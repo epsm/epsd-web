@@ -1,0 +1,127 @@
+div.all{
+    width: 1280px;
+    height: 900px; 
+    position:relative;
+    top:0;
+    left:0;
+    color: #4477bb;
+    border: 1px solid #4477bb;
+    margin: 0 auto;
+}
+
+div.roof{
+    height: 60px;
+    border-bottom:1px solid #4477bb;
+    margin: 0;
+    padding: 0;
+}
+
+div.EPSsw{
+    float: left;
+}
+
+.EPS{
+    margin-left: 30px;
+}
+
+.out {
+    float: right;
+    margin-right: 10px;
+    margin-top: 30px;
+}
+
+.input {
+    color: #4477bb;
+    border: 1px solid #4477bb;    
+}
+
+p.cms {
+    font-size: 150%;
+    position: absolute;
+    margin-top: 30px; 
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+div.basement{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1200px;
+    padding: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid #4477bb;
+}
+
+div.name {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font: 80% sans-serif;
+    text-align: center;
+}
+
+div.schedule1 {
+    width: 1100px;
+    height: 130px;
+    margin: 5px auto; 
+    color: black;
+    border:1px solid #4477bb;
+}
+
+div.schedule23 {
+    width: 1100px;
+    height: 250px;
+    margin: 5px auto;
+    color: black;
+    border:1px solid #4477bb; 
+    overflow-y: scroll;
+}
+
+div.schedule {
+    width: 1050px;
+    height: 110px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    color: black;
+    border:1px solid; 
+}
+
+div.menu {
+    height: 20px;
+    padding: 0px;
+    border-bottom: 1px solid;
+}
+
+div.menu ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 450px;
+}
+
+div.menu ul li {
+	display: inline;
+	padding: 0;
+}
+
+div.menu ul li a {
+	font: 80% sans-serif; 
+	line-height: 0%;
+	padding: 0;
+	padding-left:20px;
+}
+
+A{
+    color: #4477bb; /* Цвет ссылок */
+}
+
+A:visited {
+    color: #4477bb; /* Цвет посещенных ссылок */
+}
+
+A:active {
+    color: #4477bb; /* Цвет активных ссылок */
+}
