@@ -20,6 +20,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.epsm.epsdWeb.domain.SavedGeneratorState;
 import com.epsm.epsdWeb.repository.SavedConsumerStateDao;
 import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
+import com.epsm.epsdWeb.service.converter.ConsumerStateConverter;
+import com.epsm.epsdWeb.service.converter.PowerStationStateConverter;
 import com.epsm.epsmCore.model.consumption.ConsumerState;
 import com.epsm.epsmCore.model.dispatch.State;
 import com.epsm.epsmCore.model.generation.PowerStationState;

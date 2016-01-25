@@ -1,9 +1,5 @@
-package com.epsm.epsdWeb.service;
+package com.epsm.epsdWeb.service.converter;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,13 +11,9 @@ import com.epsm.epsmCore.model.generation.GeneratorState;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
 @Component
-public class PowerStationStateConverter {
-	private PowerStationState powerStationState;
+public class PowerStationStateConverter extends SavedPowerObjectConverter<PowerStationState>{
 	private List<SavedGeneratorState> convertedStates;
-	private long powerStationId;
 	private float frequency;
-	private LocalDateTime simulationTimeStamp;
-	private LocalDateTime realTimeStamp;
 	private int generatorNumber;
 	private float generationInMW;
 	private SavedGeneratorState convertedState;
@@ -31,34 +23,28 @@ public class PowerStationStateConverter {
 	}
 	
 	public synchronized List<SavedGeneratorState> convert(PowerStationState powerStationState) {
-		saveState(powerStationState);
-		erseConvertedStates();
+		saveSource(powerStationState);
+		eraseConvertedStates();
 		getGeneralFields();
+		getFrequencyField();
 		createSavedGeneratorStates();
 		
 		return convertedStates;
 	}
 	
-	private void saveState(PowerStationState powerStationState){
-		this.powerStationState = powerStationState;
-	}
-	
-	private void erseConvertedStates(){
+	private void eraseConvertedStates(){
 		convertedStates.clear();
 	}
 	
-	private void getGeneralFields(){
-		powerStationId = powerStationState.getPowerObjectId();
-		frequency = powerStationState.getFrequency();
-		simulationTimeStamp = powerStationState.getSimulationTimeStamp();
-		realTimeStamp = powerStationState.getRealTimeStamp();
+	private void getFrequencyField(){
+		frequency = source.getFrequency();
 	}
 	
 	private void createSavedGeneratorStates(){
-		Set<Integer> generatorNumbers = powerStationState.getGeneratorsNumbers();
+		Set<Integer> generatorNumbers = source.getGeneratorsNumbers();
 		
 		for(int generator: generatorNumbers){
-			GeneratorState generatorState = powerStationState.getGeneratorState(generator);
+			GeneratorState generatorState = source.getGeneratorState(generator);
 			getDataForConcreteGenerator(generatorState);
 			createSavedGeneratorState();
 			fillOutConcreteSavedGeneratorState();
@@ -77,13 +63,11 @@ public class PowerStationStateConverter {
 	
 	private void fillOutConcreteSavedGeneratorState(){
 		convertedState = new SavedGeneratorState();
-		convertedState.setPowerStationId(powerStationId);
+		
+		fillGeneralFields(convertedState);
 		convertedState.setGeneratorNumber(generatorNumber);
 		convertedState.setGenerationInMW(generationInMW);
 		convertedState.setFrequency(frequency);
-		convertedState.setPowerObjectDate(Date.valueOf(simulationTimeStamp.toLocalDate()));
-		convertedState.setPowerObjectTime(Time.valueOf(simulationTimeStamp.toLocalTime()));
-		convertedState.setRealTimeStamp(Timestamp.valueOf(realTimeStamp));
 	}
 	
 	private void addSavedGeneratorStateToList(){

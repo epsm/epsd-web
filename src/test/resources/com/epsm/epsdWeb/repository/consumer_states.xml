@@ -1,5 +1,8 @@
 <dataset>
-	<consumer_state id="101" loadInMW="10" consumerId="1" powerObjectDate="2000-01-01" powerObjectTime="00-00-00" realTimeStamp="2000-01-01-00-00-00"/>
-	<consumer_state id="102" loadInMW="20" consumerId="2" powerObjectDate="2000-01-01" powerObjectTime="00-00-00" realTimeStamp="2000-01-01-00-00-00"/>
-	<consumer_state id="103" loadInMW="23" consumerId="2" powerObjectDate="2000-01-01" powerObjectTime="00-00-00" realTimeStamp="2000-01-01-00-00-00"/>
+	<consumer_state id="201" loadInMW="10" powerObjectId="1" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<consumer_state id="101" loadInMW="20" powerObjectId="2" powerObjectDate="2000-01-01" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<consumer_state id="202" loadInMW="23" powerObjectId="2" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<consumer_state id="102" loadInMW="10" powerObjectId="1" powerObjectDate="2000-10-10" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<consumer_state id="203" loadInMW="20" powerObjectId="2" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<consumer_state id="103" loadInMW="23" powerObjectId="2" powerObjectDate="2000-09-01" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
 </dataset>

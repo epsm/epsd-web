@@ -1,5 +1,8 @@
 package com.epsm.epsdWeb.service.converter;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import org.junit.Assert;
@@ -7,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.epsm.epsdWeb.domain.SavedConsumerState;
-import com.epsm.epsdWeb.service.ConsumerStateConverter;
 import com.epsm.epsmCore.model.consumption.ConsumerState;
 
 public class ConsumerStateConverterTest {
@@ -29,7 +31,7 @@ public class ConsumerStateConverterTest {
 	
 	@Test
 	public void powerObjectIdsAreEquals(){
-		Assert.assertEquals(CONSUMER_ID, convertedState.getConsumerId());
+		Assert.assertEquals(CONSUMER_ID, convertedState.getPowerObjectId());
 	}
 	
 	@Test
@@ -39,16 +41,19 @@ public class ConsumerStateConverterTest {
 	
 	@Test
 	public void realTimeTimestampsAreEquals(){
-		Assert.assertEquals(REAL_TIME_TIMESTAMP, convertedState.getRealTimeStamp());
+		Assert.assertEquals(Timestamp.valueOf(REAL_TIME_TIMESTAMP),
+				convertedState.getRealTimeStamp());
 	}
 	
 	@Test
 	public void powerObjectDateEqualsDateInSimulationTimeStamp(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalDate(), convertedState.getPowerObjectDate());
+		Assert.assertEquals(Date.valueOf(SIMULATION_TIMESTAMP.toLocalDate()),
+				convertedState.getPowerObjectDate());
 	}
 	
 	@Test
 	public void powerObjectTimeEqualsTimeInSimulationTimeStamp(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalTime(), convertedState.getPowerObjectTime());
+		Assert.assertEquals(Time.valueOf(SIMULATION_TIMESTAMP.toLocalTime()),
+				convertedState.getPowerObjectTime());
 	}
 }

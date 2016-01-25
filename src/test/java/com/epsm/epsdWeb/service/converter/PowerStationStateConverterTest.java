@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.epsm.epsdWeb.domain.SavedGeneratorState;
-import com.epsm.epsdWeb.service.PowerStationStateConverter;
 import com.epsm.epsmCore.model.generation.GeneratorState;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
@@ -56,7 +55,7 @@ public class PowerStationStateConverterTest {
 	@Test
 	public void firstGeneratorHasTheSamePowerStationNumberAsPowerStationState(){
 		Assert.assertEquals(POWER_STATION_ID,
-				firstConvertedGeneratorState.getPowerStationId());
+				firstConvertedGeneratorState.getPowerObjectId());
 	}
 	
 	@Test
@@ -98,7 +97,7 @@ public class PowerStationStateConverterTest {
 	@Test
 	public void secondGeneratorHasTheSamePowerStationNumberAsPowerStationState(){
 		Assert.assertEquals(POWER_STATION_ID,
-				secondConvertedGeneratorState.getPowerStationId());
+				secondConvertedGeneratorState.getPowerObjectId());
 	}
 	
 	@Test

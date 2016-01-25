@@ -1,5 +1,9 @@
 package com.epsm.epsdWeb.repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +17,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import com.epsm.epsdWeb.configuration.DbTestConfiguration;
+import com.epsm.epsdWeb.domain.SavedConsumerState;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -29,13 +34,25 @@ public class SavedConsumerStateDaoImplTest{
 	SavedConsumerStateDao dao;
 	
 	@Test
-	public void testGetStatesByPowerStationNumber(){
-		int statesForFistConsumer = dao.getStatesByNumber(1).size();
-		int statesForSecondConsumer = dao.getStatesByNumber(2).size();
-		int thirdForSecondConsumer = dao.getStatesByNumber(3).size();
+	public void testGetLastSaveDate(){
+		Date result = dao.getLastSaveDate();
 		
-		Assert.assertEquals(1, statesForFistConsumer);
-		Assert.assertEquals(2, statesForSecondConsumer);
-		Assert.assertEquals(0, thirdForSecondConsumer);
+		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
+	}
+	
+	@Test
+	public void testLastSaveDate(){
+		Date result = dao.getLastSaveDate();
+		
+		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
+	}
+	
+	@Test
+	public void testGetStatesOnDate(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		
+		List<SavedConsumerState> result = dao.getStatesOnDate(necessaryDate);
+		
+		Assert.assertEquals(3, result.size());
 	}
 }

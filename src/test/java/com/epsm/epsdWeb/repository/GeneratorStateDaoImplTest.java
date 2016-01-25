@@ -41,7 +41,6 @@ public class GeneratorStateDaoImplTest{
 	}
 	
 	@Test
-	@DatabaseSetup(value="generator_states.xml", type=DatabaseOperation.REFRESH)
 	public void testLastSaveDate(){
 		Date result = dao.getLastSaveDate();
 		
@@ -49,7 +48,6 @@ public class GeneratorStateDaoImplTest{
 	}
 	
 	@Test
-	@DatabaseSetup(value="generator_states.xml", type=DatabaseOperation.REFRESH)
 	public void testGetStatesOnDate(){
 		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
 		

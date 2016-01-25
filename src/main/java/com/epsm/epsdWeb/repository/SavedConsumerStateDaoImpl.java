@@ -1,5 +1,7 @@
 package com.epsm.epsdWeb.repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,23 +20,37 @@ public class SavedConsumerStateDaoImpl implements SavedConsumerStateDao{
 	
 	@PersistenceContext
 	private EntityManager em;
-
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public List<SavedConsumerState> getStatesByNumber(long consumerId) {
-		Query query = em.createQuery("SELECT c FROM SavedConsumerState c WHERE c.consumerId "
-				+ "= :consumerId");
-		query.setParameter("consumerId", consumerId);
+	public Date getLastSaveDate(){
+		Date result = null;
+		Query query = em.createQuery("SELECT MAX(e.powerObjectDate) FROM SavedConsumerState e");
 		
-		logger.debug("Requested: List<SavedConsumerState> for consumerId#{}.", consumerId);
+		result = (Date) query.getSingleResult();
+		logger.debug("Requested: last saved date, returnde {}.", result);
 		
-		return (List<SavedConsumerState>)query.getResultList();
+		return result;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<SavedConsumerState> getStatesOnDate(LocalDate date){
+		List<SavedConsumerState> result = null;
+		Date dateToSearsch = Date.valueOf(date);
+		Query query = em.createQuery("SELECT e FROM SavedConsumerState e WHERE e.powerObjectDate"
+				+ " = :dateToSearsch");
+		
+		query.setParameter("dateToSearsch", dateToSearsch);
+		result = query.getResultList();
+		logger.debug("Requested: List<SavedConsumerState> for date {}, returned {}.", date, result);
+	
+		return result;
 	}
 	
 	@Override
 	public void saveState(SavedConsumerState state) {
 		em.persist(state);
 		
-		logger.debug("Saved: {} cons.Id#{}.", state.getClass().getSimpleName(), state.getConsumerId());
+		logger.debug("Saved: {} cons.Id#{}.", state.getClass().getSimpleName(), state.getPowerObjectId());
 	}
 }
