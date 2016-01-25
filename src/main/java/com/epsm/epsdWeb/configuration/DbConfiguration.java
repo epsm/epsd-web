@@ -53,7 +53,7 @@ public class DbConfiguration{
         Properties properties = new Properties();
         
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
                
         factory.setJpaVendorAdapter(adaptor);
         factory.setDataSource(dataSource());

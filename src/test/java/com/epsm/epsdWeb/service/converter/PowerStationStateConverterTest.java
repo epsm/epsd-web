@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service;
+package com.epsm.epsdWeb.service.converter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.epsm.epsdWeb.domain.SavedGeneratorState;
+import com.epsm.epsdWeb.service.PowerStationStateConverter;
 import com.epsm.epsmCore.model.generation.GeneratorState;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
@@ -64,7 +65,7 @@ public class PowerStationStateConverterTest {
 	@Test
 	public void firstGeneratorHasTheSameGenerationAsInPowerStationState(){
 		Assert.assertEquals(FIRST_GENERATOR_GENERATION,
-				firstConvertedGeneratoeState.getGenerationInWM(), 0);
+				firstConvertedGeneratoeState.getGenerationInMW(), 0);
 	}
 	
 	@Test
@@ -72,13 +73,19 @@ public class PowerStationStateConverterTest {
 		Assert.assertEquals(FREQUENCY,
 				firstConvertedGeneratoeState.getFrequency(), 0);
 	}
-	
+		
 	@Test
-	public void firstGeneratorHasTheSameSimulationTimeStampAsPowerStationState(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP,
-				firstConvertedGeneratoeState.getSimulationTimeStamp());
+	public void firstGeneratorPowerObjectDateEqualsDateInSimulationTimeStamp(){
+		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalDate(),
+				firstConvertedGeneratoeState.getPowerObjectDate());
 	}
 	
+	@Test
+	public void firstGeneratorPowerObjectTimeEqualsTimeInSimulationTimeStamp(){
+		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalTime(),
+				firstConvertedGeneratoeState.getPowerObjectTime());
+	}
+		
 	@Test
 	public void firstGeneratorHasTheSameRealTimeTimeStampAsPowerStationState(){
 		Assert.assertEquals(REAL_TIME_TIMESTAMP,
@@ -100,7 +107,7 @@ public class PowerStationStateConverterTest {
 	@Test
 	public void secondGeneratorHasTheSameGenerationAsInPowerStationState(){
 		Assert.assertEquals(SECOND_GENERATOR_GENERATION,
-				secondConvertedGeneratoeState.getGenerationInWM(), 0);
+				secondConvertedGeneratoeState.getGenerationInMW(), 0);
 	}
 	
 	@Test
@@ -110,9 +117,15 @@ public class PowerStationStateConverterTest {
 	}
 	
 	@Test
-	public void secondGeneratorHasTheSameSimulationTimeStampAsPowerStationState(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP,
-				secondConvertedGeneratoeState.getSimulationTimeStamp());
+	public void secondGeneratorPowerObjectDateEqualsDateInSimulationTimeStamp(){
+		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalDate(),
+				secondConvertedGeneratoeState.getPowerObjectDate());
+	}
+	
+	@Test
+	public void secondGeneratorPowerObjectTimeEqualsTimeInSimulationTimeStamp(){
+		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalTime(),
+				secondConvertedGeneratoeState.getPowerObjectTime());
 	}
 	
 	@Test

@@ -1,6 +1,8 @@
 package com.epsm.epsdWeb.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,12 +32,19 @@ public class SavedGeneratorState{
 	@Column(name="frequency")
 	private float frequency;
 
-	@Column(name="simulationTimeStamp")
-	private LocalDateTime simulationTimeStamp;
-	
 	@Column(name="realTimeStamp")
 	private LocalDateTime realTimeStamp;
-
+	
+	@Column(name="powerObjectDate")
+	private LocalDate powerObjectDate;
+	
+	@Column(name="powerObjectTime")
+	private LocalTime powerObjectTime;
+	
+	public long getId() {
+		return id;
+	}
+	
 	public long getPowerStationId() {
 		return powerStationId;
 	}
@@ -52,12 +61,12 @@ public class SavedGeneratorState{
 		this.generatorNumber = generatorNumber;
 	}
 
-	public float getGenerationInWM() {
+	public float getGenerationInMW() {
 		return generationInMW;
 	}
 
-	public void setGenerationInMW(float generationInWM) {
-		this.generationInMW = generationInWM;
+	public void setGenerationInMW(float generationInMW) {
+		this.generationInMW = generationInMW;
 	}
 
 	public float getFrequency() {
@@ -68,14 +77,6 @@ public class SavedGeneratorState{
 		this.frequency = frequency;
 	}
 
-	public LocalDateTime getSimulationTimeStamp() {
-		return simulationTimeStamp;
-	}
-
-	public void setSimulationTimeStamp(LocalDateTime simulationTimeStamp) {
-		this.simulationTimeStamp = simulationTimeStamp;
-	}
-
 	public LocalDateTime getRealTimeStamp() {
 		return realTimeStamp;
 	}
@@ -84,10 +85,22 @@ public class SavedGeneratorState{
 		this.realTimeStamp = realTimeStamp;
 	}
 
-	public long getId() {
-		return id;
+	public LocalDate getPowerObjectDate() {
+		return powerObjectDate;
 	}
-	
+
+	public void setPowerObjectDate(LocalDate powerObjectDate) {
+		this.powerObjectDate = powerObjectDate;
+	}
+
+	public LocalTime getPowerObjectTime() {
+		return powerObjectTime;
+	}
+
+	public void setPowerObjectTime(LocalTime powerObjectTime) {
+		this.powerObjectTime = powerObjectTime;
+	}
+
 	@Override
 	public String toString(){
 		return String.format("SavedGeneratorState toString() stub. p.st.#%d, gen.#%d",

@@ -21,7 +21,7 @@ public class PowerStationStateConverter {
 	private LocalDateTime realTimeStamp;
 	private int generatorNumber;
 	private float generationInMW;
-	private SavedGeneratorState savedGeneratorState;
+	private SavedGeneratorState convertedState;
 	
 	public PowerStationStateConverter() {
 		convertedStates = new ArrayList<SavedGeneratorState>();
@@ -69,20 +69,21 @@ public class PowerStationStateConverter {
 	}
 	
 	private void createSavedGeneratorState(){
-		savedGeneratorState = new SavedGeneratorState();
+		convertedState = new SavedGeneratorState();
 	}
 	
 	private void fillOutConcreteSavedGeneratorState(){
-		savedGeneratorState = new SavedGeneratorState();
-		savedGeneratorState.setPowerStationId(powerStationId);
-		savedGeneratorState.setGeneratorNumber(generatorNumber);
-		savedGeneratorState.setGenerationInMW(generationInMW);
-		savedGeneratorState.setFrequency(frequency);
-		savedGeneratorState.setSimulationTimeStamp(simulationTimeStamp);
-		savedGeneratorState.setRealTimeStamp(realTimeStamp);
+		convertedState = new SavedGeneratorState();
+		convertedState.setPowerStationId(powerStationId);
+		convertedState.setGeneratorNumber(generatorNumber);
+		convertedState.setGenerationInMW(generationInMW);
+		convertedState.setFrequency(frequency);
+		convertedState.setPowerObjectDate(simulationTimeStamp.toLocalDate());
+		convertedState.setPowerObjectTime(simulationTimeStamp.toLocalTime());
+		convertedState.setRealTimeStamp(realTimeStamp);
 	}
 	
 	private void addSavedGeneratorStateToList(){
-		convertedStates.add(savedGeneratorState);
+		convertedStates.add(convertedState);
 	}
 }

@@ -1,6 +1,8 @@
 package com.epsm.epsdWeb.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,12 +25,19 @@ public class SavedConsumerState{
 	@Column(name="loadInMW")
 	private float loadInMW;
 	
-	@Column(name="simulationTimeStamp")
-	private LocalDateTime simulationTimeStamp;
-	
 	@Column(name="realTimeStamp")
 	private LocalDateTime realTimeStamp;
 
+	@Column(name="powerObjectDate")
+	private LocalDate powerObjectDate;
+	
+	@Column(name="powerObjectTime")
+	private LocalTime powerObjectTime;
+	
+	public long getId() {
+		return id;
+	}
+	
 	public long getConsumerId() {
 		return consumerId;
 	}
@@ -45,14 +54,6 @@ public class SavedConsumerState{
 		this.loadInMW = load;
 	}
 
-	public LocalDateTime getSimulationTimeStamp() {
-		return simulationTimeStamp;
-	}
-
-	public void setSimulationTimeStamp(LocalDateTime simulationTimeStamp) {
-		this.simulationTimeStamp = simulationTimeStamp;
-	}
-
 	public LocalDateTime getRealTimeStamp() {
 		return realTimeStamp;
 	}
@@ -61,7 +62,19 @@ public class SavedConsumerState{
 		this.realTimeStamp = realTimeStamp;
 	}
 
-	public long getId() {
-		return id;
+	public LocalDate getPowerObjectDate() {
+		return powerObjectDate;
+	}
+
+	public void setPowerObjectDate(LocalDate powerObjectDate) {
+		this.powerObjectDate = powerObjectDate;
+	}
+
+	public LocalTime getPowerObjectTime() {
+		return powerObjectTime;
+	}
+
+	public void setPowerObjectTime(LocalTime powerObjectTime) {
+		this.powerObjectTime = powerObjectTime;
 	}
 }

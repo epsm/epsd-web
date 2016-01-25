@@ -62,7 +62,7 @@ div.name {
     text-align: center;
 }
 
-div.schedule1 {
+div.single_schedule {
     width: 1100px;
     height: 130px;
     margin: 5px auto; 
@@ -70,7 +70,7 @@ div.schedule1 {
     border:1px solid #4477bb;
 }
 
-div.schedule23 {
+div.multiple_schedules {
     width: 1100px;
     height: 250px;
     margin: 5px auto;
@@ -115,13 +115,13 @@ div.menu ul li a {
 }
 
 A{
-    color: #4477bb; /* Цвет ссылок */
+    color: #4477bb;
 }
 
 A:visited {
-    color: #4477bb; /* Цвет посещенных ссылок */
+    color: #4477bb;
 }
 
 A:active {
-    color: #4477bb; /* Цвет активных ссылок */
+    color: #4477bb;
 }

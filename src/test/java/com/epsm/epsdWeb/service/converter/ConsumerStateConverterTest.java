@@ -43,7 +43,12 @@ public class ConsumerStateConverterTest {
 	}
 	
 	@Test
-	public void simulationTimeTimestampsAreEquals(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP, convertedState.getSimulationTimeStamp());
+	public void powerObjectDateEqualsDateInSimulationTimeStamp(){
+		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalDate(), convertedState.getPowerObjectDate());
+	}
+	
+	@Test
+	public void powerObjectTimeEqualsTimeInSimulationTimeStamp(){
+		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalTime(), convertedState.getPowerObjectTime());
 	}
 }
