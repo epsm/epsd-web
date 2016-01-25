@@ -1,5 +1,9 @@
 package com.epsm.epsdWeb.repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +17,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import com.epsm.epsdWeb.configuration.DbTestConfiguration;
+import com.epsm.epsdWeb.domain.SavedGeneratorState;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -22,20 +27,34 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class,	DirtiesContextTestExecutionListener.class,})
 @Transactional
-@DatabaseSetup(value="generator_states.xml", type= DatabaseOperation.REFRESH)
+@DatabaseSetup(value="generator_states.xml", type=DatabaseOperation.REFRESH)
 public class GeneratorStateDaoImplTest{
 	
 	@Autowired
 	SavedGeneratorStateDao dao;
 	
 	@Test
-	public void testGetStatesByPowerStationNumber(){
-		int statesForFistStation = dao.getStatesByPowerStationNumber(1).size();
-		int statesForSecondStation = dao.getStatesByPowerStationNumber(2).size();
-		int thirdForSecondStation = dao.getStatesByPowerStationNumber(3).size();
+	public void testGetLastSaveDate(){
+		Date result = dao.getLastSaveDate();
 		
-		Assert.assertEquals(1, statesForFistStation);
-		Assert.assertEquals(2, statesForSecondStation);
-		Assert.assertEquals(0, thirdForSecondStation);
+		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_states.xml", type=DatabaseOperation.REFRESH)
+	public void testLastSaveDate(){
+		Date result = dao.getLastSaveDate();
+		
+		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_states.xml", type=DatabaseOperation.REFRESH)
+	public void testGetStatesOnDate(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		
+		List<SavedGeneratorState> result = dao.getStatesOnDate(necessaryDate);
+		
+		Assert.assertEquals(3, result.size());
 	}
 }

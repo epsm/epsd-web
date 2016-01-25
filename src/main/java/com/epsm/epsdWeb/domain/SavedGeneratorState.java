@@ -1,8 +1,8 @@
 package com.epsm.epsdWeb.domain;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,13 +33,13 @@ public class SavedGeneratorState{
 	private float frequency;
 
 	@Column(name="realTimeStamp")
-	private LocalDateTime realTimeStamp;
+	private Timestamp realTimeStamp;
 	
 	@Column(name="powerObjectDate")
-	private LocalDate powerObjectDate;
+	private Date powerObjectDate;
 	
 	@Column(name="powerObjectTime")
-	private LocalTime powerObjectTime;
+	private Time powerObjectTime;
 	
 	public long getId() {
 		return id;
@@ -77,27 +77,27 @@ public class SavedGeneratorState{
 		this.frequency = frequency;
 	}
 
-	public LocalDateTime getRealTimeStamp() {
+	public Timestamp getRealTimeStamp() {
 		return realTimeStamp;
 	}
 
-	public void setRealTimeStamp(LocalDateTime realTimeStamp) {
+	public void setRealTimeStamp(Timestamp realTimeStamp) {
 		this.realTimeStamp = realTimeStamp;
 	}
 
-	public LocalDate getPowerObjectDate() {
+	public Date getPowerObjectDate() {
 		return powerObjectDate;
 	}
 
-	public void setPowerObjectDate(LocalDate powerObjectDate) {
+	public void setPowerObjectDate(Date powerObjectDate) {
 		this.powerObjectDate = powerObjectDate;
 	}
 
-	public LocalTime getPowerObjectTime() {
+	public Time getPowerObjectTime() {
 		return powerObjectTime;
 	}
 
-	public void setPowerObjectTime(LocalTime powerObjectTime) {
+	public void setPowerObjectTime(Time powerObjectTime) {
 		this.powerObjectTime = powerObjectTime;
 	}
 

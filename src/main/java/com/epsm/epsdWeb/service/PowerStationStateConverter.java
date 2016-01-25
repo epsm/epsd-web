@@ -1,5 +1,8 @@
 package com.epsm.epsdWeb.service;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,9 +81,9 @@ public class PowerStationStateConverter {
 		convertedState.setGeneratorNumber(generatorNumber);
 		convertedState.setGenerationInMW(generationInMW);
 		convertedState.setFrequency(frequency);
-		convertedState.setPowerObjectDate(simulationTimeStamp.toLocalDate());
-		convertedState.setPowerObjectTime(simulationTimeStamp.toLocalTime());
-		convertedState.setRealTimeStamp(realTimeStamp);
+		convertedState.setPowerObjectDate(Date.valueOf(simulationTimeStamp.toLocalDate()));
+		convertedState.setPowerObjectTime(Time.valueOf(simulationTimeStamp.toLocalTime()));
+		convertedState.setRealTimeStamp(Timestamp.valueOf(realTimeStamp));
 	}
 	
 	private void addSavedGeneratorStateToList(){

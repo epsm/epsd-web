@@ -1,5 +1,8 @@
 package com.epsm.epsdWeb.service.converter;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,8 +19,8 @@ public class PowerStationStateConverterTest {
 	private PowerStationStateConverter converter;
 	private PowerStationState powerStationState;
 	private List<SavedGeneratorState> convertedStates;
-	private SavedGeneratorState firstConvertedGeneratoeState;
-	private SavedGeneratorState secondConvertedGeneratoeState;
+	private SavedGeneratorState firstConvertedGeneratorState;
+	private SavedGeneratorState secondConvertedGeneratorState;
 	private final LocalDateTime REAL_TIME_TIMESTAMP = LocalDateTime.of(1, 2, 3, 4, 5, 6, 7);
 	private final LocalDateTime SIMULATION_TIMESTAMP = LocalDateTime.of(7, 6, 5, 4, 3, 2, 1);
 	private final int POWER_STATION_ID = 684646;
@@ -41,8 +44,8 @@ public class PowerStationStateConverterTest {
 		powerStationState.addGeneratorState(state_1);
 		powerStationState.addGeneratorState(state_2);
 		convertedStates = converter.convert(powerStationState);
-		firstConvertedGeneratoeState = convertedStates.get(0);
-		secondConvertedGeneratoeState = convertedStates.get(1);
+		firstConvertedGeneratorState = convertedStates.get(0);
+		secondConvertedGeneratorState = convertedStates.get(1);
 	}
 	
 	@Test
@@ -53,84 +56,84 @@ public class PowerStationStateConverterTest {
 	@Test
 	public void firstGeneratorHasTheSamePowerStationNumberAsPowerStationState(){
 		Assert.assertEquals(POWER_STATION_ID,
-				firstConvertedGeneratoeState.getPowerStationId());
+				firstConvertedGeneratorState.getPowerStationId());
 	}
 	
 	@Test
 	public void firstGeneratorHasTheSameGeneratorNumberAsInPowerStationState(){
 		Assert.assertEquals(FIRST_GENERATOR_NUMBER,
-				firstConvertedGeneratoeState.getGeneratorNumber());
+				firstConvertedGeneratorState.getGeneratorNumber());
 	}
 	
 	@Test
 	public void firstGeneratorHasTheSameGenerationAsInPowerStationState(){
 		Assert.assertEquals(FIRST_GENERATOR_GENERATION,
-				firstConvertedGeneratoeState.getGenerationInMW(), 0);
+				firstConvertedGeneratorState.getGenerationInMW(), 0);
 	}
 	
 	@Test
 	public void firstGeneratorHasTheSameFrequencyAsPowerStationState(){
 		Assert.assertEquals(FREQUENCY,
-				firstConvertedGeneratoeState.getFrequency(), 0);
+				firstConvertedGeneratorState.getFrequency(), 0);
 	}
 		
 	@Test
 	public void firstGeneratorPowerObjectDateEqualsDateInSimulationTimeStamp(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalDate(),
-				firstConvertedGeneratoeState.getPowerObjectDate());
+		Assert.assertEquals(Date.valueOf(SIMULATION_TIMESTAMP.toLocalDate()),
+				firstConvertedGeneratorState.getPowerObjectDate());
 	}
 	
 	@Test
 	public void firstGeneratorPowerObjectTimeEqualsTimeInSimulationTimeStamp(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalTime(),
-				firstConvertedGeneratoeState.getPowerObjectTime());
+		Assert.assertEquals(Time.valueOf(SIMULATION_TIMESTAMP.toLocalTime()),
+				firstConvertedGeneratorState.getPowerObjectTime());
 	}
 		
 	@Test
 	public void firstGeneratorHasTheSameRealTimeTimeStampAsPowerStationState(){
-		Assert.assertEquals(REAL_TIME_TIMESTAMP,
-				firstConvertedGeneratoeState.getRealTimeStamp());
+		Assert.assertEquals(Timestamp.valueOf(REAL_TIME_TIMESTAMP),
+				firstConvertedGeneratorState.getRealTimeStamp());
 	}
 	
 	@Test
 	public void secondGeneratorHasTheSamePowerStationNumberAsPowerStationState(){
 		Assert.assertEquals(POWER_STATION_ID,
-				secondConvertedGeneratoeState.getPowerStationId());
+				secondConvertedGeneratorState.getPowerStationId());
 	}
 	
 	@Test
 	public void secondGeneratorHasTheSameGeneratorNumberAsInPowerStationState(){
 		Assert.assertEquals(SECOND_GENERATOR_NUMBER,
-				secondConvertedGeneratoeState.getGeneratorNumber());
+				secondConvertedGeneratorState.getGeneratorNumber());
 	}
 	
 	@Test
 	public void secondGeneratorHasTheSameGenerationAsInPowerStationState(){
 		Assert.assertEquals(SECOND_GENERATOR_GENERATION,
-				secondConvertedGeneratoeState.getGenerationInMW(), 0);
+				secondConvertedGeneratorState.getGenerationInMW(), 0);
 	}
 	
 	@Test
 	public void secondGeneratorHasTheSameFrequencyAsPowerStationState(){
 		Assert.assertEquals(FREQUENCY,
-				secondConvertedGeneratoeState.getFrequency(), 0);
+				secondConvertedGeneratorState.getFrequency(), 0);
 	}
 	
 	@Test
 	public void secondGeneratorPowerObjectDateEqualsDateInSimulationTimeStamp(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalDate(),
-				secondConvertedGeneratoeState.getPowerObjectDate());
+		Assert.assertEquals(Date.valueOf(SIMULATION_TIMESTAMP.toLocalDate()),
+				secondConvertedGeneratorState.getPowerObjectDate());
 	}
 	
 	@Test
 	public void secondGeneratorPowerObjectTimeEqualsTimeInSimulationTimeStamp(){
-		Assert.assertEquals(SIMULATION_TIMESTAMP.toLocalTime(),
-				secondConvertedGeneratoeState.getPowerObjectTime());
+		Assert.assertEquals(Time.valueOf(SIMULATION_TIMESTAMP.toLocalTime()),
+				secondConvertedGeneratorState.getPowerObjectTime());
 	}
 	
 	@Test
 	public void secondGeneratorHasTheSameRealTimeTimeStampAsPowerStationState(){
-		Assert.assertEquals(REAL_TIME_TIMESTAMP,
-				secondConvertedGeneratoeState.getRealTimeStamp());
+		Assert.assertEquals(Timestamp.valueOf(REAL_TIME_TIMESTAMP),
+				secondConvertedGeneratorState.getRealTimeStamp());
 	}
 }
