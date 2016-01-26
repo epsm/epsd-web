@@ -23,11 +23,11 @@ import com.epsm.epsdWeb.domain.SavedGeneratorState;
 import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DayDateValidatorTest {
+public class FrequencyChartDataSourceTest {
 	private LocalDate testDate;
 	
 	@InjectMocks
-	private DayDateValidator verifier;
+	private FrequencyChartDataSource verifier;
 	
 	@Mock
 	private SavedGeneratorStateDao dao;
@@ -43,10 +43,15 @@ public class DayDateValidatorTest {
 	}
 	
 	@Test
-	public void isDataOnDateFullMethodReturnsTrueIfAllDataPresence(){
+	public void getChartDataMethodReturnsFilledChartDataIfAllDataPresence(){
 		prepareRightData();
+		int hoursInDay = 24;
+		int entriesInHour = 6;//now step is 10 minute
+		int expectedSize = hoursInDay * entriesInHour;
 		
-		Assert.assertTrue(verifier.isDataOnDateFull(testDate));
+		int actualSize = verifier.getChartData(testDate).size();
+		
+		Assert.assertEquals(expectedSize, actualSize);
 	}
 	
 	private void prepareRightData(){
@@ -72,7 +77,9 @@ public class DayDateValidatorTest {
 	public void isDataOnDateFullMethodReturnsFalseIfNotAllDataPresence(){
 		prepareWrongData();
 		
-		Assert.assertFalse(verifier.isDataOnDateFull(testDate));
+		int actualSize = verifier.getChartData(testDate).size();
+		
+		Assert.assertEquals(0, actualSize);
 	}
 	
 	private void prepareWrongData(){

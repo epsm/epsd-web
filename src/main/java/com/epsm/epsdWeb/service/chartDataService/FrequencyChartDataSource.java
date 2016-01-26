@@ -2,8 +2,10 @@ package com.epsm.epsdWeb.service.chartDataService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,17 +14,20 @@ import com.epsm.epsdWeb.domain.SavedGeneratorState;
 import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
 
 @Component
-public class DayDateValidator {
+public class FrequencyChartDataSource {
 	private LocalDate date;
 	private HashSet<LocalTime> times = new HashSet<LocalTime>();
+	private Map<LocalTime, Float> chartData;
+	private boolean isDataFull;
 	
 	@Autowired
 	private SavedGeneratorStateDao dao;
 	
-	public boolean isDataOnDateFull(LocalDate date){
+	public ChartData getChartData(LocalDate date){
 		saveDate(date);
+		isDataFull = verifyDay();
 		
-		return verifyDay();
+		return prepareFullOrEmptyChartData();
 	}
 	
 	private void saveDate(LocalDate date){
@@ -74,8 +79,13 @@ public class DayDateValidator {
 	
 	private boolean verifyGenerator(long powerStationId, int generatorNumber){
 		List<SavedGeneratorState> states = getGeneratorStates(powerStationId, generatorNumber);
+		boolean dataIsFull = validateList(states);
 		
-		return validateList(states);
+		if(dataIsFull){
+			fillChartData(states);
+		}
+		
+		return dataIsFull;
 	}
 	
 	private List<SavedGeneratorState> getGeneratorStates(long powerStationId, int generatorNumber){
@@ -113,5 +123,23 @@ public class DayDateValidator {
 		}while(pointer.isAfter(LocalTime.MIDNIGHT));
 		
 		return true;
+	}
+	
+	private void fillChartData(List<SavedGeneratorState> states){
+		chartData = new HashMap<LocalTime, Float>();
+		
+		for(SavedGeneratorState generatorState: states){
+			LocalTime time = generatorState.getPowerObjectTime().toLocalTime();
+			Float frequency = generatorState.getFrequency();
+			chartData.put(time, frequency);
+		}
+	}
+
+	private ChartData prepareFullOrEmptyChartData(){
+		if(isDataFull){
+			return new ChartData(chartData);
+		}else{
+			return new ChartData(null);
+		}
 	}
 }

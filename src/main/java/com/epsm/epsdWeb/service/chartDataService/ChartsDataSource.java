@@ -13,7 +13,7 @@ public class ChartsDataSource {
 	private Map<String, String> chartsData =  new HashMap<String, String>();
 	
 	@Autowired
-	private DayDateValidator validator;
+	private FrequencyChartDataSource validator;
 	
 	public Map<String, String> getDataForChartsOnDate(LocalDate date){
 		saveDate(date);
@@ -35,7 +35,7 @@ public class ChartsDataSource {
 	}
 	
 	private boolean isThereDataOnDate(){
-		return validator.isDataOnDateFull(date);
+		return validator.getChartData(date);
 	}
 	
 	private void fillChartsData(){
