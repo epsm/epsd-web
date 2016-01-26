@@ -1,8 +1,12 @@
 package com.epsm.epsdWeb.service.chartDataService;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +14,24 @@ import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
 
 @Service
 public class ChartService {
-	private volatile Map<String, String> chartsData;
+	private volatile Map<String, String> chartsData = Collections.emptyMap();
 	private volatile LocalDate currentChartsDataDate = LocalDate.MIN;
+	private Logger logger = LoggerFactory.getLogger(ChartService.class);
 	
 	@Autowired
 	private SavedGeneratorStateDao generatorDao;
 	
 	@Autowired
-	private ChartsDataSource dataSource;
+	private FrequencyChartDataSource frequencyDataSource;
 	
 	public Map<String, String> getDataForCharts(){
 		if(isChartsDataOutdated()){
 			refreshChartsData();
 		}
 		
-		return chartsData;
+		logger.info("Invoked: getDataForCharts(), returned {}.", chartsData);
+		
+		return Collections.unmodifiableMap(chartsData);
 	}
 	
 	private boolean isChartsDataOutdated(){
@@ -33,17 +40,45 @@ public class ChartService {
 	
 	private LocalDate getLastFullDayFromDB(){
 		LocalDate lastEntryInDatabase = generatorDao.getLastEntryDate();
-		LocalDate preLastDateInDatabase = lastEntryInDatabase.minusDays(1);
 		
-		return preLastDateInDatabase;
+		if(lastEntryInDatabase == null || lastEntryInDatabase.equals(LocalDate.MIN)){
+			return LocalDate.MIN;
+		}else{
+			return lastEntryInDatabase.minusDays(1);
+		}
 	}
 	
 	private synchronized void refreshChartsData(){
+		logger.debug("Invoked: refreshChartsData()");
+		
 		if(! isChartsDataOutdated()){
+			logger.debug("Invoked: chartData isn't out of date in refreshChartsData()");
 			return;
 		}
 		
+		logger.debug("Invoked: chartData is out of date in refreshChartsData()");
+		
 		LocalDate freshDate = getLastFullDayFromDB();
-		chartsData = dataSource.getDataForChartsOnDate(freshDate);
+		chartsData = createNewChartData(freshDate);
+		refreshCurrentChartsDataDate(freshDate);
+	}
+	
+	private Map<String, String> createNewChartData(LocalDate freshDate){
+		Map<String, String> chartsData = new HashMap<String, String>();
+		
+		addFrequencyChartData(freshDate, chartsData);
+		
+		return chartsData;
+	}
+	
+	private void addFrequencyChartData(LocalDate freshDate, Map<String, String> chartsData){
+		ChartData frequencyChartData = frequencyDataSource.getChartData(freshDate);
+		chartsData.put("frequencyChartData", frequencyChartData.toString());
+		
+		logger.debug("Invoked: addFrequencyChartData(...), added {}", frequencyChartData);
+	}
+	
+	private void refreshCurrentChartsDataDate(LocalDate freshDate){
+		currentChartsDataDate = freshDate;
 	}
 }
