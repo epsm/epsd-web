@@ -27,32 +27,67 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class,	DirtiesContextTestExecutionListener.class,})
 @Transactional
-@DatabaseSetup(value="generator_states.xml", type=DatabaseOperation.REFRESH)
 public class GeneratorStateDaoImplTest{
 	
 	@Autowired
 	SavedGeneratorStateDao dao;
 	
 	@Test
-	public void testGetLastSaveDate(){
-		Date result = dao.getLastSaveDate();
+	@DatabaseSetup(value="generator_last_saved_date.xml", type=DatabaseOperation.CLEAN_INSERT)
+	public void testGetLastSavedDate(){
+		Date result = dao.getLastSavedDate();
 		
 		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
 	}
 	
 	@Test
-	public void testLastSaveDate(){
-		Date result = dao.getLastSaveDate();
-		
-		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
-	}
-	
-	@Test
+	@DatabaseSetup(value="generator_states_on_date.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetStatesOnDate(){
 		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
 		
 		List<SavedGeneratorState> result = dao.getStatesOnDate(necessaryDate);
 		
-		Assert.assertEquals(3, result.size());
+		Assert.assertEquals(2, result.size());
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_power_objects_ids_on_day.xml",
+			type=DatabaseOperation.CLEAN_INSERT)
+	public void testGetPowerObjectsIdsOnDate(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		
+		List<Long> powerObjectsIds = dao.getPowerObjectsIdsOnDate(necessaryDate);
+		
+		Assert.assertEquals(2, powerObjectsIds.size());
+		Assert.assertTrue(powerObjectsIds.contains(1L));
+		Assert.assertTrue(powerObjectsIds.contains(3L));
+	}	
+	
+	@Test
+	@DatabaseSetup(value="generator_numbers_on_date_for_power_station.xml",
+			type=DatabaseOperation.CLEAN_INSERT)
+	public void testGetGeneratorsNumbersOnDateForPowerStation(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		long powerObjectId = 88;
+		
+		List<Integer> generatorNumbers 
+			= dao.getGeneratorsNumbersOnDateForPowerStation(necessaryDate, powerObjectId);
+		
+		Assert.assertEquals(2, generatorNumbers.size());
+		Assert.assertTrue(generatorNumbers.contains(2));
+		Assert.assertTrue(generatorNumbers.contains(3));
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_states_on_date_for_power_station.xml",
+			type=DatabaseOperation.CLEAN_INSERT)
+	public void testGetGeneratorStatesOnDateForPowerStation(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		long powerObjectId = 88;
+		
+		List<SavedGeneratorState> generatorsStates 
+			= dao.getGeneratorStatesOnDateForPowerStation(necessaryDate, powerObjectId);
+		
+		Assert.assertEquals(2, generatorsStates.size());
 	}
 }

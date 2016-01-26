@@ -22,7 +22,7 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 	private EntityManager em;
 	
 	@Override
-	public Date getLastSaveDate(){
+	public Date getLastSavedDate(){
 		Date result = null;
 		Query query = em.createQuery("SELECT MAX(e.powerObjectDate) FROM SavedGeneratorState e");
 		
@@ -42,11 +42,63 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 		
 		query.setParameter("dateToSearsch", dateToSearsch);
 		result = query.getResultList();
-		logger.debug("Requested: List<SavedGeneratorState> for date {}, returned {}.", date, result);
+		logger.debug("Requested: List<SavedGeneratorState> for date {}, returned {}.",
+				date, result);
 	
 		return result;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Long> getPowerObjectsIdsOnDate(LocalDate date){
+		List<Long> result = null;
+		Date dateToSearsch = Date.valueOf(date);
+		Query query = em.createQuery("SELECT DISTINCT e.powerObjectId FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch");
+		
+		query.setParameter("dateToSearsch", dateToSearsch);
+		result = query.getResultList();
+		logger.debug("Requested: power object Ids on date, returned {}.", result);
+		
+		return result;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Integer> getGeneratorsNumbersOnDateForPowerStation(
+			LocalDate date, long powerObjectId){
+		
+		List<Integer> result = null;
+		Date dateToSearsch = Date.valueOf(date);
+		Query query = em.createQuery("SELECT DISTINCT e.generatorNumber FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch AND e.powerObjectId = :powerObjectId");
+		
+		query.setParameter("dateToSearsch", dateToSearsch);
+		query.setParameter("powerObjectId", powerObjectId);
+		result = query.getResultList();
+		logger.debug("Requested: generator numbers for power station, returned {}.", result);
+		
+		return result;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<SavedGeneratorState> getGeneratorStatesOnDateForPowerStation(
+			LocalDate date, long powerObjectId){
+		
+		List<SavedGeneratorState> result = null;
+		Date dateToSearsch = Date.valueOf(date);
+		Query query = em.createQuery("SELECT DISTINCT e FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch AND e.powerObjectId = :powerObjectId");
+		
+		query.setParameter("dateToSearsch", dateToSearsch);
+		query.setParameter("powerObjectId", powerObjectId);
+		result = query.getResultList();
+		logger.debug("Requested: generator states for power station, returned {}.", result);
+		
+		return result;
+	}
+	
 	@Override
 	public void saveState(SavedGeneratorState state) {
 		em.persist(state);

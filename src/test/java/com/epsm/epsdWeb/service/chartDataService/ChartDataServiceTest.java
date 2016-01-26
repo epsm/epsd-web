@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service;
+package com.epsm.epsdWeb.service.chartDataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
