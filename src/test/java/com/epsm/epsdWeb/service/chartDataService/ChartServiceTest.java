@@ -6,10 +6,9 @@ import org.springframework.stereotype.Service;
 import com.epsm.epsdWeb.repository.SavedConsumerStateDao;
 
 @Service
-public class ChartDataServiceTest {
+public class ChartServiceTest {
 
-	@Autowired
-	private SavedConsumerStateDao dao;
+	
 	
 	
 }

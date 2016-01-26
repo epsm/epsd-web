@@ -22,14 +22,14 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 	private EntityManager em;
 	
 	@Override
-	public Date getLastSavedDate(){
+	public LocalDate getLastEntryDate(){
 		Date result = null;
 		Query query = em.createQuery("SELECT MAX(e.powerObjectDate) FROM SavedGeneratorState e");
 		
 		result = (Date) query.getSingleResult();
 		logger.debug("Requested: last saved date, returnde {}.", result);
 		
-		return result;
+		return result.toLocalDate();
 	}
 	
 	@Override
@@ -37,12 +37,13 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 	public List<SavedGeneratorState> getStatesOnDate(LocalDate date){
 		List<SavedGeneratorState> result = null;
 		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery("SELECT e FROM SavedGeneratorState e WHERE e.powerObjectDate"
-				+ " = :dateToSearsch");
+		Query query = em.createQuery(
+				"SELECT e FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch");
 		
 		query.setParameter("dateToSearsch", dateToSearsch);
 		result = query.getResultList();
-		logger.debug("Requested: List<SavedGeneratorState> for date {}, returned {}.",
+		logger.debug("Requested: List<SavedGeneratorState> for {}, returned {}.",
 				date, result);
 	
 		return result;
@@ -53,12 +54,13 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 	public List<Long> getPowerObjectsIdsOnDate(LocalDate date){
 		List<Long> result = null;
 		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery("SELECT DISTINCT e.powerObjectId FROM SavedGeneratorState e"
+		Query query = em.createQuery(
+				"SELECT DISTINCT e.powerObjectId FROM SavedGeneratorState e"
 				+ " WHERE e.powerObjectDate = :dateToSearsch");
 		
 		query.setParameter("dateToSearsch", dateToSearsch);
 		result = query.getResultList();
-		logger.debug("Requested: power object Ids on date, returned {}.", result);
+		logger.debug("Requested: power object Ids on {}, returned {}.", date, result);
 		
 		return result;
 	}
@@ -70,31 +72,39 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 		
 		List<Integer> result = null;
 		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery("SELECT DISTINCT e.generatorNumber FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :dateToSearsch AND e.powerObjectId = :powerObjectId");
+		Query query = em.createQuery(
+				"SELECT DISTINCT e.generatorNumber FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch"
+				+ " AND e.powerObjectId = :powerObjectId");
 		
 		query.setParameter("dateToSearsch", dateToSearsch);
 		query.setParameter("powerObjectId", powerObjectId);
 		result = query.getResultList();
-		logger.debug("Requested: generator numbers for power station, returned {}.", result);
+		logger.debug("Requested: generator numbers for {} and power station, returned {}.",
+				date, result);
 		
 		return result;
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<SavedGeneratorState> getGeneratorStatesOnDateForPowerStation(
-			LocalDate date, long powerObjectId){
+	public List<SavedGeneratorState> getStatesOnDateForPowerStationAndGenerator(
+			LocalDate date, long powerObjectId, int generatorNumber){
 		
 		List<SavedGeneratorState> result = null;
 		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery("SELECT DISTINCT e FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :dateToSearsch AND e.powerObjectId = :powerObjectId");
+		Query query = em.createQuery(
+				"SELECT DISTINCT e FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch"
+				+ " AND e.powerObjectId = :powerObjectId"
+				+ " AND e.generatorNumber = :generatorNumber");
 		
 		query.setParameter("dateToSearsch", dateToSearsch);
 		query.setParameter("powerObjectId", powerObjectId);
+		query.setParameter("generatorNumber", generatorNumber);
 		result = query.getResultList();
-		logger.debug("Requested: generator states for power station, returned {}.", result);
+		logger.debug("Requested: generator states for {} power station and generator,"
+				+ " returned {}.",date, result);
 		
 		return result;
 	}

@@ -1,6 +1,5 @@
 package com.epsm.epsdWeb.repository;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,11 +32,11 @@ public class GeneratorStateDaoImplTest{
 	SavedGeneratorStateDao dao;
 	
 	@Test
-	@DatabaseSetup(value="generator_last_saved_date.xml", type=DatabaseOperation.CLEAN_INSERT)
-	public void testGetLastSavedDate(){
-		Date result = dao.getLastSavedDate();
+	@DatabaseSetup(value="generator_last_entry_date.xml", type=DatabaseOperation.CLEAN_INSERT)
+	public void testGetLastEntryDate(){
+		LocalDate result = dao.getLastEntryDate();
 		
-		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
+		Assert.assertEquals(LocalDate.of(2000, 10, 10), result);
 	}
 	
 	@Test
@@ -79,14 +78,16 @@ public class GeneratorStateDaoImplTest{
 	}
 	
 	@Test
-	@DatabaseSetup(value="generator_states_on_date_for_power_station.xml",
+	@DatabaseSetup(value="generator_states_on_date_for_power_station_and_generator.xml",
 			type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetGeneratorStatesOnDateForPowerStation(){
 		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
 		long powerObjectId = 88;
+		int generatorNumber = 2;
 		
 		List<SavedGeneratorState> generatorsStates 
-			= dao.getGeneratorStatesOnDateForPowerStation(necessaryDate, powerObjectId);
+				= dao.getStatesOnDateForPowerStationAndGenerator(
+				necessaryDate, powerObjectId, generatorNumber);
 		
 		Assert.assertEquals(2, generatorsStates.size());
 	}
