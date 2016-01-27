@@ -1,6 +1,6 @@
 <dataset>
-	<generator_state id="1" powerObjectId="1" generator_number="1" generation="100" frequency="50" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
-	<generator_state id="2" powerObjectId="3" generator_number="1" generation="100" frequency="50" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
-	<generator_state id="3" powerObjectId="9" generator_number="2" generation="100" frequency="50" powerObjectDate="2000-11-11" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
-	<generator_state id="4" powerObjectId="9" generator_number="2" generation="100" frequency="50" powerObjectDate="2000-11-11" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<generator_state id="1" power_object_id="1" generator_number="1" generation_in_MW="100" frequency="50" power_object_date="2000-09-08" power_object_time="00:00:00" real_timestamp="2000-01-01 00:00:00"/>
+	<generator_state id="2" power_object_id="3" generator_number="1" generation_in_MW="100" frequency="50" power_object_date="2000-09-08" power_object_time="00:00:00" real_timestamp="2000-01-01 00:00:00"/>
+	<generator_state id="3" power_object_id="9" generator_number="2" generation_in_MW="100" frequency="50" power_object_date="2000-11-11" power_object_time="11:11:11" real_timestamp="2000-01-01 00:00:00"/>
+	<generator_state id="4" power_object_id="9" generator_number="2" generation_in_MW="100" frequency="50" power_object_date="2000-11-11" power_object_time="22:22:22" real_timestamp="2000-01-01 00:00:00"/>
 </dataset>

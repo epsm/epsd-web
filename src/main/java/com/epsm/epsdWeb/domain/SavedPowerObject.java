@@ -17,16 +17,16 @@ public abstract class SavedPowerObject {
 	@Column(name="id")
 	private long id;
 	
-	@Column(name="powerObjectId")
+	@Column(name="power_object_id")
 	private  long powerObjectId;
 	
-	@Column(name="realTimeStamp")
+	@Column(name="real_timestamp", nullable=false)
 	private Timestamp realTimeStamp;
 	
-	@Column(name="powerObjectDate")
+	@Column(name="power_object_date", nullable=false)
 	private Date powerObjectDate;
 	
-	@Column(name="powerObjectTime")
+	@Column(name="power_object_time", nullable=false)
 	private Time powerObjectTime;
 	
 	public long getId() {

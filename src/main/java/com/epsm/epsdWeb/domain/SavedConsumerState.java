@@ -5,19 +5,22 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="consumer_state")
+@Table(name="consumer_state", uniqueConstraints={
+	@UniqueConstraint(columnNames={"power_object_id", "power_object_date", "power_object_time"})
+})
 @AttributeOverrides({
 	@AttributeOverride(name="id", column=@Column(name="id")),
-	@AttributeOverride(name="powerObjectId", column=@Column(name="powerObjectId")),
-	@AttributeOverride(name="realTimeStamp", column=@Column(name="realTimeStamp")),
-	@AttributeOverride(name="powerObjectDate", column=@Column(name="powerObjectDate")),
-	@AttributeOverride(name="powerObjectTime", column=@Column(name="powerObjectTime"))
+	@AttributeOverride(name="powerObjectId", column=@Column(name="power_object_id")),
+	@AttributeOverride(name="realTimeStamp", column=@Column(name="real_timestamp")),
+	@AttributeOverride(name="powerObjectDate", column=@Column(name="power_object_date")),
+	@AttributeOverride(name="powerObjectTime", column=@Column(name="power_object_time"))
 })
 public class SavedConsumerState extends SavedPowerObject{
 	
-	@Column(name="loadInMW")
+	@Column(name="load_in_MW")
 	private float loadInMW;
 
 	public float getLoadInMW() {

@@ -41,18 +41,13 @@ public class SavedConsumerStateDaoImplTest{
 	}
 	
 	@Test
-	public void testLastSaveDate(){
-		Date result = dao.getLastSaveDate();
-		
-		Assert.assertEquals(Date.valueOf(LocalDate.of(2000, 10, 10)), result);
-	}
-	
-	@Test
 	public void testGetStatesOnDate(){
 		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
 		
 		List<SavedConsumerState> result = dao.getStatesOnDate(necessaryDate);
 		
-		Assert.assertEquals(3, result.size());
+		System.out.println(result);
+		
+		Assert.assertEquals(2, result.size());
 	}
 }
