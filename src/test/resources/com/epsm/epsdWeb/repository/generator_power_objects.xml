@@ -1,0 +1,6 @@
+<dataset>
+	<generator_state id="1" powerObjectId="1" generator_number="1" generation="100" frequency="50" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<generator_state id="2" powerObjectId="3" generator_number="1" generation="100" frequency="50" powerObjectDate="2000-09-08" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<generator_state id="3" powerObjectId="9" generator_number="2" generation="100" frequency="50" powerObjectDate="2000-11-11" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+	<generator_state id="4" powerObjectId="9" generator_number="2" generation="100" frequency="50" powerObjectDate="2000-11-11" powerObjectTime="00:00:00" realTimeStamp="2000-01-01 00:00:00"/>
+</dataset>

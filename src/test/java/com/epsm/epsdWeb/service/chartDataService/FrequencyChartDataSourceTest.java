@@ -36,11 +36,11 @@ public class FrequencyChartDataSourceTest {
 	public void setUp(){
 		testDate = LocalDate.of(2000, 10, 20);
 		
-		when(dao.getPowerObjectsIdsOnDate(testDate)).thenReturn(Arrays.asList(1L, 2L));
-		when(dao.getGeneratorsNumbersOnDateForPowerStation(eq(testDate), anyInt())).thenReturn(Arrays.asList(3, 4));
-		when(dao.getStatesOnDateForPowerStationAndGenerator(eq(testDate), eq(1L), anyInt())).thenReturn(Collections.emptyList());
-		when(dao.getStatesOnDateForPowerStationAndGenerator(eq(testDate), eq(2L), eq(3))).thenReturn(Collections.emptyList());
-		when(dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(any(), anyLong(), anyInt())).thenReturn(50.23f);
+		when(dao.getPowerObjectsIds(testDate)).thenReturn(Arrays.asList(1L, 2L));
+		when(dao.getGeneratorsNumbers(eq(testDate), anyInt())).thenReturn(Arrays.asList(3, 4));
+		when(dao.getStates(eq(testDate), eq(1L), anyInt())).thenReturn(Collections.emptyList());
+		when(dao.getStates(eq(testDate), eq(2L), eq(3))).thenReturn(Collections.emptyList());
+		when(dao.getFrequency(any(), anyLong(), anyInt())).thenReturn(50.23f);
 	}
 	
 	@Test
@@ -57,7 +57,7 @@ public class FrequencyChartDataSourceTest {
 	}
 	
 	private void prepareRightData(){
-		when(dao.getStatesOnDateForPowerStationAndGenerator(eq(testDate), eq(2L), eq(4))).thenReturn(getRightStates());
+		when(dao.getStates(eq(testDate), eq(2L), eq(4))).thenReturn(getRightStates());
 	}
 	
 	private List<SavedGeneratorState> getRightStates(){
@@ -85,7 +85,7 @@ public class FrequencyChartDataSourceTest {
 	}
 	
 	private void prepareWrongData(){
-		when(dao.getStatesOnDateForPowerStationAndGenerator(eq(testDate), eq(2L), eq(4))).thenReturn(getNotAllStates());
+		when(dao.getStates(eq(testDate), eq(2L), eq(4))).thenReturn(getNotAllStates());
 	}
 	
 	private List<SavedGeneratorState> getNotAllStates(){

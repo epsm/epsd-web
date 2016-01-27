@@ -1,6 +1,7 @@
 package com.epsm.epsdWeb.service.chartDataService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,7 +42,7 @@ public class FrequencyChartDataSource {
 	}
 	
 	private List<Long> getAllPowerStationOnDay(LocalDate date){
-		return dao.getPowerObjectsIdsOnDate(date);
+		return dao.getPowerObjectsIds(date);
 	}
 	
 	private boolean verifyEveryPowerStation(List<Long> powerStationsIds){
@@ -74,7 +75,7 @@ public class FrequencyChartDataSource {
 	}
 	
 	private List<Integer> getGeneratorNumbers(Long powerObjectId){
-		return dao.getGeneratorsNumbersOnDateForPowerStation(date, powerObjectId);
+		return dao.getGeneratorsNumbers(date, powerObjectId);
 	}
 	
 	private boolean verifyGenerator(long powerStationId, int generatorNumber){
@@ -90,7 +91,7 @@ public class FrequencyChartDataSource {
 	}
 	
 	private List<SavedGeneratorState> getGeneratorStates(long powerStationId, int generatorNumber){
-		return dao.getStatesOnDateForPowerStationAndGenerator(date, powerStationId, generatorNumber);
+		return dao.getStates(date, powerStationId, generatorNumber);
 	}
 	
 	private boolean validateList(List<SavedGeneratorState> states){
@@ -127,13 +128,14 @@ public class FrequencyChartDataSource {
 	}
 	
 	private boolean isDataOnMidnightNextDayPresent(long powerObjectId, int generatorNumber){
-		Float generation = dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(
-				date, powerObjectId, generatorNumber);
+		LocalDateTime necessaryDateTime = LocalDateTime.of(date, LocalTime.MIDNIGHT);
+		Float generation = dao.getFrequency(necessaryDateTime, powerObjectId, generatorNumber);
 		
 		return generation != Float.NEGATIVE_INFINITY;
 	}
 	
 	private void fillChartData(List<SavedGeneratorState> states, long powerObjectId, int generatorNumber){
+		LocalDateTime necessaryDateTime = LocalDateTime.of(date, LocalTime.MIDNIGHT);
 		chartData = new HashMap<LocalTime, Float>();
 		
 		for(SavedGeneratorState generatorState: states){
@@ -142,9 +144,7 @@ public class FrequencyChartDataSource {
 			chartData.put(time, frequency);
 		}
 		
-		Float nextMidnightFrequency = dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(
-				date, powerObjectId, generatorNumber);
-		
+		Float nextMidnightFrequency = dao.getFrequency(necessaryDateTime, powerObjectId, generatorNumber);
 		chartData.put(LocalTime.MAX, nextMidnightFrequency);
 	}
 
