@@ -134,4 +134,14 @@ public class ChartServiceTest {
 		when(chartData.toString()).thenReturn("target");
 		when(frequencyDataSource.getChartData(any())).thenReturn(chartData);
 	}
+	
+	@Test
+	public void putsDateDataToMap(){
+		prepareDataBaseWithFreshData();
+		prepareFrequencyDataSourceReturnsChartDataWithExpectedToStringResult();
+		Map<String, String> chartsData= service.getDataForCharts();
+		String date = chartsData.get("date");
+		
+		Assert.assertEquals(LocalDate.MAX.minusDays(1).toString(), date);
+	}
 }

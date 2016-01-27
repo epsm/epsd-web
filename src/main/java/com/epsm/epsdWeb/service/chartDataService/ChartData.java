@@ -22,7 +22,7 @@ public class ChartData{
 		}
 		
 		builder = new StringBuilder();
-		dateFormatter = DateTimeFormatter.ofPattern("HH, mm");
+		dateFormatter = DateTimeFormatter.ofPattern("HH,mm");
 		numberFormatter = new DecimalFormat("0.##", Constants.SYMBOLS);
 	}
 	
@@ -41,19 +41,25 @@ public class ChartData{
 	}
 	
 	private String prepareString(){
-		builder.append('[');
+		builder.append("[");
 		
 		data.forEach((k,v)->{
 			builder.append(prefix);
 			builder.append("[[");
-			builder.append(dateFormatter.format(k));
-			builder.append("],");
+			
+			if(k.equals(LocalTime.MAX)){
+				builder.append("24,00");
+			}else{
+				builder.append(dateFormatter.format(k));
+			}
+			
+			builder.append("], ");
 			builder.append(numberFormatter.format(v));
 			builder.append("]");
 			prefix = ",";
 		});
 		
-		builder.append(']');
+		builder.append("]");
 		stringValue = builder.toString();
 		
 		return stringValue;

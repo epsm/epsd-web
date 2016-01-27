@@ -40,6 +40,7 @@ public class FrequencyChartDataSourceTest {
 		when(dao.getGeneratorsNumbersOnDateForPowerStation(eq(testDate), anyInt())).thenReturn(Arrays.asList(3, 4));
 		when(dao.getStatesOnDateForPowerStationAndGenerator(eq(testDate), eq(1L), anyInt())).thenReturn(Collections.emptyList());
 		when(dao.getStatesOnDateForPowerStationAndGenerator(eq(testDate), eq(2L), eq(3))).thenReturn(Collections.emptyList());
+		when(dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(any(), anyLong(), anyInt())).thenReturn(50.23f);
 	}
 	
 	@Test
@@ -47,7 +48,8 @@ public class FrequencyChartDataSourceTest {
 		prepareRightData();
 		int hoursInDay = 24;
 		int entriesInHour = 6;//now step is 10 minute
-		int expectedSize = hoursInDay * entriesInHour;
+		int valueOnNextMidnight = 1;
+		int expectedSize = hoursInDay * entriesInHour + valueOnNextMidnight;
 		
 		int actualSize = verifier.getChartData(testDate).size();
 		

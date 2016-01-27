@@ -32,7 +32,7 @@ public class ChartDataTest {
 		Map<LocalTime, Float> values = new HashMap<LocalTime, Float>();
 		values.put(LocalTime.of(10, 20, 30, 44), 49.578F);
 		values.put(LocalTime.of(20, 10, 31, 47), 50.578F);
-		values.put(LocalTime.of(10, 30, 55, 56), 50F);
+		values.put(LocalTime.MAX, 50F);
 		chartData = new ChartData(values);
 	}
 	
@@ -47,17 +47,19 @@ public class ChartDataTest {
 	
 	@Test
 	public void toStringMethodReturnsExpectedValueFirstTime(){
-		String expected = "[[[10, 20],49.58],[[10, 30],50],[[20, 10],50.58]]";
+		String expected = "[[[10,20], 49.58],[[20,10], 50.58],[[24,00], 50]]";
 		prepareFilledMap();
 		
 		String result = chartData.toString();
+		
+		System.out.println(result);
 		
 		Assert.assertEquals(expected, result);
 	}
 	
 	@Test
 	public void toStringMethodReturnsExpectedValueForNextTimes(){
-		String expected = "[[[10, 20],49.58],[[10, 30],50],[[20, 10],50.58]]";
+		String expected = "[[[10,20], 49.58],[[20,10], 50.58],[[24,00], 50]]";
 		prepareFilledMap();
 		chartData.toString();
 		

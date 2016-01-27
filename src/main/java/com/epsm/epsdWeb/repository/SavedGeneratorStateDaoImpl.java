@@ -1,10 +1,13 @@
 package com.epsm.epsdWeb.repository;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -27,9 +30,13 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 		Query query = em.createQuery("SELECT MAX(e.powerObjectDate) FROM SavedGeneratorState e");
 		
 		result = (Date) query.getSingleResult();
-		logger.debug("Requested: last saved date, returnde {}.", result);
+		logger.debug("Requested: last saved date, returned {}.", result);
 		
-		return result.toLocalDate();
+		if(result == null){
+			return LocalDate.MIN;
+		}else{
+			return result.toLocalDate();
+		}
 	}
 	
 	@Override
@@ -107,6 +114,38 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 				+ " returned {}.",date, result);
 		
 		return result;
+	}
+	
+	@Override
+	public Float getMidnightFrequencyOnDateForPowerStationAndGenerator(
+			LocalDate date, long powerObjectId, int generatorNumber){
+		
+		Float result = null;
+		Date dateToSearsch = Date.valueOf(date);
+		Time time = Time.valueOf(LocalTime.MIDNIGHT);
+		
+		Query query = em.createQuery(
+				"SELECT e.frequency FROM SavedGeneratorState e"
+				+ " WHERE e.powerObjectDate = :dateToSearsch"
+				+ " AND e.powerObjectTime = :time"
+				+ " AND e.powerObjectId = :powerObjectId"
+				+ " AND e.generatorNumber = :generatorNumber");
+		
+		query.setParameter("dateToSearsch", dateToSearsch);
+		query.setParameter("time", time);
+		query.setParameter("powerObjectId", powerObjectId);
+		query.setParameter("generatorNumber", generatorNumber);
+		
+		try{
+			result = (Float) query.getSingleResult();
+			logger.debug("Requested: midnight frequency for {} power station and generator,"
+					+ " returned {}.",date, result);			
+			return result;
+		}catch(NoResultException e){
+			logger.debug("Requested: midnight frequency for {} power station and generator,"
+				+ " returned {}.",date, Float.NEGATIVE_INFINITY);
+			return Float.NEGATIVE_INFINITY;
+		}
 	}
 	
 	@Override

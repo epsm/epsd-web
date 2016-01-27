@@ -33,10 +33,18 @@ public class GeneratorStateDaoImplTest{
 	
 	@Test
 	@DatabaseSetup(value="generator_last_entry_date.xml", type=DatabaseOperation.CLEAN_INSERT)
-	public void testGetLastEntryDate(){
+	public void testGetLastEntryDateReturnsExpectedDate(){
 		LocalDate result = dao.getLastEntryDate();
 		
 		Assert.assertEquals(LocalDate.of(2000, 10, 10), result);
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_last_entry_date.xml", type=DatabaseOperation.DELETE_ALL)
+	public void testGetLastEntryDateReturnsLocalDateMinIfThereIsNoDates(){
+		LocalDate result = dao.getLastEntryDate();
+		
+		Assert.assertEquals(LocalDate.MIN, result);
 	}
 	
 	@Test
@@ -90,5 +98,33 @@ public class GeneratorStateDaoImplTest{
 				necessaryDate, powerObjectId, generatorNumber);
 		
 		Assert.assertEquals(2, generatorsStates.size());
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_midnight_generation_on_date_for_power_station_and_generator.xml",
+			type=DatabaseOperation.CLEAN_INSERT)
+	public void testGetMidnightFrequencyOnDateForPowerStationAndGeneratorReturnsExpectedValue(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		long powerObjectId = 88;
+		int generatorNumber = 2;
+		
+		float generation = dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(
+				necessaryDate, powerObjectId, generatorNumber);
+		
+		Assert.assertEquals(60, generation, 0);
+	}
+	
+	@Test
+	@DatabaseSetup(value="generator_midnight_generation_on_date_for_power_station_and_generator.xml",
+			type=DatabaseOperation.DELETE_ALL)
+	public void testGetMidnightFrequencyOnDateForPowerStationAndGeneratorReturnsNEGATIVE_INFINITYIf_IfNoData(){
+		LocalDate necessaryDate = LocalDate.of(2000, 9, 8);
+		long powerObjectId = 88;
+		int generatorNumber = 2;
+		
+		Float generation = dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(
+				necessaryDate, powerObjectId, generatorNumber);
+		
+		Assert.assertEquals(Float.NEGATIVE_INFINITY, generation, 0);
 	}
 }

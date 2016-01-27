@@ -66,9 +66,14 @@ public class ChartService {
 	private Map<String, String> createNewChartData(LocalDate freshDate){
 		Map<String, String> chartsData = new HashMap<String, String>();
 		
+		addDate(freshDate, chartsData);
 		addFrequencyChartData(freshDate, chartsData);
 		
 		return chartsData;
+	}
+	
+	private void addDate(LocalDate date, Map<String, String> chartsData){
+		chartsData.put("date", date.toString());
 	}
 	
 	private void addFrequencyChartData(LocalDate freshDate, Map<String, String> chartsData){

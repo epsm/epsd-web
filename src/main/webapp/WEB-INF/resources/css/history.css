@@ -36,7 +36,7 @@ div.EPSsw{
 }
 
 p.cms {
-    font-size: 150%;
+    font-size: 120%;
     position: absolute;
     margin-top: 30px; 
     left: 50%;
@@ -64,19 +64,10 @@ div.name {
 
 div.single_schedule {
     width: 1100px;
-    height: 130px;
+    height: 200px;
     margin: 5px auto; 
     color: black;
     border:1px solid #4477bb;
-}
-
-div.multiple_schedules {
-    width: 1100px;
-    height: 250px;
-    margin: 5px auto;
-    color: black;
-    border:1px solid #4477bb; 
-    overflow-y: scroll;
 }
 
 div.schedule {
@@ -99,7 +90,7 @@ div.menu ul{
     list-style: none;
     padding: 0px;
     margin: 0px;
-    margin-left: 450px;
+    margin-left: 595px;
 }
 
 div.menu ul li {

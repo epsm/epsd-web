@@ -79,13 +79,14 @@ public class FrequencyChartDataSource {
 	
 	private boolean verifyGenerator(long powerStationId, int generatorNumber){
 		List<SavedGeneratorState> states = getGeneratorStates(powerStationId, generatorNumber);
-		boolean dataIsFull = validateList(states);
+		boolean dataForDay = validateList(states);
+		boolean dataOnMidnightNextDay = isDataOnMidnightNextDayPresent(powerStationId, generatorNumber);
 		
-		if(dataIsFull){
-			fillChartData(states);
+		if(dataForDay && dataOnMidnightNextDay){
+			fillChartData(states, powerStationId, generatorNumber);
 		}
 		
-		return dataIsFull;
+		return dataForDay && dataOnMidnightNextDay;
 	}
 	
 	private List<SavedGeneratorState> getGeneratorStates(long powerStationId, int generatorNumber){
@@ -125,7 +126,14 @@ public class FrequencyChartDataSource {
 		return true;
 	}
 	
-	private void fillChartData(List<SavedGeneratorState> states){
+	private boolean isDataOnMidnightNextDayPresent(long powerObjectId, int generatorNumber){
+		Float generation = dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(
+				date, powerObjectId, generatorNumber);
+		
+		return generation != Float.NEGATIVE_INFINITY;
+	}
+	
+	private void fillChartData(List<SavedGeneratorState> states, long powerObjectId, int generatorNumber){
 		chartData = new HashMap<LocalTime, Float>();
 		
 		for(SavedGeneratorState generatorState: states){
@@ -133,6 +141,11 @@ public class FrequencyChartDataSource {
 			Float frequency = generatorState.getFrequency();
 			chartData.put(time, frequency);
 		}
+		
+		Float nextMidnightFrequency = dao.getMidnightFrequencyOnDateForPowerStationAndGenerator(
+				date, powerObjectId, generatorNumber);
+		
+		chartData.put(LocalTime.MAX, nextMidnightFrequency);
 	}
 
 	private ChartData prepareFullOrEmptyChartData(){
