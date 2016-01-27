@@ -46,7 +46,7 @@
                 <form class="out" method="post" action="${pageContext.request.contextPath}/login.html">
                     <input type="submit" class="input" value="sign out" name="sign out" />
                 </form>
-                <p class="cms">data on ${date}</p>
+                <p class="cms">data on: ${date}</p>
             </div>
 			<div class="menu">
                 <ul>
@@ -62,11 +62,11 @@
             </div>
             <div class="name">total generation</div> 
             <div class="single_schedule">
-                <div class="schedule"></div>
+          
             </div>
             <div class="name">total consumption</div> 
             <div class="single_schedule">
-                <div class="schedule"></div>
+     
             </div>
         </div>    
     </body>

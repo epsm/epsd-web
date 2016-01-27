@@ -70,16 +70,6 @@ div.single_schedule {
     border:1px solid #4477bb;
 }
 
-div.schedule {
-    width: 1050px;
-    height: 110px;
-    margin-top: 8px;
-    margin-bottom: 5px;
-    margin-left: 15px;
-    color: black;
-    border:1px solid; 
-}
-
 div.menu {
     height: 20px;
     padding: 0px;

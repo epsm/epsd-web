@@ -14,15 +14,23 @@ import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
 
 @Service
 public class ChartService {
-	private volatile Map<String, String> chartsData = Collections.emptyMap();
-	private volatile LocalDate currentChartsDataDate = LocalDate.MIN;
-	private Logger logger = LoggerFactory.getLogger(ChartService.class);
+	private volatile Map<String, String> chartsData;
+	private volatile LocalDate currentChartsDataDate;
+	private Logger logger;
 	
 	@Autowired
 	private SavedGeneratorStateDao generatorDao;
 	
 	@Autowired
 	private FrequencyChartDataSource frequencyDataSource;
+	
+	public ChartService(){
+		chartsData = new HashMap<String, String>();
+		currentChartsDataDate = LocalDate.MIN;
+		logger = LoggerFactory.getLogger(ChartService.class);
+		
+		chartsData.put("date", "still no information");
+	}
 	
 	public Map<String, String> getDataForCharts(){
 		if(isChartsDataOutdated()){

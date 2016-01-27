@@ -136,12 +136,20 @@ public class ChartServiceTest {
 	}
 	
 	@Test
-	public void putsDateDataToMap(){
+	public void putsRetrievedDateDataToMap(){
 		prepareDataBaseWithFreshData();
 		prepareFrequencyDataSourceReturnsChartDataWithExpectedToStringResult();
 		Map<String, String> chartsData= service.getDataForCharts();
-		String date = chartsData.get("date");
+		String dateMessage = chartsData.get("date");
 		
-		Assert.assertEquals(LocalDate.MAX.minusDays(1).toString(), date);
+		Assert.assertEquals(LocalDate.MAX.minusDays(1).toString(), dateMessage);
+	}
+	
+	@Test
+	public void putsDefaultDateMessageToMap(){
+		Map<String, String> chartsData= service.getDataForCharts();
+		String dateMessage = chartsData.get("date");
+		
+		Assert.assertEquals("still no information", dateMessage);
 	}
 }
