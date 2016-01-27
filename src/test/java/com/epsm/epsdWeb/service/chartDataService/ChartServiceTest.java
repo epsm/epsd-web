@@ -35,7 +35,7 @@ public class ChartServiceTest {
 	private SavedGeneratorStateDao generatorDao;
 	
 	@Mock
-	private FrequencyChartDataSource frequencyDataSource;
+	private DayDataValidator frequencyDataSource;
 	
 	@Before
 	public void setUp(){

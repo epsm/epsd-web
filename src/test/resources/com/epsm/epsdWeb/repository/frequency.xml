@@ -1,0 +1,5 @@
+<dataset>
+	<frequency id="1" power_object_date="2000-09-08" power_object_time="00:00:00" frequency="49.9"/>
+	<frequency id="2" power_object_date="2000-10-10" power_object_time="00:00:00" frequency="50.0"/>
+	<frequency id="3" power_object_date="2000-10-11" power_object_time="00:00:00" frequency="50.1"/>
+</dataset>

@@ -1,13 +1,9 @@
 package com.epsm.epsdWeb.repository;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -38,111 +34,7 @@ public class SavedGeneratorStateDaoImpl implements SavedGeneratorStateDao{
 			return result.toLocalDate();
 		}
 	}
-	
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<SavedGeneratorState> getStates(LocalDate date){
-		List<SavedGeneratorState> result = null;
-		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery(
-				"SELECT e FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :dateToSearsch");
-		
-		query.setParameter("dateToSearsch", dateToSearsch);
-		result = query.getResultList();
-		logger.debug("Requested: List<SavedGeneratorState> for {}, returned {}.",
-				date, result);
-	
-		return result;
-	}
-	
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<SavedGeneratorState> getStates(	LocalDate date,
-			long powerObjectId, int generatorNumber){
-		
-		List<SavedGeneratorState> result = null;
-		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery(
-				"SELECT DISTINCT e FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :dateToSearsch"
-				+ " AND e.powerObjectId = :powerObjectId"
-				+ " AND e.generatorNumber = :generatorNumber");
-		
-		query.setParameter("dateToSearsch", dateToSearsch);
-		query.setParameter("powerObjectId", powerObjectId);
-		query.setParameter("generatorNumber", generatorNumber);
-		result = query.getResultList();
-		logger.debug("Requested: generator states for {} power station and generator,"
-				+ " returned {}.",date, result);
-		
-		return result;
-	}
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Long> getPowerObjectsIds(LocalDate date){
-		List<Long> result = null;
-		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery(
-				"SELECT DISTINCT e.powerObjectId FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :dateToSearsch");
-		
-		query.setParameter("dateToSearsch", dateToSearsch);
-		result = query.getResultList();
-		logger.debug("Requested: power object Ids on {}, returned {}.", date, result);
-		
-		return result;
-	}
-	
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Integer> getGeneratorsNumbers(LocalDate date, long powerObjectId){
-		List<Integer> result = null;
-		Date dateToSearsch = Date.valueOf(date);
-		Query query = em.createQuery(
-				"SELECT DISTINCT e.generatorNumber FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :dateToSearsch"
-				+ " AND e.powerObjectId = :powerObjectId");
-		
-		query.setParameter("dateToSearsch", dateToSearsch);
-		query.setParameter("powerObjectId", powerObjectId);
-		result = query.getResultList();
-		logger.debug("Requested: generator numbers for {} and power station, returned {}.",
-				date, result);
-		
-		return result;
-	}
-	
-	@Override
-	public Float getFrequency(LocalDateTime dateTime, long powerObjectId, int generatorNumber){
-		Float result = null;
-		Date date = Date.valueOf(dateTime.toLocalDate());
-		Time time = Time.valueOf(dateTime.toLocalTime());
-		Query query = em.createQuery(
-				"SELECT e.frequency FROM SavedGeneratorState e"
-				+ " WHERE e.powerObjectDate = :date"
-				+ " AND e.powerObjectTime = :time"
-				+ " AND e.powerObjectId = :powerObjectId"
-				+ " AND e.generatorNumber = :generatorNumber");
-		
-		query.setParameter("date", date);
-		query.setParameter("time", time);
-		query.setParameter("powerObjectId", powerObjectId);
-		query.setParameter("generatorNumber", generatorNumber);
-		
-		try{
-			result = (Float) query.getSingleResult();
-			logger.debug("Requested: midnight frequency for {} power station and generator,"
-					+ " returned {}.",dateTime, result);			
-			return result;
-		}catch(NoResultException e){
-			logger.debug("Requested: midnight frequency for {} power station and generator,"
-				+ " returned {}.",dateTime, Float.NEGATIVE_INFINITY);
-			return Float.NEGATIVE_INFINITY;
-		}
-	}
-	
 	@Override
 	public void saveState(SavedGeneratorState state) {
 		em.persist(state);

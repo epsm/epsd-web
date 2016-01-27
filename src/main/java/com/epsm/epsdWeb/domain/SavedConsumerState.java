@@ -1,5 +1,7 @@
 package com.epsm.epsdWeb.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -18,9 +20,10 @@ import javax.persistence.UniqueConstraint;
 	@AttributeOverride(name="powerObjectDate", column=@Column(name="power_object_date")),
 	@AttributeOverride(name="powerObjectTime", column=@Column(name="power_object_time"))
 })
-public class SavedConsumerState extends SavedPowerObject{
+public class SavedConsumerState extends SavedPowerObject implements Serializable{
+	private static final long serialVersionUID = 2389021731443798690L;
 	
-	@Column(name="load_in_MW")
+	@Column(name="load_in_mw")
 	private float loadInMW;
 
 	public float getLoadInMW() {

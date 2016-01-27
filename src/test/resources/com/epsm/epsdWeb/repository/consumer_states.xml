@@ -1,5 +1,0 @@
-<dataset>
-	<consumer_state id="1" load_in_MW="10" power_object_id="1" power_object_date="2000-09-08" power_object_time="00:00:00" real_timestamp="2000-01-01 00:00:00"/>
-	<consumer_state id="2" load_in_MW="20" power_object_id="2" power_object_date="2000-10-10" power_object_time="00:00:00" real_timestamp="2000-01-01 00:00:00"/>
-	<consumer_state id="3" load_in_MW="23" power_object_id="3" power_object_date="2000-09-08" power_object_time="00:00:00" real_timestamp="2000-01-01 00:00:00"/>
-</dataset>
