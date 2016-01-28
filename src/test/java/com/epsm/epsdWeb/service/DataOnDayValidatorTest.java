@@ -18,15 +18,15 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import com.epsm.epsdWeb.domain.ValueSource;
-import com.epsm.epsdWeb.service.chartDataService.ChartDataOnDayValidator;
+import com.epsm.epsdWeb.service.chartDataService.DataOnDayValidator;
 import com.epsm.epsdWeb.service.chartDataService.ValueSourceOnDayValidator;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChartDataOnDayValidatorTest {
+public class DataOnDayValidatorTest {
 	private Map<String, List<ValueSource>> dataContainer;
 	
 	@InjectMocks
-	private ChartDataOnDayValidator validator;
+	private DataOnDayValidator validator;
 	
 	@Mock
 	private ValueSourceOnDayValidator sourceValidator;

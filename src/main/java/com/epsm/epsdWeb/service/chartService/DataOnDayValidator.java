@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service.chartDataService;
+package com.epsm.epsdWeb.service.chartService;
 
 import java.util.List;
 import java.util.Map;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 import com.epsm.epsdWeb.domain.ValueSource;
 
 @Component
-public class ChartDataOnDayValidator {
+public class DataOnDayValidator {
 	private List<String> necessarySubcontainers;
 	private Map<String, List<ValueSource>> dataContainer;
 	private ValueSourceOnDayValidator sourceValidator;
 	
 	@Autowired
-	public ChartDataOnDayValidator(ValueSourceOnDayValidator sourceValidator, 
+	public DataOnDayValidator(ValueSourceOnDayValidator sourceValidator, 
 			List<String> necessaryDataValues) {
 		
 		this.necessarySubcontainers = necessaryDataValues;

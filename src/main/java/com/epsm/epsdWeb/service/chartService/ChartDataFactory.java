@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service.chartDataService;
+package com.epsm.epsdWeb.service.chartService;
 
 import java.time.LocalDate;
 import java.util.Map;

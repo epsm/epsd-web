@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service.chartDataService;
+package com.epsm.epsdWeb.service.chartService;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
