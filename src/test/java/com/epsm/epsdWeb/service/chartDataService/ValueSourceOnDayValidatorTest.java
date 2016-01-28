@@ -1,5 +1,8 @@
 package com.epsm.epsdWeb.service.chartDataService;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,23 +12,23 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.epsm.epsdWeb.domain.SavedEntity;
+import com.epsm.epsdWeb.domain.ValueSource;
 
-public class DayDataValidatorTest {
-	private DayDataValidator validator= new DayDataValidator();
-	private List<SavedEntity> data = new ArrayList<SavedEntity>();
-	private SavedEntity entry;
+public class ValueSourceOnDayValidatorTest {
+	private ValueSourceOnDayValidator validator= new ValueSourceOnDayValidator();
+	private List<ValueSource> data = new ArrayList<ValueSource>();
+	private ValueSource entry;
 	
 	@Test
 	public void falseIfDataIsNull(){
-		Assert.assertFalse(validator.validateDataOnDay(null));
+		Assert.assertFalse(validator.isDataValid(null));
 	}
 	
 	@Test
 	public void falseIfDataSizeUncorect(){
 		data = Collections.emptyList();
 		
-		Assert.assertFalse(validator.validateDataOnDay(data));
+		Assert.assertFalse(validator.isDataValid(data));
 	}
 	
 	@Test
@@ -33,11 +36,11 @@ public class DayDataValidatorTest {
 		prepareAllDataExceptEntryWithLocalTimeMaxValue();
 		addEntryWithNullPowerObjectTime();
 		
-		Assert.assertFalse(validator.validateDataOnDay(data));
+		Assert.assertFalse(validator.isDataValid(data));
 	}
 	
 	private void addEntryWithNullPowerObjectTime(){
-		entry = new SavedEntity() {};
+		entry = mock(ValueSource.class);
 		data.add(entry);
 	}
 	
@@ -46,15 +49,15 @@ public class DayDataValidatorTest {
 		prepareAllDataExceptEntryWithLocalTimeMaxValue();
 		addEntryWithoutLocalTimeMaxValueToData();
 		
-		Assert.assertFalse(validator.validateDataOnDay(data));
+		Assert.assertFalse(validator.isDataValid(data));
 	}
 	
 	private void prepareAllDataExceptEntryWithLocalTimeMaxValue(){
 		LocalTime pointer = LocalTime.MIN;
 		
 		do{
-			entry = new SavedEntity() {};
-			entry.setPowerObjectTime(Time.valueOf(pointer));
+			entry = mock(ValueSource.class);
+			when(entry.getPowerObjectTime()).thenReturn(Time.valueOf(pointer));
 			data.add(entry);
 			
 			pointer = pointer.plusMinutes(10);
@@ -62,8 +65,8 @@ public class DayDataValidatorTest {
 	}
 	
 	private void addEntryWithoutLocalTimeMaxValueToData(){
-		entry = new SavedEntity() {};
-		entry.setPowerObjectTime(Time.valueOf(LocalTime.of(1, 2, 3, 4)));
+		entry = mock(ValueSource.class);
+		when(entry.getPowerObjectTime()).thenReturn(Time.valueOf(LocalTime.of(1, 2, 3, 4)));
 		data.add(entry);
 	}
 	
@@ -73,18 +76,18 @@ public class DayDataValidatorTest {
 		addEntryWithLocalTimeMaxValueToData();
 		replaceTimeInOneEntryOnInvalid();
 		
-		Assert.assertFalse(validator.validateDataOnDay(data));
+		Assert.assertFalse(validator.isDataValid(data));
 	}
 	
 	private void addEntryWithLocalTimeMaxValueToData(){
-		entry = new SavedEntity() {};
-		entry.setPowerObjectTime(Time.valueOf(LocalTime.MAX));
+		entry = mock(ValueSource.class);
+		when(entry.getPowerObjectTime()).thenReturn(Time.valueOf(LocalTime.MAX));
 		data.add(entry);
 	}
 	
 	private void replaceTimeInOneEntryOnInvalid(){
 		entry = data.get(45);
-		entry.setPowerObjectTime(Time.valueOf(LocalTime.of(5, 5)));
+		when(entry.getPowerObjectTime()).thenReturn(Time.valueOf(LocalTime.of(5, 5)));
 	}
 	
 	@Test
@@ -92,6 +95,6 @@ public class DayDataValidatorTest {
 		prepareAllDataExceptEntryWithLocalTimeMaxValue();
 		addEntryWithLocalTimeMaxValueToData();
 		
-		Assert.assertTrue(validator.validateDataOnDay(data));
+		Assert.assertTrue(validator.isDataValid(data));
 	}
 }

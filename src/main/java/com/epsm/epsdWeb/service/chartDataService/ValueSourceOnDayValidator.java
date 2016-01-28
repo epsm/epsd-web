@@ -1,19 +1,19 @@
 package com.epsm.epsdWeb.service.chartDataService;
 
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
 
-import com.epsm.epsdWeb.domain.SavedEntity;
+import com.epsm.epsdWeb.domain.ValueSource;
 
 @Component
-public class DayDataValidator {
-	List<SavedEntity> data;
-	TreeSet<LocalTime> times = new TreeSet<LocalTime>();
+public class ValueSourceOnDayValidator {
+	private List<ValueSource> data;
+	private HashSet<LocalTime> times = new HashSet<LocalTime>();
 	
-	public boolean validateDataOnDay(List<SavedEntity> data){
+	public boolean isDataValid(List<ValueSource> data){
 		saveData(data);
 		
 		if(isDataNull()){
@@ -38,7 +38,7 @@ public class DayDataValidator {
 		return true;
 	}
 	
-	private void saveData(List<SavedEntity> data){
+	private void saveData(List<ValueSource> data){
 		this.data = data;
 	}
 	
@@ -56,7 +56,7 @@ public class DayDataValidator {
 	}
 	
 	private boolean dataContainsEntryWithNullPowerObjectTime(){
-		for(SavedEntity entry: data){
+		for(ValueSource entry: data){
 			if(entry.getPowerObjectTime() == null){
 				return true;
 			}
@@ -68,7 +68,7 @@ public class DayDataValidator {
 	private void getLocalTimesFromData(){
 		times.clear();
 		
-		for(SavedEntity entry: data){
+		for(ValueSource entry: data){
 			times.add(entry.getPowerObjectTime().toLocalTime());
 		}
 	}

@@ -1,11 +1,10 @@
 package com.epsm.epsdWeb.repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import com.epsm.epsdWeb.domain.TotalGeneration;
+import com.epsm.epsdWeb.domain.ValueSource;
 
 public interface TotalGenerationDao {
-	List<TotalGeneration> getTotalGenerations(LocalDate date);
+	List<ValueSource> getTotalGenerations(LocalDate date);
 }

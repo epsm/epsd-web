@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.epsm.epsdWeb.domain.Frequency;
-import com.epsm.epsdWeb.domain.TotalGeneration;
+import com.epsm.epsdWeb.domain.ValueSource;
 
 @Repository
 public class FrequencyDaoImpl implements FrequencyDao{
@@ -26,8 +26,8 @@ public class FrequencyDaoImpl implements FrequencyDao{
 	private EntityManager em;
 	
 	@Override
-	public List<Frequency> getFrequencies(LocalDate date){
-		List<Frequency> result = getDataOnDate(date);
+	public List<ValueSource> getFrequencies(LocalDate date){
+		List<ValueSource> result = getDataOnDate(date);
 	
 		try{
 			Frequency nextMidnightValue = getDataOnNextMidnight(date);
@@ -42,7 +42,7 @@ public class FrequencyDaoImpl implements FrequencyDao{
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Frequency> getDataOnDate(LocalDate date){
+	private List<ValueSource> getDataOnDate(LocalDate date){
 		Query query = em.createQuery(
 				"SELECT e FROM Frequency e WHERE e.powerObjectDate = :dateToSearsch");
 		
@@ -61,7 +61,7 @@ public class FrequencyDaoImpl implements FrequencyDao{
 		return (Frequency) query.getSingleResult();
 	}
 	
-	private void setNextMidnightValueAsLastValueOnThisDay(List<Frequency> values,
+	private void setNextMidnightValueAsLastValueOnThisDay(List<ValueSource> values,
 			Frequency nextMidnightValue){
 		
 		nextMidnightValue.setPowerObjectTime(Time.valueOf(LocalTime.MAX));

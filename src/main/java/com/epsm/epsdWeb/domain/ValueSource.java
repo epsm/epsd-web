@@ -1,4 +1,4 @@
-package com.epsm.epsdWeb.service.chartDataService;
+package com.epsm.epsdWeb.domain;
 
 import java.sql.Time;
 

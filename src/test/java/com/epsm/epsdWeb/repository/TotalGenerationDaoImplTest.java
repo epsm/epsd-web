@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.epsm.epsdWeb.domain.TotalGeneration;
+import com.epsm.epsdWeb.domain.ValueSource;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
@@ -20,7 +20,7 @@ public class TotalGenerationDaoImplTest extends AbstractDaoTest {
 	@DatabaseSetup(value="total_generation.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetTotalGenerations(){
 		LocalDate date = LocalDate.of(2000, 10, 10);
-		List<TotalGeneration> result = dao.getTotalGenerations(date);
+		List<ValueSource> result = dao.getTotalGenerations(date);
 		
 		Assert.assertEquals(2, result.size());
 	}

@@ -8,8 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.epsm.epsdWeb.service.chartDataService.ValueSource;
-
 @Entity
 @Table(name="total_consumption")
 @AttributeOverrides({

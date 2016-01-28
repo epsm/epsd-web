@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.epsm.epsdWeb.domain.TotalGeneration;
+import com.epsm.epsdWeb.domain.ValueSource;
 
 @Repository
 public class TotalGenerationDaoImpl implements TotalGenerationDao{
@@ -25,8 +26,8 @@ public class TotalGenerationDaoImpl implements TotalGenerationDao{
 	private EntityManager em;
 	
 	@Override
-	public List<TotalGeneration> getTotalGenerations(LocalDate date){
-		List<TotalGeneration> result = getDataOnDate(date);
+	public List<ValueSource> getTotalGenerations(LocalDate date){
+		List<ValueSource> result = getDataOnDate(date);
 	
 		try{
 			TotalGeneration nextMidnightValue = getDataOnNextMidnight(date);
@@ -41,7 +42,7 @@ public class TotalGenerationDaoImpl implements TotalGenerationDao{
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<TotalGeneration> getDataOnDate(LocalDate date){
+	private List<ValueSource> getDataOnDate(LocalDate date){
 		Query query = em.createQuery(
 				"SELECT e FROM TotalGeneration e WHERE e.powerObjectDate = :dateToSearsch");
 		
@@ -60,7 +61,7 @@ public class TotalGenerationDaoImpl implements TotalGenerationDao{
 		return (TotalGeneration) query.getSingleResult();
 	}
 	
-	private void setNextMidnightValueAsLastValueOnThisDay(List<TotalGeneration> values,
+	private void setNextMidnightValueAsLastValueOnThisDay(List<ValueSource> values,
 			TotalGeneration nextMidnightValue){
 		
 		nextMidnightValue.setPowerObjectTime(Time.valueOf(LocalTime.MAX));

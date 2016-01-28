@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.epsm.epsdWeb.domain.TotalConsumption;
+import com.epsm.epsdWeb.domain.ValueSource;
 
 @Repository
 public class TotalConsumptionDaoImpl implements TotalConsumptionDao{
@@ -25,8 +26,8 @@ public class TotalConsumptionDaoImpl implements TotalConsumptionDao{
 	private EntityManager em;
 	
 	@Override
-	public List<TotalConsumption> getTotalConsumptions(LocalDate date){
-		List<TotalConsumption> result = getDataOnDate(date);
+	public List<ValueSource> getTotalConsumptions(LocalDate date){
+		List<ValueSource> result = getDataOnDate(date);
 	
 		try{
 			TotalConsumption nextMidnightValue = getDataOnNextMidnight(date);
@@ -41,7 +42,7 @@ public class TotalConsumptionDaoImpl implements TotalConsumptionDao{
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<TotalConsumption> getDataOnDate(LocalDate date){
+	private List<ValueSource> getDataOnDate(LocalDate date){
 		Query query = em.createQuery(
 				"SELECT e FROM TotalConsumption e WHERE e.powerObjectDate = :dateToSearsch");
 		
@@ -60,7 +61,7 @@ public class TotalConsumptionDaoImpl implements TotalConsumptionDao{
 		return (TotalConsumption) query.getSingleResult();
 	}
 	
-	private void setNextMidnightValueAsLastValueOnThisDay(List<TotalConsumption> values,
+	private void setNextMidnightValueAsLastValueOnThisDay(List<ValueSource> values,
 			TotalConsumption nextMidnightValue){
 		
 		nextMidnightValue.setPowerObjectTime(Time.valueOf(LocalTime.MAX));

@@ -1,6 +1,7 @@
 package com.epsm.epsdWeb.service.chartDataService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,10 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.epsm.epsdWeb.domain.Frequency;
 import com.epsm.epsdWeb.domain.SavedEntity;
-import com.epsm.epsdWeb.domain.TotalConsumption;
-import com.epsm.epsdWeb.domain.TotalGeneration;
+import com.epsm.epsdWeb.domain.ValueSource;
 import com.epsm.epsdWeb.repository.FrequencyDao;
 import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
 import com.epsm.epsdWeb.repository.TotalConsumptionDao;
@@ -23,37 +22,16 @@ import com.epsm.epsdWeb.repository.TotalGenerationDao;
 
 @Service
 public class ChartService {
-	private volatile Map<String, String> chartsData;
-	private volatile LocalDate currentChartsDataDate;
-	private DayDataValidator validator;
-	private List<SavedEntity> frequencyData;
-	private List<SavedEntity> geneartionData;
-	private List<SavedEntity> consumptionData;
-	private Logger logger;
+	private volatile Map<String, String> chartsData = Collections.emptyMap();
+	private volatile LocalDate currentChartsDataDate = LocalDate.MIN;
+	private LocalDate lastAvaibleDate;
+	private Logger logger = LoggerFactory.getLogger(ChartService.class);
+
+	@Autowired
+	private AvaibleDateSource dateSource;
 	
 	@Autowired
-	private SavedGeneratorStateDao generatorDao;
-	
-	@Autowired
-	private FrequencyDao frequencyDao;
-	
-	@Autowired
-	private TotalGenerationDao generationDao;
-	
-	@Autowired
-	private TotalConsumptionDao consumptionDao;
-	
-	@Autowired
-	private DayDataValidator frequencyDataSource;
-	
-	public ChartService(){
-		chartsData = new HashMap<String, String>();
-		currentChartsDataDate = LocalDate.MIN;
-		validator = new DayDataValidator();
-		logger = LoggerFactory.getLogger(ChartService.class);
-		
-		chartsData.put("date", "still no information");
-	}
+	private ChartDataFactory factory;
 	
 	public Map<String, String> getDataForCharts(){
 		if(isChartsDataOutdated()){
@@ -66,92 +44,36 @@ public class ChartService {
 	}
 	
 	private boolean isChartsDataOutdated(){
-		return currentChartsDataDate.isBefore(getLastFullDayFromDB());
+		getLastAvaibleDate();
+		
+		return currentChartsDataDate.isBefore(lastAvaibleDate);
 	}
 	
-	private LocalDate getLastFullDayFromDB(){
-		LocalDate lastEntryInDatabase = generatorDao.getLastEntryDate();
-		
-		if(lastEntryInDatabase == null || lastEntryInDatabase.equals(LocalDate.MIN)){
-			return LocalDate.MIN;
-		}else{
-			return lastEntryInDatabase.minusDays(1);
-		}
+	private void getLastAvaibleDate(){
+		lastAvaibleDate = dateSource.getLastAvaibleDate();
 	}
 	
 	private synchronized void refreshChartsData(){
 		logger.debug("Invoked: refreshChartsData()");
 		
-		if(! isChartsDataOutdated()){
-			logger.debug("Invoked: chartData isn't out of date in refreshChartsData()");
+		if(! isChartsDataStillOutdated()){
+			return;
+		}
+
+		Map<String, String> newChartsData = factory.getChartsData(lastAvaibleDate);
+		
+		if(newChartsData.size() == 0){
 			return;
 		}
 		
-		logger.debug("Invoked: chartData is out of date in refreshChartsData()");
-		
-		LocalDate freshDate = getLastFullDayFromDB();
-		
-		if(!isChartDataOnDateValid(freshDate)){
-			return;
-		}
-		
-		chartsData = createNewChartData(freshDate);
-		refreshCurrentChartsDataDate(freshDate);
+		chartsData = newChartsData;
+		refreshCurrentChartsDataDate(lastAvaibleDate);
 	}
 	
-	private boolean isChartDataOnDateValid(LocalDate date){
-		frequencyData = castSubToParent(frequencyDao.getFrequencies(date));
-		
-		if(!validator.validateDataOnDay(frequencyData)){
-			return false;
-		}
-		
-		geneartionData = castSubToParent(generationDao.getTotalGenerations(date));
-		
-		if(!validator.validateDataOnDay(geneartionData)){
-			return false;
-		}
-		
-		consumptionData = castSubToParent(consumptionDao.getTotalConsumptions(date));
-		
-		if(!validator.validateDataOnDay(consumptionData)){
-			return false;
-		}
-		
-		return true;
+	private boolean isChartsDataStillOutdated(){
+		return lastAvaibleDate.equals(LocalDate.MIN) 
+				|| currentChartsDataDate.isBefore(lastAvaibleDate);
 	}
-	
-	private List<SavedEntity> castSubToParent(List<? extends SavedEntity> toCast){
-		ArrayList<SavedEntity> casted = new ArrayList<SavedEntity>();
-		
-		for(SavedEntity entry: toCast){
-			casted.add(entry);
-		}
-		
-		return casted;
-	}
-	
-	private Map<String, String> createNewChartData(LocalDate freshDate){
-		Map<String, String> chartsData = new HashMap<String, String>();
-		
-		addDate(freshDate, chartsData);
-		addFrequencyChartData(freshDate, chartsData);
-		
-		return chartsData;
-	}
-	
-	private void addDate(LocalDate date, Map<String, String> chartsData){
-		chartsData.put("date", date.toString());
-	}
-	
-	private void addFrequencyChartData(LocalDate freshDate, Map<String, String> chartsData){
-		ChartData frequencyChartData = frequencyDataSource.getChartData(freshDate);
-		chartsData.put("frequencyChartData", frequencyChartData.toString());
-		
-		logger.debug("Invoked: addFrequencyChartData(...), added {}", frequencyChartData);
-	}
-	
-	private ChartData getChartData();
 	
 	private void refreshCurrentChartsDataDate(LocalDate freshDate){
 		currentChartsDataDate = freshDate;
