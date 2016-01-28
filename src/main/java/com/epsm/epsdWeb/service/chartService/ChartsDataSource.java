@@ -17,8 +17,8 @@ import com.epsm.epsdWeb.repository.TotalConsumptionDao;
 import com.epsm.epsdWeb.repository.TotalGenerationDao;
 
 @Component
-public class DataForChartSource {
-	private DataForCharts dataForCharts;
+public class ChartsDataSource {
+	private ChartsData dataForCharts;
 	private LocalDate lastValidDate;
 	private Map<String, List<ValueSource>> dataContainer;
 	private List<Date> avaibleDates;
@@ -36,15 +36,15 @@ public class DataForChartSource {
 	private TotalConsumptionDao consumptionDao;
 	
 	@Autowired
-	private DataOnDayValidator validator;
+	private DayChartsDataValidator validator;
 	
-	public DataForChartSource(){
-		dataForCharts = new DataForCharts(LocalDate.MIN, Collections.emptyMap());
+	public ChartsDataSource(){
+		dataForCharts = new ChartsData(LocalDate.MIN, Collections.emptyMap());
 		lastValidDate = LocalDate.MIN;
 		dataContainer = new HashMap<String, List<ValueSource>>();
 	}
 	
-	public synchronized DataForCharts getData(){
+	public synchronized ChartsData getData(){
 		getDates();
 		
 		if(avaibleDates != null){
@@ -107,7 +107,7 @@ public class DataForChartSource {
 	}
 	
 	private void createNewDataForCharts(){
-		dataForCharts = new DataForCharts(lastValidDate, dataContainer);
+		dataForCharts = new ChartsData(lastValidDate, dataContainer);
 	}
 	
 	private void saveLastValidDate(Date date){

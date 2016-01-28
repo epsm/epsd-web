@@ -17,7 +17,7 @@ public class AvaibleDate {
 	@Column(name="id")
 	private long id;
 	
-	@Column(name="power_object_date", nullable=false)
+	@Column(name="power_object_date", updatable=false)
 	private Date date;
 	
 	public Date getDate(){

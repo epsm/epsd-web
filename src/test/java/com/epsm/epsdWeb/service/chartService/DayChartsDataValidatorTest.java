@@ -1,45 +1,31 @@
-package com.epsm.epsdWeb.service;
+package com.epsm.epsdWeb.service.chartService;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.epsm.epsdWeb.domain.ValueSource;
-import com.epsm.epsdWeb.service.chartService.DataOnDayValidator;
-import com.epsm.epsdWeb.service.chartService.ValueSourceOnDayValidator;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DataOnDayValidatorTest {
+public class DayChartsDataValidatorTest {
 	private Map<String, List<ValueSource>> dataContainer;
 	
 	@InjectMocks
-	private DataOnDayValidator validator;
+	private DayChartsDataValidator validator;
 	
 	@Mock
-	private ValueSourceOnDayValidator sourceValidator;
-	
-	@Spy
-	private ArrayList<String> necessaryDataValues;
-	
-	@Before
-	public void setUp(){
-		necessaryDataValues.add("value_1");
-		necessaryDataValues.add("value_2");
-	}
+	private DayChartDataValidator sourceValidator;
 	
 	@Test
 	public void falseIfContainerIsNull(){
@@ -55,7 +41,7 @@ public class DataOnDayValidatorTest {
 	
 	private void prepareContainerWithoutAllSubcontainers(){
 		dataContainer = new HashMap<String, List<ValueSource>>();
-		dataContainer.put("value_1", Collections.emptyList());
+		dataContainer.put("frequency", Collections.emptyList());
 	}
 	
 	@Test
@@ -67,8 +53,9 @@ public class DataOnDayValidatorTest {
 	
 	private void prepareContainerWithAllNullSubcontainers(){
 		dataContainer = new HashMap<String, List<ValueSource>>();
-		dataContainer.put("value_1", null);
-		dataContainer.put("value_2", null);
+		dataContainer.put("frequency", null);
+		dataContainer.put("generation", null);
+		dataContainer.put("consumption", null);
 	}
 	
 	@Test
@@ -81,8 +68,9 @@ public class DataOnDayValidatorTest {
 	
 	private void prepareContainerWithAllSubcontainers(){
 		dataContainer = new HashMap<String, List<ValueSource>>();
-		dataContainer.put("value_1", Collections.emptyList());
-		dataContainer.put("value_2", Collections.emptyList());
+		dataContainer.put("frequency", Collections.emptyList());
+		dataContainer.put("generation", Collections.emptyList());
+		dataContainer.put("consumption", Collections.emptyList());
 	}
 	
 	private void prepareContainerWithoutAllDataInSubcontainers(){

@@ -8,11 +8,11 @@ import java.util.Map;
 
 import com.epsm.epsdWeb.domain.ValueSource;
 
-public class DataForCharts {
+public class ChartsData {
 	private LocalDate onDate;
 	private Map<String, List<ValueSource>> data;
 	
-	public DataForCharts(LocalDate onDate, Map<String, List<ValueSource>> data){
+	public ChartsData(LocalDate onDate, Map<String, List<ValueSource>> data){
 		if(onDate == null){
 			String message = "DataForCharts constructor: date can't be null";
 			throw new IllegalArgumentException(message);
@@ -31,7 +31,7 @@ public class DataForCharts {
 		if(dataToReturn == null){
 			return Collections.emptyList();
 		}else{
-			return Collections.unmodifiableList(dataToReturn);
+			return dataToReturn;
 		}
 	}
 	

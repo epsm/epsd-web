@@ -2,7 +2,6 @@ package com.epsm.epsdWeb.repository;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,7 +24,7 @@ public class AvaibleDateDaoImpl implements AvaibleDateDao{
 	@Override
 	public List<Date> getDates(){
 		List<AvaibleDate> objects = getObjects();
-		List<Date> dates = Collections.unmodifiableList(convertToDates(objects));
+		List<Date> dates = convertToDates(objects);
 		
 		logger.debug("Invoked: getEntry(), returnded {}.", dates);
 		

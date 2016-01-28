@@ -1,7 +1,7 @@
 package com.epsm.epsdWeb.service.chartService;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,60 +11,70 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChartService {
-	private volatile Map<String, String> chartsData = Collections.emptyMap();
-	private volatile LocalDate currentChartsDataDate = LocalDate.MIN;
-	private LocalDate lastAvaibleDate;
-	private Logger logger = LoggerFactory.getLogger(ChartService.class);
+	private ChartsData data;
+	private Map<String, String> charts;
+	private LocalDate chartsDate;
+	private Logger logger;
 
 	@Autowired
-	private DataForChartSource dateSource;
+	private ChartsDataSource dataSource;
 	
 	@Autowired
-	private ChartDataFactory factory;
+	private ValuesConverter converter;
+	
+	public ChartService(){
+		charts = new HashMap<String, String>();
+		chartsDate = LocalDate.MIN;
+		logger = LoggerFactory.getLogger(ChartService.class);
+		
+		charts.put("date", "no data");
+	}
 	
 	public Map<String, String> getDataForCharts(){
-		if(isChartsDataOutdated()){
-			refreshChartsData();
+		getData();
+		
+		if(data == null){
+			return charts;
 		}
 		
-		logger.info("Invoked: getDataForCharts(), returned {}.", chartsData);
+		if(isChartsDataOutdated()){
+			refreshCharts();
+		}
 		
-		return Collections.unmodifiableMap(chartsData);
+		logger.debug("Invoked: getDataForCharts(), returned {}.", charts);
+		
+		return charts;
+	}
+	
+	private void getData(){
+		data = dataSource.getData();
 	}
 	
 	private boolean isChartsDataOutdated(){
-		getLastAvaibleDate();
-		
-		return currentChartsDataDate.isBefore(lastAvaibleDate);
+		return chartsDate.isBefore(data.getDate());
 	}
 	
-	private void getLastAvaibleDate(){
-		lastAvaibleDate = dateSource.getData();
+	private void refreshCharts(){
+		clearCharts();
+		createNewCharts();
+		refreshChartDate();
 	}
 	
-	private synchronized void refreshChartsData(){
-		logger.debug("Invoked: refreshChartsData()");
-		
-		if(! isChartsDataStillOutdated()){
-			return;
-		}
-
-		Map<String, String> newChartsData = factory.getChartsData(lastAvaibleDate);
-		
-		if(newChartsData.size() == 0){
-			return;
-		}
-		
-		chartsData = newChartsData;
-		refreshCurrentChartsDataDate(lastAvaibleDate);
+	private void clearCharts(){
+		charts.clear();
 	}
 	
-	private boolean isChartsDataStillOutdated(){
-		return lastAvaibleDate.equals(LocalDate.MIN) 
-				|| currentChartsDataDate.isBefore(lastAvaibleDate);
+	private void createNewCharts(){
+		String frequency = converter.convert(data.getData("frequency"));
+		String generation = converter.convert(data.getData("generation"));
+		String consumption = converter.convert(data.getData("consumption"));
+		charts.put("frequencyChartData", frequency);
+		charts.put("generationChartData", generation);
+		charts.put("consumptionChartData", consumption);
+		charts.put("date", data.getDate().toString());
 	}
 	
-	private void refreshCurrentChartsDataDate(LocalDate freshDate){
-		currentChartsDataDate = freshDate;
+	private void refreshChartDate(){
+		chartsDate = data.getDate();
 	}
 }

@@ -26,10 +26,10 @@ import com.epsm.epsdWeb.repository.TotalConsumptionDao;
 import com.epsm.epsdWeb.repository.TotalGenerationDao;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DataForChartSourceTest {
+public class ChartsDataSourceTest {
 	
 	@InjectMocks
-	private DataForChartSource dataSource;
+	private ChartsDataSource dataSource;
 	
 	@Mock
 	private AvaibleDateDao dateDao;
@@ -44,7 +44,7 @@ public class DataForChartSourceTest {
 	private TotalConsumptionDao consumptionDao;
 	
 	@Mock
-	private DataOnDayValidator validator;
+	private DayChartsDataValidator validator;
 	
 	private ValueSource frequency = mock(ValueSource.class);
 	private ValueSource generation = mock(ValueSource.class);
@@ -128,7 +128,7 @@ public class DataForChartSourceTest {
 		prepareDataSet();
 		makeValidatorAnswerTrue();
 		
-		DataForCharts data = dataSource.getData();
+		ChartsData data = dataSource.getData();
 		
 		Assert.assertEquals(getLocalDateAsMaxValueOfSQLDate(), data.getDate());
 		Assert.assertTrue(data.getData("frequency").contains(frequency));
@@ -142,12 +142,12 @@ public class DataForChartSourceTest {
 	
 	@Test
 	public void returnsOldDataForChartsIfWrongDataRetrieved(){
-		DataForCharts existData = dataSource.getData();
+		ChartsData existData = dataSource.getData();
 		prepareFreshDate();
 		prepareDataSet();
 		makeValidatorAnswerFalse();
 		
-		DataForCharts newData = dataSource.getData();
+		ChartsData newData = dataSource.getData();
 		
 		Assert.assertTrue(existData == newData);
 	}

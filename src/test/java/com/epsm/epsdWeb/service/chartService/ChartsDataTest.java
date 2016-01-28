@@ -14,8 +14,8 @@ import org.junit.rules.ExpectedException;
 
 import com.epsm.epsdWeb.domain.ValueSource;
 
-public class DataForChartsTest {
-	private DataForCharts dataForCharts;
+public class ChartsDataTest {
+	private ChartsData dataForCharts;
 	private Map<String, List<ValueSource>> data;
 	private List<ValueSource> values;
 	private LocalDate onDate = LocalDate.MIN;
@@ -28,7 +28,7 @@ public class DataForChartsTest {
 		expectedEx.expect(IllegalArgumentException.class);
 	    expectedEx.expectMessage("DataForCharts constructor: date can't be null");
 		
-		new DataForCharts(null, Collections.emptyMap());
+		new ChartsData(null, Collections.emptyMap());
 	}
 	
 	@Test
@@ -36,7 +36,7 @@ public class DataForChartsTest {
 		expectedEx.expect(IllegalArgumentException.class);
 	    expectedEx.expectMessage("DataForCharts constructor: onData can't be null");
 	    
-		new DataForCharts(onDate, null);
+		new ChartsData(onDate, null);
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ public class DataForChartsTest {
 	
 	private void prepareChartDataWithoutExistData(){
 		data = new HashMap<String, List<ValueSource>>();
-		dataForCharts = new DataForCharts(onDate, data);
+		dataForCharts = new ChartsData(onDate, data);
 	}
 	
 	@Test
@@ -63,6 +63,6 @@ public class DataForChartsTest {
 		values = new ArrayList<ValueSource>();
 		data.put("SomeChart", values);
 		
-		dataForCharts = new DataForCharts(onDate, data);
+		dataForCharts = new ChartsData(onDate, data);
 	}
 }

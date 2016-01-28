@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.epsm.epsdWeb.domain.ValueSource;
 
 @Component
-public class ValueSourceOnDayValidator {
+public class DayChartDataValidator {
 	private List<ValueSource> data;
 	private HashSet<LocalTime> times = new HashSet<LocalTime>();
 	

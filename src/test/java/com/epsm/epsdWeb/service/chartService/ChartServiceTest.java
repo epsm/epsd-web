@@ -1,155 +1,90 @@
 package com.epsm.epsdWeb.service.chartService;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.Time;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 
-import com.epsm.epsdWeb.repository.SavedGeneratorStateDao;
+import com.epsm.epsdWeb.domain.ValueSource;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChartServiceTest {
-
+	private Map<String, String> charts;
+	private ValueSource frequency = mock(ValueSource.class);
+	private ValueSource generation = mock(ValueSource.class);
+	private ValueSource consumption = mock(ValueSource.class);
+	
 	@InjectMocks
 	private ChartService service;
 	
 	@Mock
-	private SavedGeneratorStateDao generatorDao;
+	private ChartsDataSource dataSource;
+
+	@Spy
+	private ValuesConverter converter;
 	
-	@Mock
-	private ValueSourceOnDayValidator frequencyDataSource;
-	
-	@Before
-	public void setUp(){
-		when(frequencyDataSource.getChartData(isA(LocalDate.class))).thenReturn(new ChartData(null));
+	@Test
+	public void returnMapWithOnlyOneParameterDateEqualsToNoData(){
+		charts = service.getDataForCharts();
+		
+		Assert.assertEquals(1, charts.size());
+		Assert.assertEquals("no data", charts.get("date"));
 	}
 	
 	@Test
-	public void triesToGetFreshestDataForCharts(){
+	public void triesToGetData(){
 		service.getDataForCharts();
 		
-		verify(generatorDao, atLeastOnce()).getLastEntryDate();
+		verify(dataSource).getData();
 	}
 	
 	@Test
-	public void triesToRefreshFrequencyChartDataIfDatabaseHasMoreFreshesData(){
-		prepareDataBaseWithFreshData();
+	public void doesNotCreateNewChartsIfTheyWereCreatedPreviouslyAndThereIsNoNewData(){
+		makeDataSourceGiveData();
+		Map<String, String> charts_old = service.getDataForCharts();
 		
-		service.getDataForCharts();
+		Map<String, String> charts_new = service.getDataForCharts();
 		
-		verify(frequencyDataSource).getChartData(isA(LocalDate.class));
+		Assert.assertTrue(charts_old == charts_new);
 	}
 	
-	private void prepareDataBaseWithFreshData(){
-		when(generatorDao.getLastEntryDate()).thenReturn(LocalDate.MAX);
-	}
-	
-	@Test
-	public void doesNottriesToRefreshFrequencyChartDataIfDatabaseDoesNotHaveMoreFreshesData(){
-		prepareDataBaseWithOldData();
-		
-		service.getDataForCharts();
-		
-		verify(frequencyDataSource, never()).getChartData(isA(LocalDate.class));
-	}
-	
-	private void prepareDataBaseWithOldData(){
-		when(generatorDao.getLastEntryDate()).thenReturn(LocalDate.MIN);
-	}
-	
-	@Test
-	public void refreshChartsDataMethodRefreshesDataOnlyOnceForNewData() throws InterruptedException{
-		prepareDataBaseWithFreshData();
-		makeFrequencyDataSourceMakePausesBeforeReturnChartData();
-		
-		runMethodConcurrently();
-		
-		verify(frequencyDataSource).getChartData(any());
-	}
-	
-	private void makeFrequencyDataSourceMakePausesBeforeReturnChartData(){
-		when(frequencyDataSource.getChartData(isA(LocalDate.class))).thenAnswer(new Answer<ChartData>() {
-			@Override
-			public ChartData answer(InvocationOnMock invocation) throws InterruptedException{
-				Thread.sleep(100);
-				return new ChartData(null);
-			}
-		});
-	}
-	
-	private void runMethodConcurrently() throws InterruptedException{
-		List<Thread> threadsList = new ArrayList<Thread>();
-		
-		for(int i = 0; i < 1_000; i++){
-			Thread thread = new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					service.getDataForCharts();
-				}
-			});
-			
-			threadsList.add(thread);
-		}
-		
-		for(Thread thread: threadsList){
-			thread.start();
-		}
-		
-		for(Thread thread: threadsList){
-			thread.join();
-		}
+	private void makeDataSourceGiveData(){
+		ChartsData data = mock(ChartsData.class);
+		when(frequency.getPowerObjectTime()).thenReturn(Time.valueOf("10:10:00"));
+		when(generation.getPowerObjectTime()).thenReturn(Time.valueOf("11:11:00"));
+		when(consumption.getPowerObjectTime()).thenReturn(Time.valueOf("12:12:00"));
+		when(frequency.getValue()).thenReturn(11.11f);
+		when(generation.getValue()).thenReturn(22.22f);
+		when(consumption.getValue()).thenReturn(33.33f);
+		when(data.getData("frequency")).thenReturn(Arrays.asList(frequency));
+		when(data.getData("generation")).thenReturn(Arrays.asList(generation));
+		when(data.getData("consumption")).thenReturn(Arrays.asList(consumption));
+		when(data.getDate()).thenReturn(LocalDate.MAX);
+		when(dataSource.getData()).thenReturn(data);
 	}
 	
 	@Test
-	public void putsFrequencyChartDataToMap(){
-		prepareDataBaseWithFreshData();
-		prepareFrequencyDataSourceReturnsChartDataWithExpectedToStringResult();
-		Map<String, String> chartsData= service.getDataForCharts();
-		String frequencyData = chartsData.get("frequencyChartData");
+	public void makesCorrectChartsIfDataObtained(){
+		makeDataSourceGiveData();
 		
-		Assert.assertEquals("target", frequencyData);
-	}
-	
-	private void prepareFrequencyDataSourceReturnsChartDataWithExpectedToStringResult(){
-		ChartData chartData = mock(ChartData.class);
-		when(chartData.toString()).thenReturn("target");
-		when(frequencyDataSource.getChartData(any())).thenReturn(chartData);
-	}
-	
-	@Test
-	public void putsRetrievedDateDataToMap(){
-		prepareDataBaseWithFreshData();
-		prepareFrequencyDataSourceReturnsChartDataWithExpectedToStringResult();
-		Map<String, String> chartsData= service.getDataForCharts();
-		String dateMessage = chartsData.get("date");
+		charts = service.getDataForCharts();
 		
-		Assert.assertEquals(LocalDate.MAX.minusDays(1).toString(), dateMessage);
-	}
-	
-	@Test
-	public void putsDefaultDateMessageToMap(){
-		Map<String, String> chartsData= service.getDataForCharts();
-		String dateMessage = chartsData.get("date");
-		
-		Assert.assertEquals("still no information", dateMessage);
+		Assert.assertEquals(4, charts.size());
+		Assert.assertEquals("[[[10,10], 11.11]]", charts.get("frequencyChartData"));
+		Assert.assertEquals("[[[11,11], 22.22]]", charts.get("generationChartData"));
+		Assert.assertEquals("[[[12,12], 33.33]]", charts.get("consumptionChartData"));
+		Assert.assertEquals("+999999999-12-31", charts.get("date"));
 	}
 }

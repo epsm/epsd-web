@@ -1,5 +1,6 @@
 package com.epsm.epsdWeb.repository;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -17,6 +18,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 @TestExecutionListeners({DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class,	DirtiesContextTestExecutionListener.class,})
 @Transactional
+@Ignore
 public class AbstractDaoTest{
 
 }

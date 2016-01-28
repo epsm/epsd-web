@@ -9,7 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.epsm.epsdWeb.service.chartDataService.ChartService;
+import com.epsm.epsdWeb.service.chartService.ChartService;
 
 @Controller
 @RequestMapping("/history")
@@ -31,8 +31,7 @@ public class HistoryPageController{
 	private void obtainAllNecessaryParameters(ModelMap model){
 		Map<String, String> chartsData = service.getDataForCharts();
 		
-		model.put("frequencyChartData", chartsData.get("frequencyChartData"));
-		model.put("date", chartsData.get("date"));
+		model.putAll(chartsData);
 		model.put("modelUrl", modelUrl);
 	}
 }

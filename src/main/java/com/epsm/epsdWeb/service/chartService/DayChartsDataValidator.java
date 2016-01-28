@@ -1,5 +1,6 @@
 package com.epsm.epsdWeb.service.chartService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,17 +10,15 @@ import org.springframework.stereotype.Component;
 import com.epsm.epsdWeb.domain.ValueSource;
 
 @Component
-public class DataOnDayValidator {
+public class DayChartsDataValidator {
 	private List<String> necessarySubcontainers;
 	private Map<String, List<ValueSource>> dataContainer;
-	private ValueSourceOnDayValidator sourceValidator;
+	private DayChartDataValidator sourceValidator;
 	
 	@Autowired
-	public DataOnDayValidator(ValueSourceOnDayValidator sourceValidator, 
-			List<String> necessaryDataValues) {
-		
-		this.necessarySubcontainers = necessaryDataValues;
+	public DayChartsDataValidator(DayChartDataValidator sourceValidator) {
 		this.sourceValidator = sourceValidator;
+		necessarySubcontainers = Arrays.asList("frequency", "generation", "consumption");
 	}
 	
 	public boolean isDataValid(Map<String, List<ValueSource>> dataContainer){

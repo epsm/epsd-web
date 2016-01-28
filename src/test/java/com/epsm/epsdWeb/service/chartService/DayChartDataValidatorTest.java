@@ -14,8 +14,8 @@ import org.junit.Test;
 
 import com.epsm.epsdWeb.domain.ValueSource;
 
-public class ValueSourceOnDayValidatorTest {
-	private ValueSourceOnDayValidator validator= new ValueSourceOnDayValidator();
+public class DayChartDataValidatorTest {
+	private DayChartDataValidator validator= new DayChartDataValidator();
 	private List<ValueSource> data = new ArrayList<ValueSource>();
 	private ValueSource entry;
 	
