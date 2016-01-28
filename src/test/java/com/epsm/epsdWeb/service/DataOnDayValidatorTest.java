@@ -1,5 +1,8 @@
 package com.epsm.epsdWeb.service;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,12 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
 
 import com.epsm.epsdWeb.domain.ValueSource;
-import com.epsm.epsdWeb.service.chartDataService.DataOnDayValidator;
-import com.epsm.epsdWeb.service.chartDataService.ValueSourceOnDayValidator;
+import com.epsm.epsdWeb.service.chartService.DataOnDayValidator;
+import com.epsm.epsdWeb.service.chartService.ValueSourceOnDayValidator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataOnDayValidatorTest {

@@ -17,7 +17,7 @@ public class ChartService {
 	private Logger logger = LoggerFactory.getLogger(ChartService.class);
 
 	@Autowired
-	private AvaibleDateSource dateSource;
+	private DataForChartSource dateSource;
 	
 	@Autowired
 	private ChartDataFactory factory;
@@ -39,7 +39,7 @@ public class ChartService {
 	}
 	
 	private void getLastAvaibleDate(){
-		lastAvaibleDate = dateSource.getLastAvaibleDate();
+		lastAvaibleDate = dateSource.getData();
 	}
 	
 	private synchronized void refreshChartsData(){
