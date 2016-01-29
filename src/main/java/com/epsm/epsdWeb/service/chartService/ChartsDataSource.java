@@ -65,7 +65,7 @@ public class ChartsDataSource {
 	}
 	
 	private void sortDates(){
-		Collections.sort(avaibleDates);
+		Collections.reverse(avaibleDates);
 	}
 	
 	private void verifyDataOnEveryDate(){
