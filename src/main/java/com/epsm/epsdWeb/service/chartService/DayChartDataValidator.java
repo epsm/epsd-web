@@ -25,7 +25,7 @@ public class DayChartDataValidator {
 			return false;
 		}
 		if(isDataSizeUncorrect()){
-			logger.debug("Validated: data is incorrect ({});", data.size());
+			logger.debug("Validated: data size ({}) isn't correct.", data.size());
 			return false;
 		}
 		if(dataContainsEntryWithNullPowerObjectTime()){
