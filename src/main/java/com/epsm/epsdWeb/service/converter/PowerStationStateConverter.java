@@ -10,7 +10,7 @@ import com.epsm.epsdWeb.domain.SavedGeneratorState;
 import com.epsm.epsmCore.model.generation.GeneratorState;
 import com.epsm.epsmCore.model.generation.PowerStationState;
 
-@Component
+@Component("powstConverter")//name for WildFly, on Tomcat no problem
 public class PowerStationStateConverter extends SavedPowerObjectConverter<PowerStationState>{
 	private List<SavedGeneratorState> convertedStates;
 	private float frequency;

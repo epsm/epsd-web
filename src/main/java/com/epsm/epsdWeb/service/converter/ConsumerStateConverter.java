@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.epsm.epsdWeb.domain.SavedConsumerState;
 import com.epsm.epsmCore.model.consumption.ConsumerState;
 
-@Component
+@Component("consStateConverter")//name for WildFly, on Tomcat no problem
 public class ConsumerStateConverter extends SavedPowerObjectConverter<ConsumerState>{
 	private float load;
 	private SavedConsumerState convertedState;
