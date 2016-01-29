@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.epsm.epsdWeb.domain.ValueSource;
@@ -21,6 +23,8 @@ public class ValuesConverter{
 	private float floatValue;
 	private DateTimeFormatter dateFormatter;
 	private DecimalFormat numberFormatter;
+	private String result;
+	private Logger logger = LoggerFactory.getLogger(ValuesConverter.class);
 
 	public ValuesConverter() {
 		builder = new StringBuilder();
@@ -30,6 +34,7 @@ public class ValuesConverter{
 	
 	public String convert(List<ValueSource> values){
 		if(values == null){
+			logger.debug("Converted: got null instead List<ValueSource>.");
 			return "";
 		}
 		
@@ -37,8 +42,10 @@ public class ValuesConverter{
 		resetState();
 		sortValues();
 		makeConvertation();
+		getResult();
+		logger.debug("Converted: {} values", values.size());
 
-		return builder.toString();
+		return result;
 	}
 	
 	private void saveValues(List<ValueSource> values){
@@ -87,5 +94,9 @@ public class ValuesConverter{
 	
 	private boolean isTimeValueMax(LocalTime time){
 		return time.equals(Time.valueOf(LocalTime.MAX).toLocalTime());
+	}
+	
+	private void getResult(){
+		result = builder.toString();
 	}
 }

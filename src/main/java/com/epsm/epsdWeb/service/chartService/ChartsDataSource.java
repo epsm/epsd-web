@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +20,11 @@ import com.epsm.epsdWeb.repository.TotalGenerationDao;
 
 @Component
 public class ChartsDataSource {
-	private ChartsData dataForCharts;
+	private ChartsData chartsData;
 	private LocalDate lastValidDate;
 	private Map<String, List<ValueSource>> dataContainer;
 	private List<Date> avaibleDates;
+	private Logger logger;
 	
 	@Autowired
 	private AvaibleDateDao dateDao;
@@ -39,9 +42,10 @@ public class ChartsDataSource {
 	private DayChartsDataValidator validator;
 	
 	public ChartsDataSource(){
-		dataForCharts = new ChartsData(LocalDate.MIN, Collections.emptyMap());
+		chartsData = new ChartsData(LocalDate.MIN, Collections.emptyMap());
 		lastValidDate = LocalDate.MIN;
 		dataContainer = new HashMap<String, List<ValueSource>>();
+		logger = LoggerFactory.getLogger(ChartsDataSource.class);
 	}
 	
 	public synchronized ChartsData getData(){
@@ -52,7 +56,8 @@ public class ChartsDataSource {
 			verifyDataOnEveryDate();
 		}
 		
-		return dataForCharts;
+		logger.debug("Requested: ChartsData, returned {}.", chartsData);
+		return chartsData;
 	}
 	
 	private void getDates(){
@@ -71,7 +76,7 @@ public class ChartsDataSource {
 			
 			getDataOnDate(date);
 			
-			if(isDataOnDateValid()){
+			if(isDataOnDateValid(date)){
 				saveLastValidDate(date);
 				createNewDataForCharts();
 				break;
@@ -80,7 +85,10 @@ public class ChartsDataSource {
 	}
 	
 	private boolean isDataOnDateExist(Date date){
-		return lastValidDate.equals(date.toLocalDate());
+		boolean exist = lastValidDate.equals(date.toLocalDate());
+		logger.debug("Invoked: isDataOnDateExist({}) {}.", date, exist);
+		
+		return exist;
 	}
 	
 	private void getDataOnDate(Date date){
@@ -102,12 +110,15 @@ public class ChartsDataSource {
 		dataContainer.put("consumption", consumptionData);
 	}
 	
-	private boolean isDataOnDateValid(){
-		return validator.isDataValid(dataContainer);
+	private boolean isDataOnDateValid(Date date){
+		boolean valid = validator.isDataValid(dataContainer);
+		logger.debug("Invoked: isDataOnDateValid({}) {}.", date, valid);
+		
+		return valid;
 	}
 	
 	private void createNewDataForCharts(){
-		dataForCharts = new ChartsData(lastValidDate, dataContainer);
+		chartsData = new ChartsData(lastValidDate, dataContainer);
 	}
 	
 	private void saveLastValidDate(Date date){

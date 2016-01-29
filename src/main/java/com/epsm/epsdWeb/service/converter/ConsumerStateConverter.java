@@ -1,5 +1,7 @@
 package com.epsm.epsdWeb.service.converter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.epsm.epsdWeb.domain.SavedConsumerState;
@@ -9,6 +11,7 @@ import com.epsm.epsmCore.model.consumption.ConsumerState;
 public class ConsumerStateConverter extends SavedPowerObjectConverter<ConsumerState>{
 	private float load;
 	private SavedConsumerState convertedState;
+	private Logger logger = LoggerFactory.getLogger(ConsumerStateConverter.class);
 	
 	public synchronized SavedConsumerState convert(ConsumerState consumerState) {
 		saveSource(consumerState);
@@ -17,6 +20,7 @@ public class ConsumerStateConverter extends SavedPowerObjectConverter<ConsumerSt
 		createSavedConsumerState();
 		fillGeneralFields(convertedState);
 		fillOutLoadField();
+		logger.debug("Converted: ConsumerState to SavedConsumerState.");
 		
 		return convertedState;
 	}

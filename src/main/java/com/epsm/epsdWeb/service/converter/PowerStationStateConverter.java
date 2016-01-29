@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.epsm.epsdWeb.domain.SavedGeneratorState;
@@ -17,6 +19,7 @@ public class PowerStationStateConverter extends SavedPowerObjectConverter<PowerS
 	private int generatorNumber;
 	private float generationInMW;
 	private SavedGeneratorState convertedState;
+	private Logger logger = LoggerFactory.getLogger(PowerStationStateConverter.class);
 	
 	public PowerStationStateConverter() {
 		convertedStates = new ArrayList<SavedGeneratorState>();
@@ -28,6 +31,8 @@ public class PowerStationStateConverter extends SavedPowerObjectConverter<PowerS
 		getGeneralFields();
 		getFrequencyField();
 		createSavedGeneratorStates();
+		logger.debug("Converted: PowerStationState to SavedGeneratorState.");
+
 		
 		return convertedStates;
 	}

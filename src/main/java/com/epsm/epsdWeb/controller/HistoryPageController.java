@@ -2,6 +2,10 @@ package com.epsm.epsdWeb.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import com.epsm.epsdWeb.service.chartService.ChartService;
 @Controller
 @RequestMapping("/history")
 public class HistoryPageController{
+	private Logger logger = LoggerFactory.getLogger(HistoryPageController.class);
 	
 	@Value("${model.url}")
 	private String modelUrl;
@@ -22,8 +27,9 @@ public class HistoryPageController{
 	private ChartService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String createHistoryPage(ModelMap model) {
+	public String createHistoryPage(ModelMap model, HttpServletRequest request) {
 	 	obtainAllNecessaryParameters(model);
+	 	logger.info("Requested: page from {}.", request.getRemoteAddr());
 	 	
         return "history";
     }

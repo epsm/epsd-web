@@ -41,7 +41,7 @@ public class ChartService {
 			refreshCharts();
 		}
 		
-		logger.debug("Invoked: getDataForCharts(), returned {}.", charts);
+		logger.debug("Requested: data for charts, returned map with keys {}.", charts.keySet());
 		
 		return charts;
 	}

@@ -38,4 +38,9 @@ public class ChartsData {
 	public LocalDate getDate(){
 		return onDate;
 	}
+	
+	@Override
+	public String toString(){
+		return String.format("Date: %s, map keyset %s", onDate, data.keySet());
+	}
 }
