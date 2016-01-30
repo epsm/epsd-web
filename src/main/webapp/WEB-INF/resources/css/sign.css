@@ -1,6 +1,6 @@
 div.all{
     width: 1280px;
-    height: 900px; 
+    height: 600px; 
     position:relative;
     top:0;
     left:0;
@@ -8,35 +8,52 @@ div.all{
     border: 1px solid;
     margin: 0 auto;
 }
-div.roof{
+
+div.login{
     height: 60px;
     border-bottom:1px solid;
-    margin: 0;
-    padding: 0;
 }
-div.EPSsw{
+
+h2.EPS{
     float: left;
-}
-.EPS{
     margin-left: 30px;
 }
-.out {
+
+table {
     float: right;
-    margin-right: 10px;
-    margin-top: 30px;
+    margin-right: 7px;
+    margin-top: 5px;
 }
-.input {
+
+input {
+    border: 1px solid #4477bb;
     color: #4477bb;
-    border: 1px solid #4477bb;    
+    height: 16px;
+    color: black;
 }
-p.cms {
-    font-size: 150%;
+
+.s_in {
+    width: 65px;
+    height: 20px;
+    color: #4477bb;
+}
+
+td.center {
+    text-align: center;
+}
+
+div.registration table{
     position: absolute;
-    margin-top: 30px; 
+    top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
+
+#username, #email_r ,#password_r, #password_c {
+    width: 150px;
+}
+
 div.basement{
     position: absolute;
     left: 0;
@@ -47,51 +64,20 @@ div.basement{
     padding-bottom: 5px;
     border-top: 1px solid;
 }
-table.user_table {
-    font: 80% sans-serif;   
-    text-align: center;    
-    position: absolute;
-    margin-top: 20px;
-    margin-left: 20px;
-    border-collapse: separate; /* Способ отображения границы */ 
-    border-spacing: 20px 10px; /* Расстояние между ячейками */ 
-    overflow-y: hidden;
-}
-div.over{
-    width: 1200px;
-    height: 320px;
-    color: black;
-    border: 1px solid #4477bb; /* Граница вокруг ячеек */ 
-    overflow-y: scroll;
-}
-div.menu {
-    height: 20px;
-    padding: 0px;
-    border-bottom: 1px solid;
-}
-div.menu ul{
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    margin-left: 450px;
+
+.input_errors{
+	text-align: left;
+	color:  #ff5555;
 }
 
-div.menu ul li {
-display: inline;
-padding: 0;
+A{
+    color: #4477bb;
 }
-div.menu ul li a {
-font: 80% sans-serif; 
-line-height: 0%;
-padding: 0;
-padding-left:20px;
-}
-A {
-    color: #4477bb; /* Цвет ссылок */
-   }
+
 A:visited {
-    color: #4477bb; /* Цвет посещенных ссылок */
-   }
+    color: #4477bb;
+}
+
 A:active {
-    color: #4477bb; /* Цвет активных ссылок */
-   }
+    color: #4477bb;
+}
