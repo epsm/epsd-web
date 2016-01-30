@@ -24,7 +24,7 @@
                     <tr>
                         <td><input type="text" id="email" name="email"/></td>
                         <td><input type="password" id="password" name="password"/></td>
-                        <td><input type="submit" class="s_in" value="signin" name="sing in" /></td>
+                        <td><input type="submit" class="s_in" value="sign in" name="singin" /></td>
                     </tr>
                 </table>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -35,25 +35,25 @@
         </div>
         <div class="registration">
             <sf:form method="post" commandName="request">
-                <td><sf:errors path="*"/></td>
                 <table>
                     <tr>
                     	<td><label for="username">username</label></td>
                         <td><sf:input id="username" path="userName"/></td>
-                        <td><sf:errors path="userName"/></td>
+                        <td><sf:errors class="input_errors" path="userName"/></td>
                     </tr>
                     <tr>
                     	<td><label for="email_r">email</label></td>
                         <td><sf:input id="email_r" path="email"/></td>
-                        <td><sf:errors path="email"/></td>
+                        <td><sf:errors class="input_errors" path="email"/></td>
                     </tr>
                     <tr>
                     	<td><label for="password_r">password</label></td>
                         <td><sf:password id="password_r" path="password"/></td>
-                        <td><sf:errors path="password"/></td>
+                        <td><sf:errors class="input_errors" path="password"/></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" class="s_in" value="singup" name="sign up" /></td>
+                    	<td></td>
+                        <td><input type="submit" class="s_in" value="sing up" name="signup" /></td>
                         <td></td>
                     </tr>    
                 </table>
