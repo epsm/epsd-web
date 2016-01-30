@@ -4,15 +4,15 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class UserRequest {
-	
-    @Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,6}$", message = "email is not valid")
-    private String email;
 
-    @Size(min = 6, max = 20, message = "password must be between 6 and 20 characters")
-    private String password;
-
-    @Size(min = 6, max = 20, message = "user name must be between 6 and 20 characters")
+    @Size(min = 6, max = 20, message="{userName.size}")
     private String userName;
+    
+	@Size(min = 6, max = 20, message="{password.size}")
+	private String password;
+	
+	@Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z]+\\.[a-zA-Z]{2,6}$", message="{email.pattern}")
+	private String email;
 
 	public String getEmail() {
 		return email;
