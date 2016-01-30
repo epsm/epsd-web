@@ -3,6 +3,7 @@ package com.epsm.epsdWeb.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
@@ -30,6 +31,7 @@ public class SignPageController {
 			Errors errors, ModelMap model) {
 
 		if(wasRequestValidated(errors)){
+			encodePassword(request);
 			tryToAddNewUser(request, errors, model);
 		}
 
@@ -38,6 +40,13 @@ public class SignPageController {
 	
 	private boolean wasRequestValidated(Errors errors){
 		return !errors.hasErrors();
+	}
+	
+	private void encodePassword(UserRequest request){
+		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+		String rawPassword = request.getPassword();
+		String encodedPassword = encoder.encode(rawPassword);
+		request.setPassword(encodedPassword);
 	}
 	
 	private void tryToAddNewUser(UserRequest request, Errors errors, ModelMap model){

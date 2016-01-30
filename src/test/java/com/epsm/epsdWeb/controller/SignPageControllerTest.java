@@ -1,6 +1,6 @@
 package com.epsm.epsdWeb.controller;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -11,12 +11,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -26,6 +29,7 @@ import com.epsm.epsdWeb.service.UserService;
 @RunWith(MockitoJUnitRunner.class)
 public class SignPageControllerTest {
 	private MockMvc mockMvc;
+	private ArgumentCaptor<String> captor =ArgumentCaptor.forClass(String.class);
 	
 	@InjectMocks
 	private SignPageController controller;
@@ -105,7 +109,7 @@ public class SignPageControllerTest {
                 .andExpect(view().name("sign"))
                 .andExpect(model().attributeHasFieldErrors("request","email"));
 
-		verify(service).addNewUser("123456", "123456", "valid@mail.com");
+		verify(service).addNewUser(eq("123456"), anyString(), eq("valid@mail.com"));
 		verifyNoMoreInteractions(service);
 	}
 	
@@ -121,11 +125,29 @@ public class SignPageControllerTest {
                 .andExpect(view().name("sign"))
                 .andExpect(model().hasNoErrors());
 
-		verify(service).addNewUser("123456", "123456", "valid@mail.com");
+		verify(service).addNewUser(eq("123456"), anyString(), eq("valid@mail.com"));
 		verifyNoMoreInteractions(service);
 	}
 	
 	private void makeServiceAnswerTrue(){
 		when(service.addNewUser(any(), any(), any())).thenReturn(true);
+	}
+	
+	@Test
+    public void encodesUserPassword() throws Exception {		
+		mockMvc.perform(post("/")
+				.param("userName", "123456")
+				.param("password", "123456")
+				.param("email", "valid@mail.com"))
+                .andExpect(status().isOk());
+
+		verify(service).addNewUser(eq("123456"), captor.capture(), eq("valid@mail.com"));
+		Assert.assertTrue(isPasswordEncodedCorrect());
+	}
+	
+	private boolean isPasswordEncodedCorrect(){
+		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+		
+		return encoder.matches("123456", captor.getValue());
 	}
 }
