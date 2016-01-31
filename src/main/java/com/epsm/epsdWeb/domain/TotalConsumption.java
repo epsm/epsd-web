@@ -18,16 +18,8 @@ import javax.persistence.Table;
 public class TotalConsumption extends SavedEntity implements ValueSource, Serializable{
 	private static final long serialVersionUID = -5513413188589243774L;
 	
-	@Column(name="total_consumption_in_mw")
+	@Column(name="total_consumption_in_mw", updatable=false)
 	private float totalConsumptionInMW;
-
-	public float getTotalConsumptionInMW() {
-		return totalConsumptionInMW;
-	}
-
-	public void setTotalConsumptionInMW(float totalConsumptionInMW) {
-		this.totalConsumptionInMW = totalConsumptionInMW;
-	}
 
 	@Override
 	public float getValue() {

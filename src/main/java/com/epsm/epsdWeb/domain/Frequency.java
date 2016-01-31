@@ -18,16 +18,8 @@ import javax.persistence.Table;
 public class Frequency extends SavedEntity implements ValueSource, Serializable{
 	private static final long serialVersionUID = 2015385664168021608L;
 	
-	@Column(name="frequency")
+	@Column(name="frequency", updatable=false)
 	private float frequency;
-
-	public float getFrequency() {
-		return frequency;
-	}
-
-	public void setFrequency(float frequency) {
-		this.frequency = frequency;
-	}
 
 	@Override
 	public float getValue() {
