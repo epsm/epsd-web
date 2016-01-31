@@ -1,10 +1,16 @@
 package com.epsm.epsdWeb.service;
 
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,7 +23,7 @@ import com.epsm.epsdWeb.repository.UserDao;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
-	private User user;
+	private List<User> users = Arrays.asList(new User());
 	private ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
 	
 	@InjectMocks
@@ -25,15 +31,6 @@ public class UserServiceImplTest {
 	
 	@Mock
 	private UserDao dao;
-	
-	@Before
-	public void setUp(){
-		user = new User();
-		user.setName("userName");
-		user.setPassword("password");
-		user.setEmail("email");
-		user.setRole("user");
-	}
 	
 	@Test
 	public void triesToGetUserFromDaoWheAddnewUserCalled(){
@@ -52,7 +49,7 @@ public class UserServiceImplTest {
 	}
 	
 	private void  makeUserNotExist(){
-		when(dao.findByEmail(anyString())).thenReturn(null);
+		when(dao.findByEmail(anyString())).thenReturn(Collections.emptyList());
 	}
 	
 	@Test
@@ -65,7 +62,7 @@ public class UserServiceImplTest {
 	}
 	
 	private void  makeUserExist(){
-		when(dao.findByEmail(anyString())).thenReturn(user);
+		when(dao.findByEmail(anyString())).thenReturn(users);
 	}
 	
 	@Test
@@ -92,11 +89,11 @@ public class UserServiceImplTest {
 		
 		service.addNewUser("userName", "password", "email");
 		verify(dao).saveUser(captor.capture());
-		user = captor.getValue();
+		User user = captor.getValue();
 		
 		Assert.assertEquals("userName", user.getName());
 		Assert.assertEquals("password", user.getPassword());
 		Assert.assertEquals("email", user.getEmail());
-		Assert.assertEquals("user", user.getRole());
+		Assert.assertEquals("USER", user.getRole());
 	}
 }

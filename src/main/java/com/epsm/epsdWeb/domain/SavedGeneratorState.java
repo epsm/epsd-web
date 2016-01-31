@@ -59,7 +59,7 @@ public class SavedGeneratorState extends SavedPowerObject implements Serializabl
 
 	@Override
 	public String toString(){
-		return String.format("SavedGeneratorState toString() stub. p.st.#%d, gen.#%d",
+		return String.format("SavedGeneratorState: power station#%d, generator number#%d",
 				getPowerObjectId(), generatorNumber);
 	}
 }

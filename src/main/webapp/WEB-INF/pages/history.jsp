@@ -19,8 +19,9 @@
                 <div class="EPSsw">
                     <h2 class="EPS">Electric Power System Dispatcher</h2>
                 </div>
-                <form class="out" method="post" action="<c:url value="/login.html"/>">
-                    <input type="submit" class="input" value="sign out" name="sign out" />
+                <form class="out" method="post" action="<c:url value="/logout"/>">
+                    <input type="submit" class="input" value="sign out"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
                 <p class="cms">data on: ${date}</p>
             </div>

@@ -22,6 +22,15 @@ CREATE TABLE IF NOT EXISTS consumer_state (
 	UNIQUE KEY OneEntryInOneMomentForConsumer (power_object_id,power_object_date,power_object_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS user (
+	id bigint(20) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(20) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	email VARCHAR(30),
+	role VARCHAR(10) NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE OR REPLACE VIEW total_generation AS SELECT
 	id, power_object_date, power_object_time, sum(generation_in_mw) AS total_generation_in_MW
 	FROM generator_state GROUP BY power_object_date, power_object_time;

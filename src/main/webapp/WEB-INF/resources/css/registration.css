@@ -1,0 +1,83 @@
+div.all{
+    width: 1280px;
+    height: 600px; 
+    position:relative;
+    top:0;
+    left:0;
+    color: #4477bb;
+    border: 1px solid;
+    margin: 0 auto;
+}
+
+div.header{
+    height: 60px;
+    border-bottom:1px solid;
+}
+
+h2.EPS{
+    float: left;
+    margin-left: 30px;
+}
+
+table {
+    float: right;
+    margin-right: 7px;
+    margin-top: 5px;
+}
+
+input {
+    border: 1px solid #4477bb;
+    color: #4477bb;
+    height: 16px;
+    color: black;
+}
+
+.s_in {
+    width: 65px;
+    height: 20px;
+    color: #4477bb;
+}
+
+td.center {
+    text-align: center;
+}
+
+div.data_input table{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+#username, #email_r ,#password_r, #password_c {
+    width: 150px;
+}
+
+div.basement{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1200px;
+    padding: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid;
+}
+
+.input_errors{
+	text-align: left;
+	color:  #ff5555;
+}
+
+A{
+    color: #4477bb;
+}
+
+A:visited {
+    color: #4477bb;
+}
+
+A:active {
+    color: #4477bb;
+}

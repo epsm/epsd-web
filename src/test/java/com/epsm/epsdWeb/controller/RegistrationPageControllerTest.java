@@ -27,12 +27,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.epsm.epsdWeb.service.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SignPageControllerTest {
+public class RegistrationPageControllerTest {
 	private MockMvc mockMvc;
 	private ArgumentCaptor<String> captor =ArgumentCaptor.forClass(String.class);
 	
 	@InjectMocks
-	private SignPageController controller;
+	private RegistrationPageController controller;
 	
 	@Mock
 	private UserService service;
@@ -48,22 +48,22 @@ public class SignPageControllerTest {
 	}
 	
 	@Test
-	public void returnsSignPageOnGetRequest() throws Exception{
-		mockMvc.perform(get("/"))
+	public void returnsRegistrationPageOnGetRequest() throws Exception{
+		mockMvc.perform(get("/registration"))
         		.andExpect(status().isOk())
-        		.andExpect(view().name("sign"));
+        		.andExpect(view().name("registration"));
         		
 		verifyNoMoreInteractions(service);
 	}
 	
 	@Test
-    public void doNotsaveNewUserIfUserNameIsInvalid() throws Exception {		
-		mockMvc.perform(post("/")
+    public void doesNotTryToSaveNewUserIfUserNameIsInvalidAndShowError() throws Exception {		
+		mockMvc.perform(post("/registration")
 				.param("userName", "")
 				.param("password", "123456")
 				.param("email", "valid@mail.com"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("sign"))
+                .andExpect(view().name("registration"))
                 .andExpect(model().attributeHasFieldErrors("request","userName"));
 
 		verify(service, never()).addNewUser(any(), any(), any());
@@ -71,13 +71,13 @@ public class SignPageControllerTest {
 	}
 	
 	@Test
-    public void doNotsaveNewUserIfPasswordIsInvalid() throws Exception {		
-		mockMvc.perform(post("/")
+    public void doesNotTrySaveNewUserIfPasswordIsInvalidAndShowError() throws Exception {		
+		mockMvc.perform(post("/registration")
 				.param("userName", "123456")
 				.param("password", "")
 				.param("email", "valid@mail.com"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("sign"))
+                .andExpect(view().name("registration"))
                 .andExpect(model().attributeHasFieldErrors("request","password"));
 
 		verify(service, never()).addNewUser(any(), any(), any());
@@ -85,13 +85,13 @@ public class SignPageControllerTest {
 	}
 	
 	@Test
-    public void doNotsaveNewUserIfEmailIsInvalid() throws Exception {		
-		mockMvc.perform(post("/")
+    public void doesNotTrySaveNewUserIfEmailIsInvalidAndShowError() throws Exception {		
+		mockMvc.perform(post("/registration")
 				.param("userName", "123456")
 				.param("password", "123456")
 				.param("email", ""))
                 .andExpect(status().isOk())
-                .andExpect(view().name("sign"))
+                .andExpect(view().name("registration"))
                 .andExpect(model().attributeHasFieldErrors("request","email"));
 
 		verify(service, never()).addNewUser(any(), any(), any());
@@ -100,13 +100,12 @@ public class SignPageControllerTest {
 	
 	@Test
     public void showsEmailIsBusyErrorIfNewUserHasExistingEmail() throws Exception {
-		
-		mockMvc.perform(post("/")
+		mockMvc.perform(post("/registration")
 				.param("userName", "123456")
 				.param("password", "123456")
 				.param("email", "valid@mail.com"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("sign"))
+                .andExpect(view().name("registration"))
                 .andExpect(model().attributeHasFieldErrors("request","email"));
 
 		verify(service).addNewUser(eq("123456"), anyString(), eq("valid@mail.com"));
@@ -114,16 +113,15 @@ public class SignPageControllerTest {
 	}
 	
 	@Test
-    public void doesNotShowAnyErrorsIfNewUserSaved() throws Exception {		
+    public void redirectsOnLoginPageIfNewUserRegistered() throws Exception {		
 		makeServiceAnswerTrue();
 		
-		mockMvc.perform(post("/")
+		mockMvc.perform(post("/registration")
 				.param("userName", "123456")
 				.param("password", "123456")
 				.param("email", "valid@mail.com"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("sign"))
-                .andExpect(model().hasNoErrors());
+                .andExpect(view().name("login"));
 
 		verify(service).addNewUser(eq("123456"), anyString(), eq("valid@mail.com"));
 		verifyNoMoreInteractions(service);
@@ -135,7 +133,7 @@ public class SignPageControllerTest {
 	
 	@Test
     public void encodesUserPassword() throws Exception {		
-		mockMvc.perform(post("/")
+		mockMvc.perform(post("/registration")
 				.param("userName", "123456")
 				.param("password", "123456")
 				.param("email", "valid@mail.com"))

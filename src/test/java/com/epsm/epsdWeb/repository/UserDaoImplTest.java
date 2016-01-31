@@ -1,5 +1,7 @@
 package com.epsm.epsdWeb.repository;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,8 @@ public class UserDaoImplTest extends AbstractDaoTest{
 	@DatabaseSetup(value="user.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testFindByEmail(){
 		String email = "email@two.com";
-		User result = dao.findByEmail(email);
+		List<User> result = dao.findByEmail(email);
 		
-		Assert.assertEquals("Bill", result.getName());
+		Assert.assertEquals(1, result.size());
 	}
 }

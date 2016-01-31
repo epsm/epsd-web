@@ -9,7 +9,7 @@ div.all{
     margin: 0 auto;
 }
 
-div.login{
+div.header{
     height: 60px;
     border-bottom:1px solid;
 }
@@ -42,7 +42,7 @@ td.center {
     text-align: center;
 }
 
-div.registration table{
+div.data_input table{
     position: absolute;
     top: 50%;
     left: 50%;

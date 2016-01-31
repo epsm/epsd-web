@@ -15,40 +15,51 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	private final String LOGIN_ENDPOINT = "/history";
-    private final String LOGOUT_ENDPOINT = "/sing";
-    private final String[] PUBLIC_ENDPOINTS = {"/", "sing"};
-    private final String[] APPLICATION_ENDPOINTS = {"history"};
+	private final String LOGIN_ENDPOINT = "/app/history";
+    private final String LOGOUT_ENDPOINT = "/login";
+    private final String LOGIN_PAGE = "/login";
+    private final String LOGOUT_URL = "/logout";
+    private final String[] PUBLIC_ENDPOINTS = {"/", "login", "/api/**"};
+    private final String[] SECURED_ENDPOINTS = {"/app/**"};
+    private final String USERS_BY_USERNAME_QUERY =
+    		"SELECT email AS username, password, true "
+    		+ "FROM user "
+    		+ "WHERE email = ?";
+    private final String AUTHORITIES_BY_USERNAME_QUERY =
+    		"SELECT email AS username, role "
+    		+ "FROM user "
+    		+ "WHERE email = ?";
     
     @Autowired
 	private DataSource dataSource;
     
-	@Autowired
+    @Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth.jdbcAuthentication().dataSource(dataSource).
-				usersByUsernameQuery("SELECT email, password, true FROM user WHERE email=?").
-				authoritiesByUsernameQuery("SELECT email, role FROM user WHERE email=?").
-				passwordEncoder(new StandardPasswordEncoder());
+		auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery(USERS_BY_USERNAME_QUERY)
+				.authoritiesByUsernameQuery(AUTHORITIES_BY_USERNAME_QUERY)
+				.passwordEncoder(new StandardPasswordEncoder());
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter,CsrfFilter.class);
 		
-		http.authorizeRequests()
-			.antMatchers(PUBLIC_ENDPOINTS).permitAll()
-			.antMatchers(APPLICATION_ENDPOINTS)
-			
-			.permitAll().and()
-			//.access("hasRole('USER')").and()
-			
-			.formLogin().defaultSuccessUrl(LOGIN_ENDPOINT, false).and()
-			.logout().logoutUrl(LOGOUT_ENDPOINT)
-			.logoutSuccessUrl(LOGOUT_ENDPOINT).and()
-			.formLogin().loginPage(LOGOUT_ENDPOINT);
+        http
+        	.csrf()
+        		.ignoringAntMatchers("/api/**").and()
+        	.authorizeRequests()
+        		.antMatchers(PUBLIC_ENDPOINTS).permitAll()
+				.antMatchers(SECURED_ENDPOINTS).authenticated().and()
+			.formLogin()
+				.loginPage(LOGIN_PAGE)
+				.usernameParameter("email")
+				.defaultSuccessUrl(LOGIN_ENDPOINT, false).and()
+			.logout()
+				.logoutUrl(LOGOUT_URL)
+				.logoutSuccessUrl(LOGOUT_ENDPOINT);
 	}
 }

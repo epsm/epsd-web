@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.epsm.epsdWeb.service.chartService.ChartService;
 
 @Controller
-@RequestMapping("/history")
+@RequestMapping("/app/history")
 public class HistoryPageController{
 	private Logger logger = LoggerFactory.getLogger(HistoryPageController.class);
 	

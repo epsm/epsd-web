@@ -57,7 +57,7 @@ public class HistoryPageControllerTest {
 	
 	@Test
     public void testCreateHistoryPage() throws Exception {		
-        mockMvc.perform(get("/history"))
+        mockMvc.perform(get("/app/history"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("history"))
                 .andExpect(model().attribute("modelUrl", "someUrl"))
