@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.epsm.epsdWeb.controller.RegistrationPageController;
 import com.epsm.epsdWeb.domain.User;
 import com.epsm.epsdWeb.repository.UserDao;
 
