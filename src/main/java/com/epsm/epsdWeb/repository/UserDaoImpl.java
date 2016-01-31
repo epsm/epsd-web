@@ -21,6 +21,7 @@ public class UserDaoImpl implements UserDao {
 		em.persist(user);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findByEmail(String email) {
 		Query query = em.createQuery("SELECT e FROM User e WHERE e.email = :email");
