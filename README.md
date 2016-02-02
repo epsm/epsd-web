@@ -33,7 +33,7 @@ View для полной генерации и потребления опред
 Также имеется таблица user, которая используется фреймворком Spring security для аутентификации пользователей, получающих доступ к странице с графиками.
 
 + схема БД: 
-![db_schema](https://cloud.githubusercontent.com/assets/16285736/12758885/19a9d696-c9e7-11e5-8785-4ec59ae70ccf.jpg)
+![db_schema](https://cloud.githubusercontent.com/assets/16285736/12760202/f1dd2378-c9ed-11e5-9b3c-9305d0c5093c.jpg)
 
 #### технологии
 Spring webmvc, Spring security, JPA (Hibernate), MySQL, JSON, SLF4J, Logback, Junit, Mockito, DbUnit, Spring test.
