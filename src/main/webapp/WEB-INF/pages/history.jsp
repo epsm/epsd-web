@@ -28,6 +28,7 @@
 			<div class="menu">
                 <ul>
                 	<li><a href="${modelUrl}">model</a></li>
+                	<li><a href="https://github.com/epsm/epsd-web">what does that mean</a></li>
                 </ul>
             </div>   
 			<div class="basement">
