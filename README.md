@@ -38,4 +38,4 @@ View для полной генерации и потребления опред
 #### технологии
 Spring webmvc, Spring security, JPA (Hibernate), MySQL, JSON, SLF4J, Logback, Junit, Mockito, DbUnit, Spring test.
 
-Покрытие unit-тестами согласно EclEmma 78,3%. В основном статистику портит то, что тестами не покрыты @Configuration классы и класс UrlRequestSender.
+Покрытие unit-тестами согласно EclEmma 83,5%.

@@ -11,6 +11,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.epsm.epsdWeb.util.ObjectMapperSource;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.epsm.epsdWeb.controller")
@@ -42,4 +45,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		
         return configurer;
     }
+	
+	@Bean
+	public ObjectMapper getMapper(){
+		return ObjectMapperSource.getMapper();
+	}
 }
