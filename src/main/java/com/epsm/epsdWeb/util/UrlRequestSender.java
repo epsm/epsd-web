@@ -20,7 +20,10 @@ public class UrlRequestSender<T> {
 	@Autowired
 	private HttpURLConnectionSource connectionSource;
 	
-	public boolean sendObjectInJsonToUrlWithPOST(String url, T object){;	
+	@Autowired
+	private ObjectMapper mapper;
+	
+	public boolean sendObjectInJsonToUrlWithPOST(String url, T object){
 		HttpURLConnection connection = null;
 		OutputStream outputStream = null;
 		int responseCode = 0;
@@ -29,21 +32,26 @@ public class UrlRequestSender<T> {
 			return false;
 		}
 		if(! tryToAdjustConnection(connection)){
+			closeConnection(connection);
 			return false;
 		}
 		if((outputStream = getOutputStream(connection)) == null){
+			closeConnection(connection);
 			return false;
 		}
 		if(! tryToSerializeObject(outputStream, object)){
+			closeConnection(connection);
 			return false;
 		}
 		if(! tryToSendObject(connection, outputStream, object)){
+			closeConnection(connection);
 			return false;
 		}
 		
 		responseCode = getResponceCode(connection);
 		
 		if(! isResponeCodeExpected(responseCode)){
+			closeConnection(connection);
 			return false;
 		}
 		
@@ -69,6 +77,7 @@ public class UrlRequestSender<T> {
 			return true;
 		} catch (ProtocolException e) {
 			logger.warn("Error setting connection properties.");
+			
 			return false;
 		}
 	}
@@ -90,8 +99,6 @@ public class UrlRequestSender<T> {
 	}
 
 	private boolean tryToSerializeObject(OutputStream outputStream, Object object){
-		ObjectMapper mapper = new ObjectMapper();
-		
 	    try {
 			mapper.writeValue(outputStream, object);
 			
@@ -104,7 +111,6 @@ public class UrlRequestSender<T> {
 	}
 	
 	private boolean tryToSendObject(HttpURLConnection connection, OutputStream outputStream, T object){
-		
 		try {
 			flushAndCloseOutputStream(outputStream);
 			
@@ -141,8 +147,6 @@ public class UrlRequestSender<T> {
 	}
 	
 	private String serializeObjectToString(T object){
-		ObjectMapper mapper = new ObjectMapper();
-		
 		try {
 			return mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {

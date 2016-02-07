@@ -2,7 +2,6 @@ package com.epsm.epsdWeb.util;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.slf4j.Logger;
@@ -14,34 +13,19 @@ public class HttpURLConnectionSource {
 	private Logger logger = LoggerFactory.getLogger(HttpURLConnectionSource.class);
 	
 	public HttpURLConnection getConnection(String url){
-		URL urlObject = constructUrl(url);
+		HttpURLConnection connection = createConnecti(url);
+
+		logger.debug("Returned: connection for url {}.");
 		
-		if(urlObject != null){
-			logger.debug("HttpURLConnection created for {}.");
-			
-			return constructConnection(urlObject);
-		}else{
-			return null;
-		}
+		return connection;
 	}
 	
-	private URL constructUrl(String url){
-		try{
-			return new URL(url);
-		} catch (MalformedURLException e) {
-			logger.warn("Error creating Url {}.", e);
-			
-			return null;
-		}
-	}
-	
-	private HttpURLConnection constructConnection(URL url){
-		try{
-			return (HttpURLConnection) url.openConnection();
+	private HttpURLConnection createConnecti(String url){
+		try {
+			URL urlObject = new URL(url);
+			return (HttpURLConnection) urlObject.openConnection();
 		} catch (IOException e) {
-			logger.warn("Error creating Url {}.", e);
-			
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 }
