@@ -19,38 +19,37 @@ h2.EPS{
     margin-left: 30px;
 }
 
-table{
-    float: right;
+label {
+    display:inline-block;
+    width: 70px;
     margin-right: 7px;
     margin-top: 5px;
+    color: #4477bb;
 }
 
-input{
+input {
     border: 1px solid #4477bb;
     color: #4477bb;
     height: 16px;
     color: black;
 }
 
-.s_in{
+.s_in {
     width: 65px;
     height: 20px;
+    margin: 6px;
+    margin-left: 83px;
     color: #4477bb;
 }
 
-td.center{
-    text-align: center;
-}
-
-div.data_input table{
+div.data_input{
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 45%;
+    left: 40%;
     margin-right: -50%;
-    transform: translate(-50%, -50%)
 }
 
-#username, #email_r ,#password_r, #password_c{
+#username, #email_r ,#password_r, #password_c {
     width: 150px;
 }
 
@@ -72,12 +71,15 @@ div.basement{
 
 A{
     color: #4477bb;
+    padding-left: 15px;
 }
 
-A:visited{
+A:visited {
     color: #4477bb;
+    padding-left: 15px;
 }
 
-A:active{
+A:active {
     color: #4477bb;
+    padding-left: 15px;
 }

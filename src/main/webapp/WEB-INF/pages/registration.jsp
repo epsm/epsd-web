@@ -17,34 +17,30 @@
 			</div> 
 	        <div class="data_input">
 	            <sf:form method="post" commandName="request">
-	                <table>
-	                    <tr>
-	                    	<td><label for="username">username</label></td>
-	                        <td><sf:input id="username" path="userName"/></td>
-	                        <td><sf:errors class="input_errors" path="userName"/></td>
-	                    </tr>
-	                    <tr>
-	                    	<td><label for="email_r">email</label></td>
-	                        <td><sf:input id="email_r" path="email"/></td>
-	                        <td><sf:errors class="input_errors" path="email"/></td>
-	                    </tr>
-	                    <tr>
-	                    	<td><label for="password_r">password</label></td>
-	                        <td><sf:password id="password_r" path="password"/></td>
-	                        <td><sf:errors class="input_errors" path="password"/></td>
-	                    </tr>
-	                    <tr>
-	                    	<td></td>
-	                        <td>
-	                        	<input type="submit" class="s_in" value="sign up" name="singup" />
-	                        	<a href="<c:url value="/login"/>">login page</a>
-	                        </td>
-	                    </tr>    
-	                </table>
+					<div>  
+						<label for="username">username</label>
+						<sf:input id="username" path="userName"/>
+						<sf:errors class="input_errors" path="userName"/>
+					</div> 
+					<div>     
+						<label for="email_r">email</label>
+						<sf:input id="email_r" path="email"/>
+						<sf:errors class="input_errors" path="email"/>
+					</div>     
+					<div>     
+						<label for="password_r">password</label>
+						<sf:password id="password_r" path="password"/>
+						<sf:errors class="input_errors" path="password"/>
+					</div>
+					<div>
+						<input type="submit" class="s_in" value="sign up" name="singup"/>
+						<a href="<c:url value="/login"/>">login page</a>    
+					</div>    
 	            </sf:form>
 	        </div>
 	        <div class="basement">
 	            <a href="https://github.com/epsm">project on GitHub</a>
+	            <a href="http://dou.ua/forums/topic/16411/">please criticize project on dou.ua</a>
 	        </div>
         </div>
     </body>

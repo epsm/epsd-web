@@ -17,28 +17,24 @@
         	</div>        
 	        <div class="data_input">
 	            <form name ="loginForm" action ="login" method="POST">	                
-	                <table>
-	                    <tr>
-	                        <td><label for="email">email</label></td>
-	                        <td><input type="text" id="email" name="email" /></td>
-	                    </tr>
-	                    <tr>
-	                        <td><label for="password">password</label></td>
-	                        <td><input type="password" id="password" name="password"/></td>
-	                    </tr>
-	                    <tr>
-	       					<td></td>
-	                        <td>
-	                        	<input type="submit" class="s_in" value="sign in" name="submit" />
-	                        	<a href="<c:url value="/registration"/>">registration page</a>
-	                        </td>
-	                    </tr>    
-	                </table>
+	                <div>
+						<label for="email">email</label></td>
+						<input type="text" id="email" name="email" />
+					</div>
+					<div>
+						<label for="password">password</label>
+						<input type="password" id="password" name="password"/>
+					</div>
+					<div>
+						<input type="submit" class="s_in" value="sign in" name="submit" />
+						<a href="<c:url value="/registration"/>">registration page</a>
+					</div>    
 	                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	            </form>
 	        </div>
 	        <div class="basement">
 	            <a href="https://github.com/epsm">project on GitHub</a>
+	            <a href="http://dou.ua/forums/topic/16411/">please criticize project on dou.ua</a>
 	        </div>	
         </div>
     </body>

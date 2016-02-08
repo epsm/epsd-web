@@ -31,9 +31,6 @@
                 	<li><a href="https://github.com/epsm/epsd-web">what does it mean</a></li>
                 </ul>
             </div>   
-			<div class="basement">
-				<a href="https://github.com/epsm">project on GitHub</a>
-			</div>
             <div class="name">frequency in system</div>  
             <div class="single_schedule">
                 <div id="frequency_chart_div"/>
@@ -46,6 +43,10 @@
             <div class="single_schedule">
      			<div id="consumption_chart_div"/>
             </div>
+            <div class="basement">
+				<a href="https://github.com/epsm">project on GitHub</a>
+				<a href="http://dou.ua/forums/topic/16411/">please criticize project on dou.ua</a>
+			</div>
         </div>    
     </body>
 </html>

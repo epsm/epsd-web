@@ -98,12 +98,15 @@ div.menu ul li a {
 
 A{
     color: #4477bb;
+    padding-left: 15px; 
 }
 
 A:visited {
     color: #4477bb;
+    padding-left: 15px;
 }
 
 A:active {
     color: #4477bb;
+    padding-left: 15px;
 }
