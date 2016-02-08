@@ -26,7 +26,7 @@ public class ConsumerStateConverter extends SavedPowerObjectConverter<ConsumerSt
 	}
 	
 	private void getLoadField(){
-		load = source.getLoad();
+		load = source.getLoadInMW();
 	}
 	
 	private void createSavedConsumerState(){
