@@ -18,7 +18,7 @@
 	        <div class="data_input">
 	            <form name ="loginForm" action ="login" method="POST">	                
 	                <div>
-						<label for="email">email</label></td>
+						<label for="email">email</label>
 						<input type="text" id="email" name="email" />
 					</div>
 					<div>
