@@ -30,15 +30,19 @@
     	</rollingPolicy>
 	</appender>
 
-	<logger name="com.epsm.epsdWeb" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdWeb" level="INFO" additivity="false">
 		<appender-ref ref="web-application" />
 	</logger>
 	
-	<logger name="com.epsm.epsdCore" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdCore" level="INFO" additivity="false">
 		<appender-ref ref="core-application" />
 	</logger>
 	
-	<logger name="com.epsm.epsmCore.model.utils" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsmCore.model.utils" level="INFO" additivity="false">
+		<appender-ref ref="web-application" />
+	</logger>
+	
+	<logger name="org.springframework.security" level="INFO" additivity="false">
 		<appender-ref ref="web-application" />
 	</logger>
 
