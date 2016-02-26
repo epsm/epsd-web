@@ -20,6 +20,13 @@
 		<api.consumer.command>/api/consumer/command</api.consumer.command>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- Spring -->    	
 		<dependency>
@@ -131,11 +138,11 @@
 			<version>5.2.3.Final</version>
 		</dependency>
 
-		<!-- EPSM, installed to local repository -->	
+		<!-- epsd-core -->	
 		<dependency>
-			<groupId>com.epsm</groupId>
+			<groupId>com.github.epsm</groupId>
 			<artifactId>epsd-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>97cc9adc8c1d2c661da03230c7ebaeb0214061fa</version>
 		</dependency>
 		
 		<!-- Tests -->
