@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +17,8 @@ public class FrequencyDaoImplTest extends AbstractDaoTest{
 	
 	@Autowired
 	private FrequencyDao dao;
-	
+
+	@Ignore
 	@Test
 	@DatabaseSetup(value="frequency.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetTotalGenerations(){

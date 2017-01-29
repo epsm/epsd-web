@@ -16,7 +16,7 @@ public class UserDaoImplTest extends AbstractDaoTest{
 	private UserDao dao;
 	
 	@Test
-	@DatabaseSetup(value="user.xml", type=DatabaseOperation.CLEAN_INSERT)
+	@DatabaseSetup(value="users.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testFindByEmail(){
 		String email = "email@two.com";
 		List<User> result = dao.findByEmail(email);

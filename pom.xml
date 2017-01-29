@@ -25,6 +25,19 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+		<repository>
+			<id>atlassian-public</id>
+			<url>https://maven.atlassian.com/3rdparty/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -91,10 +104,10 @@
 		</dependency>
 
 		<!-- MySql connector -->
-		<dependency>  
-			<groupId>mysql</groupId>  
-			<artifactId>mysql-connector-java</artifactId>  
-			<version>5.1.35</version>  
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.35</version>
 		</dependency>
 
 		<!-- servlet -->
@@ -183,6 +196,13 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1208-jdbc42-atlassian-hosted</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -214,11 +234,11 @@
 			<properties>
 				<model.url>http://localhost:8080/epsm-web</model.url>
 				
-				<database.url>jdbc:mysql://localhost:3306/eps_dispatcher</database.url>
-				<database.username></database.username>
-				<database.password></database.password>
-				<database.driver>com.mysql.jdbc.Driver</database.driver>
-				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+				<database.url>jdbc:postgresql://localhost:5432/eps_dispatcher</database.url>
+				<database.username>lab_user</database.username>
+				<database.password>password</database.password>
+				<database.driver>org.postgresql.Driver</database.driver>
+				<hibernate.dialect>org.hibernate.dialect.PostgreSQL9Dialect</hibernate.dialect>
 				
 				<logging.destination>${catalina.base}/logs</logging.destination>
 			</properties>

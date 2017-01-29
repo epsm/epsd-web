@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +15,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class AvaibleDateDaoImplTest extends AbstractDaoTest{
 	@Autowired
 	private AvaibleDateDao dao;
-	
+
+	@Ignore
 	@Test
 	@DatabaseSetup(value="avaible_date.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetDates(){

@@ -21,8 +21,10 @@ public class DbTestConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:h2:mem:test_mem;DB_CLOSE_ON_EXIT=FALSE");
-        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/eps_dispatcher");
+        dataSource.setUsername("lab_user");
+        dataSource.setPassword("password");
+        dataSource.setDriverClassName("org.postgresql.Driver");
         return dataSource;
     }
     
@@ -32,8 +34,7 @@ public class DbTestConfiguration extends WebMvcConfigurerAdapter {
         HibernateJpaVendorAdapter adaptor = new HibernateJpaVendorAdapter();
         Properties properties = new Properties();
         
-        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         factory.setJpaVendorAdapter(adaptor);
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("com.epsm.epsdWeb.domain");

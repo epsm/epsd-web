@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +16,8 @@ public class TotalConsumptionDaoImplTest extends AbstractDaoTest{
 	
 	@Autowired
 	private TotalConsumptionDao dao;
-	
+
+	@Ignore
 	@Test
 	@DatabaseSetup(value="total_consumption.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetTotalConsumptions(){

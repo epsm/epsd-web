@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +16,8 @@ public class TotalGenerationDaoImplTest extends AbstractDaoTest {
 	
 	@Autowired
 	private TotalGenerationDao dao;
-	
+
+	@Ignore
 	@Test
 	@DatabaseSetup(value="total_generation.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testGetTotalGenerations(){

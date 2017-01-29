@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="frequency")
 @AttributeOverrides({
-	@AttributeOverride(name="id", column=@Column(name="id")),
 	@AttributeOverride(name="powerObjectDate", column=@Column(name="power_object_date")),
 	@AttributeOverride(name="powerObjectTime", column=@Column(name="power_object_time"))
 })

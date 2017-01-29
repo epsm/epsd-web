@@ -28,7 +28,7 @@ public class HistoryPageController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String createHistoryPage(ModelMap model, HttpServletRequest request) {
-	 	obtainAllNecessaryParameters(model);
+	 	//obtainAllNecessaryParameters(model);
 	 	logger.info("Requested: page from {}.", request.getRemoteAddr());
 	 	
         return "history";

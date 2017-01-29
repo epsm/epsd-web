@@ -13,7 +13,6 @@ import javax.persistence.MappedSuperclass;
 public abstract class SavedEntity{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private long id;
 	

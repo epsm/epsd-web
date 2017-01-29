@@ -1,5 +1,0 @@
-<dataset>
-	<user id="1" name="Nick" password="secret" email="email@one.com" role="user"/>
-	<user id="2" name="Bill" password="secret" email="email@two.com" role="admin"/>
-	<user id="3" name="Anna" password="secret" email="email@three.com" role="guest"/>
-</dataset>

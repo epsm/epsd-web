@@ -23,11 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final String[] SECURED_ENDPOINTS = {"/app/**"};
     private final String USERS_BY_USERNAME_QUERY =
     		"SELECT email AS username, password, true "
-    		+ "FROM user "
+    		+ "FROM users "
     		+ "WHERE email = ?";
     private final String AUTHORITIES_BY_USERNAME_QUERY =
     		"SELECT email AS username, role "
-    		+ "FROM user "
+    		+ "FROM users "
     		+ "WHERE email = ?";
     
     @Autowired
