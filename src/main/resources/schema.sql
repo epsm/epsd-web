@@ -1,48 +1,29 @@
-CREATE TABLE IF NOT EXISTS generator_state (
-	id bigint(20) NOT NULL AUTO_INCREMENT,
-	power_object_date date NOT NULL,
-	power_object_time time NOT NULL,
-	power_object_id bigint(20),
-	real_timestamp datetime NOT NULL,
-	frequency float,
-	generation_in_mw float,
-	generator_number int(11),
-	PRIMARY KEY (id),
-	UNIQUE KEY OneEntryInOneMomentForGenerator (power_object_id,generator_number,power_object_date,power_object_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS power_station_state (
+	power_object_id SERIAL,
+	power_object_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	real_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	frequency FLOAT,
+	generation_in_mw FLOAT,
+
+	CONSTRAINT power_station_state_pk PRIMARY KEY (power_object_id)
+);
 
 CREATE TABLE IF NOT EXISTS consumer_state (
-	id bigint(20) NOT NULL AUTO_INCREMENT,
-	power_object_date date NOT NULL,
-	power_object_time time NOT NULL,
-	power_object_id bigint(20),
-	real_timestamp datetime NOT NULL,
-	load_in_mw float,
-	PRIMARY KEY (id),
-	UNIQUE KEY OneEntryInOneMomentForConsumer (power_object_id,power_object_date,power_object_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	power_object_id SERIAL,
+	power_object_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	real_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	load_in_mw FLOAT,
 
-CREATE TABLE IF NOT EXISTS user (
-	id bigint(20) NOT NULL AUTO_INCREMENT,
+	CONSTRAINT consumer_state_pk PRIMARY KEY (power_object_id)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+	user_id SERIAL,
 	name VARCHAR(20) NOT NULL,
 	password VARCHAR(100) NOT NULL,
 	email VARCHAR(30),
 	role VARCHAR(10) NOT NULL,
-	PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE OR REPLACE VIEW total_generation AS SELECT
-	id, power_object_date, power_object_time, sum(generation_in_mw) AS total_generation_in_mw
-	FROM generator_state GROUP BY power_object_date, power_object_time;
-
-CREATE OR REPLACE VIEW total_consumption AS SELECT
-	id, power_object_date, power_object_time, sum(load_in_mw) AS total_consumption_in_mw
-	FROM consumer_state GROUP BY power_object_date, power_object_time;
-
-CREATE OR REPLACE VIEW frequency AS SELECT id, power_object_date, power_object_time, frequency 
-	FROM generator_state GROUP BY power_object_date, power_object_time;
-
-CREATE OR REPLACE VIEW avaible_date AS SELECT id, power_object_date
-	FROM generator_state WHERE power_object_date IN (
-	SELECT power_object_date FROM consumer_state)
-	GROUP BY power_object_date;
+	CONSTRAINT users_pk PRIMARY KEY (user_id),
+    CONSTRAINT users_email_unq UNIQUE (email)
+);

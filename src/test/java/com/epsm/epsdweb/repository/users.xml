@@ -1,0 +1,5 @@
+<dataset>
+	<users user_id="1" name="Nick" password="secret" email="email@one.com" role="user"/>
+	<users user_id="2" name="Bill" password="secret" email="email@two.com" role="admin"/>
+	<users user_id="3" name="Anna" password="secret" email="email@three.com" role="guest"/>
+</dataset>

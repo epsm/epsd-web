@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<spring.security.version>4.0.3.RELEASE</spring.security.version>
-		<hibernate.version>5.0.2.Final</hibernate.version>
+		<hibernate.version>5.2.10.Final</hibernate.version>
 		
 		<api.powerstation.command>/api/powerstation/command</api.powerstation.command>
 		<api.consumer.command>/api/consumer/command</api.consumer.command>
@@ -90,11 +90,11 @@
 			<version>2.1.1</version>
 		</dependency>
 
-		<!-- MySql connector -->
-		<dependency>  
-			<groupId>mysql</groupId>  
-			<artifactId>mysql-connector-java</artifactId>  
-			<version>5.1.35</version>  
+		<!-- Postgres -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- servlet -->
@@ -140,9 +140,9 @@
 
 		<!-- epsd-core -->	
 		<dependency>
-			<groupId>com.github.epsm</groupId>
+			<groupId>com.epsm</groupId>
 			<artifactId>epsd-core</artifactId>
-			<version>97cc9adc8c1d2c661da03230c7ebaeb0214061fa</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
 		<!-- Tests -->
@@ -192,6 +192,14 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/java</directory>
+			</testResource>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -214,7 +222,7 @@
 			<properties>
 				<model.url>http://localhost:8080/epsm-web</model.url>
 				
-				<database.url>jdbc:mysql://localhost:3306/eps_dispatcher</database.url>
+				<database.url>jdbc:postgresql://localhost:5432/epsd</database.url>
 				<database.username></database.username>
 				<database.password></database.password>
 				<database.driver>com.mysql.jdbc.Driver</database.driver>

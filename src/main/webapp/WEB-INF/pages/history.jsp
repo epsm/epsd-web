@@ -8,16 +8,16 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script>var frequencyData = <c:out value="${frequencyChartData}"/></script>
-		<script>var generationData = <c:out value="${generationChartData}"/></script>
-		<script>var consumptionData = <c:out value="${consumptionChartData}"/></script>
+		<script>var frequencyData = <c:out value="${frequency}"/></script>
+		<script>var generationData = <c:out value="${generation}"/></script>
+		<script>var consumptionData = <c:out value="${consumption}"/></script>
     	<script src="<c:url value="/resources/js/charts.js"/>"></script>
     </head>
     <body>
         <div class="all">
             <div class="roof">
                 <div class="EPSsw">
-                    <h2 class="EPS">Electric Power System Dispatcher</h2>
+                    <h2 class="EPS">Dispatcher</h2>
                 </div>
                 <form class="out" method="post" action="<c:url value="/logout"/>">
                     <input type="submit" class="input" value="sign out"/>
@@ -28,7 +28,6 @@
 			<div class="menu">
                 <ul>
                 	<li><a href="${modelUrl}">model</a></li>
-                	<li><a href="https://github.com/epsm/epsd-web">what does it mean</a></li>
                 </ul>
             </div>   
             <div class="name">frequency in system</div>  
@@ -43,10 +42,6 @@
             <div class="single_schedule">
      			<div id="consumption_chart_div"/>
             </div>
-            <div class="basement">
-				<a href="https://github.com/epsm">project on GitHub</a>
-				<a href="http://dou.ua/forums/topic/16411/">please criticize project on dou.ua</a>
-			</div>
-        </div>    
+        </div>
     </body>
 </html>

@@ -30,7 +30,7 @@
     	</rollingPolicy>
 	</appender>
 
-	<logger name="com.epsm.epsdWeb" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdweb" level="DEBUG" additivity="false">
 		<appender-ref ref="web-application" />
 	</logger>
 	
@@ -38,7 +38,7 @@
 		<appender-ref ref="core-application" />
 	</logger>
 	
-	<logger name="com.epsm.epsmCore.model.utils" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsmcore.model.utils" level="DEBUG" additivity="false">
 		<appender-ref ref="web-application" />
 	</logger>
 
