@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ValueSource {
 
-	private final float value;
+	private final double value;
 	private final LocalDateTime simulationTimeStamp;
 }

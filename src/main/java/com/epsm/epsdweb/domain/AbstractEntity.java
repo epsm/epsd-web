@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 public abstract class AbstractEntity implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen")
+	private long id;
+
 	private long powerObjectId;
 	
-	@Column(name="simulation_timestamp", nullable=false)
+	@Column(name="simulation_time_stamp", nullable=false)
 	private LocalDateTime simulationTimeStamp;
 
 	@Column(name="real_timestamp", nullable=false)

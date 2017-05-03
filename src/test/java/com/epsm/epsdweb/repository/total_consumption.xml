@@ -1,5 +1,0 @@
-<dataset>
-	<total_consumption id="1" power_object_date="2000-09-08" power_object_time="00:00:00" total_consumption_in_mw="49.9"/>
-	<total_consumption id="2" power_object_date="2000-10-10" power_object_time="00:00:00" total_consumption_in_mw="50.0"/>
-	<total_consumption id="3" power_object_date="2000-10-11" power_object_time="00:00:00" total_consumption_in_mw="50.1"/>
-</dataset>

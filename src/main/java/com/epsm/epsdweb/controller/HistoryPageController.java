@@ -1,9 +1,7 @@
 package com.epsm.epsdweb.controller;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.epsm.epsdweb.service.chartService.ChartsData;
+import com.epsm.epsdweb.service.chartService.ChartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.epsm.epsdweb.service.chartService.ChartService;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/app/history")
@@ -24,20 +22,23 @@ public class HistoryPageController{
 	private String modelUrl;
 	
 	@Autowired
-	private ChartService service;
+	ChartService chartService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String createHistoryPage(ModelMap model, HttpServletRequest request) {
-	 	obtainAllNecessaryParameters(model);
+	public String getHistoryPage(ModelMap model, HttpServletRequest request) {
+	 	fillModel(model);
 	 	logger.info("Requested: page from {}.", request.getRemoteAddr());
 	 	
         return "history";
     }
 	
-	private void obtainAllNecessaryParameters(ModelMap model){
-		Map<String, String> chartsData = service.getDataForCharts();
-		
-		model.putAll(chartsData);
+	private void fillModel(ModelMap model){
+		ChartsData chartsData = chartService.getChartData();
+
+		model.put("date", chartsData.getOnDate());
+		model.put("consumption", chartsData.getConsumptionInMW());
+		model.put("generation", chartsData.getGenerationInMW());
+		model.put("frequency", chartsData.getFrequency());
 		model.put("modelUrl", modelUrl);
 	}
 }

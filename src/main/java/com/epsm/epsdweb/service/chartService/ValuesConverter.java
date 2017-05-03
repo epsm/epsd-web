@@ -1,97 +1,48 @@
 package com.epsm.epsdweb.service.chartService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 @Component
 public class ValuesConverter {
 
-	private List<ValueSource> values;
-	private StringBuilder builder;
-	private String prefix = "";
-	private LocalTime timeValue;
-	private float floatValue;
-	private DateTimeFormatter dateFormatter;
-	private DecimalFormat numberFormatter;
-	private String result;
-	private Logger logger = LoggerFactory.getLogger(ValuesConverter.class);
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH,mm");
+	private DecimalFormat numberFormatter = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
 
-	public ValuesConverter() {
-		builder = new StringBuilder();
-		dateFormatter = DateTimeFormatter.ofPattern("HH,mm");
-		numberFormatter = new DecimalFormat("0.##", new DecimalFormatSymbols(Locale.US));
-	}
-	
-	public String convert(List<ValueSource> values){
-		if(values == null){
-			logger.debug("Converted: got null instead List<ValueSource>.");
-			return "";
-		}
-		
-		saveValues(values);
-		resetState();
-		sortValues();
-		makeConvertation();
-		getResult();
-		logger.debug("Converted: {} values", values.size());
+	public String convert(List<ValueSource> values) {
+		StringBuilder builder = new StringBuilder();
+		String prefix = "";
 
-		return result;
-	}
-	
-	private void saveValues(List<ValueSource> values){
-		this.values = values;
-	}
-	
-	private void resetState(){
-		builder.setLength(0);
-		prefix = "";
-	}
-	
-	private void sortValues(){
-		Collections.sort(values, new ValueSourceComparator());
-	}
-	
-	private void makeConvertation(){
 		builder.append("[");
-		
-		for(ValueSource source: values){
-			getFieldsFromSource(source);
-			
+
+		for (ValueSource value : values) {
+
 			builder.append(prefix);
 			builder.append("[[");
-			builder.append(formatTime(timeValue));
+			builder.append(formatTime(value.getSimulationTimeStamp()));
 			builder.append("], ");
-			builder.append(numberFormatter.format(floatValue));
+			builder.append(numberFormatter.format(value.getValue()));
 			builder.append("]");
 			prefix = ",";
 		}
-		
+
 		builder.append("]");
+
+		return builder.toString();
 	}
-	
-	private void getFieldsFromSource(ValueSource source){
-		timeValue = source.getSimulationTimeStamp().toLocalTime();
-		floatValue = source.getValue();
-	}
-	
-	private String formatTime(LocalTime time){
-		if(time.isAfter(LocalTime.of(23, 59, 0))){
+
+	private String formatTime(LocalDateTime localDateTime) {
+		if (localDateTime.toLocalTime().isAfter(LocalTime.of(23, 59, 0))) {
 			return "24,00";
-		}else{
-			return dateFormatter.format(time);
+		} else {
+			return dateFormatter.format(localDateTime);
 		}
-	}
-	
-	private void getResult(){
-		result = builder.toString();
 	}
 }

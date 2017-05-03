@@ -1,20 +1,22 @@
 CREATE TABLE IF NOT EXISTS power_station_state (
-	power_object_id SERIAL,
-	power_object_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-	real_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	id SERIAL,
+	power_object_id BIGINT,
+	simulation_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	real_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
 	frequency FLOAT,
 	generation_in_mw FLOAT,
 
-	CONSTRAINT power_station_state_pk PRIMARY KEY (power_object_id)
+	CONSTRAINT power_station_state_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS consumer_state (
-	power_object_id SERIAL,
-	power_object_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-	real_time_stamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	id SERIAL,
+	power_object_id BIGINT,
+	simulation_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+	real_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
 	load_in_mw FLOAT,
 
-	CONSTRAINT consumer_state_pk PRIMARY KEY (power_object_id)
+	CONSTRAINT consumer_state_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS users (

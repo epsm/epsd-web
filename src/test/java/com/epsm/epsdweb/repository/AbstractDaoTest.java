@@ -1,24 +1,19 @@
 package com.epsm.epsdweb.repository;
 
+import com.epsm.epsdweb.configuration.TestDbConfiguration;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.epsm.epsdweb.configuration.DbTestConfiguration;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={DbTestConfiguration.class})
-@TestExecutionListeners({DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class,
-		DependencyInjectionTestExecutionListener.class,	DirtiesContextTestExecutionListener.class,})
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes={TestDbConfiguration.class})
 @Transactional
 @Ignore
+@SqlGroup({@Sql(value = {"classpath:test-clean.sql"}), @Sql})
 public class AbstractDaoTest{
 
 }

@@ -12,12 +12,9 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.2.4.RELEASE</spring.version>
-		<spring.security.version>4.0.3.RELEASE</spring.security.version>
+		<spring.version>4.3.8.RELEASE</spring.version>
+		<spring.security.version>4.2.2.RELEASE</spring.security.version>
 		<hibernate.version>5.2.10.Final</hibernate.version>
-		
-		<api.powerstation.command>/api/powerstation/command</api.powerstation.command>
-		<api.consumer.command>/api/consumer/command</api.consumer.command>
 	</properties>
 
 	<repositories>
@@ -94,7 +91,8 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<version>42.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- servlet -->
@@ -223,10 +221,10 @@
 				<model.url>http://localhost:8080/epsm-web</model.url>
 				
 				<database.url>jdbc:postgresql://localhost:5432/epsd</database.url>
-				<database.username></database.username>
-				<database.password></database.password>
-				<database.driver>com.mysql.jdbc.Driver</database.driver>
-				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+				<database.username>postgres</database.username>
+				<database.password>secret</database.password>
+				<database.driver>org.postgresql.Driver</database.driver>
+				<hibernate.dialect>org.hibernate.dialect.PostgreSQL95Dialect</hibernate.dialect>
 				
 				<logging.destination>${catalina.base}/logs</logging.destination>
 			</properties>

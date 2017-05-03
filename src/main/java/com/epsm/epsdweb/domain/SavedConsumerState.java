@@ -4,17 +4,30 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @ToString
 @Entity
-@Table(name="consumer_state")
-public class SavedConsumerState extends AbstractEntity {
+@Table(name = "consumer_state")
+public class SavedConsumerState {
 
-	@Column(name="load_in_mw")
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumer_state_id_gen")
+	@SequenceGenerator(name = "consumer_state_id_gen", sequenceName = "consumer_state_id_seq", allocationSize = 1)
+	private Long id;
+
+	@Column(name = "power_object_id", nullable = false)
+	private long powerObjectId;
+
+	@Column(name = "simulation_timestamp", nullable = false)
+	private LocalDateTime simulationTimeStamp;
+
+	@Column(name = "real_timestamp", nullable = false)
+	private LocalDateTime realTimeStamp;
+
+	@Column(name = "load_in_mw")
 	private float loadInMW;
 }

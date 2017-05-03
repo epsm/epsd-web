@@ -10,13 +10,12 @@ import com.epsm.epsdweb.domain.User;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class UserDaoImplTest extends AbstractDaoTest{
+public class UserDaoTest extends AbstractDaoTest {
 	
 	@Autowired
 	private UserDao dao;
 	
 	@Test
-	@DatabaseSetup(value="users.xml", type=DatabaseOperation.CLEAN_INSERT)
 	public void testFindByEmail(){
 		String email = "email@two.com";
 		List<User> result = dao.findByEmail(email);
