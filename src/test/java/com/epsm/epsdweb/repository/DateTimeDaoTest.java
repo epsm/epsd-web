@@ -13,7 +13,7 @@ public class DateTimeDaoTest extends AbstractDaoTest {
 	private DateTimeDao dao;
 	
 	@Test
-	public void testFindByEmail(){
+	public void getLastDateReturnsMaxDateThatHaveBothStates(){
 		assertEquals(LocalDateTime.of(2001, 1, 1, 0, 0, 0), dao.getLastDate());
 	}
 }

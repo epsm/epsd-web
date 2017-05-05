@@ -1,6 +1,7 @@
 package com.epsm.epsdweb.configuration;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,49 +22,61 @@ public class DbConfiguration {
 
 	@Value("${database.url}")
 	private String databaseUrl;
-	
+
 	@Value("${database.username}")
 	private String username;
-	
+
 	@Value("${database.password}")
 	private String password;
-	
+
 	@Value("${database.driver}")
 	private String databaseDriver;
-	
+
 	@Value("${hibernate.dialect}")
 	private String hibernateDialect;
-	
-    @Bean
-    public DataSource dataSource() {    	
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl(databaseUrl);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        dataSource.setDriverClassName(databaseDriver);
-        
-        return dataSource;
-    }
-    
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-        HibernateJpaVendorAdapter adaptor = new HibernateJpaVendorAdapter();
-        Properties properties = new Properties();
-        
-        properties.put("hibernate.dialect", hibernateDialect);
-               
-        factory.setJpaVendorAdapter(adaptor);
-        factory.setDataSource(dataSource());
-        factory.setPackagesToScan("com.epsm.epsdweb.domain");
-        factory.setJpaProperties(properties);
-        factory.afterPropertiesSet();
 
-        return factory;
-    }
-    
-    @Bean
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new JpaTransactionManager();
-    }
+	private static final String DB_MIGRATION_PATCH = "classpath:db/migration";
+
+	@Bean
+	public DataSource dataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setUrl(databaseUrl);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
+		dataSource.setDriverClassName(databaseDriver);
+
+		return dataSource;
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		HibernateJpaVendorAdapter adaptor = new HibernateJpaVendorAdapter();
+		Properties properties = new Properties();
+
+		properties.put("hibernate.dialect", hibernateDialect);
+
+		factory.setJpaVendorAdapter(adaptor);
+		factory.setDataSource(dataSource());
+		factory.setPackagesToScan("com.epsm.epsdweb.domain");
+		factory.setJpaProperties(properties);
+		factory.afterPropertiesSet();
+
+		return factory;
+	}
+
+	@Bean
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
+		return new JpaTransactionManager();
+	}
+
+	@Bean
+	public Flyway flyway(DataSource dataSource) {
+		Flyway flyway = new Flyway();
+		flyway.setDataSource(dataSource);
+		flyway.setLocations(DB_MIGRATION_PATCH);
+		flyway.migrate();
+
+		return flyway;
+	}
 }

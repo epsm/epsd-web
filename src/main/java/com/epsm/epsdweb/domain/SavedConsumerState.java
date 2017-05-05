@@ -15,18 +15,19 @@ import java.time.LocalDateTime;
 public class SavedConsumerState {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumer_state_id_gen")
-	@SequenceGenerator(name = "consumer_state_id_gen", sequenceName = "consumer_state_id_seq", allocationSize = 1)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumer_state_consumer_state_id_gen")
+	@SequenceGenerator(
+			name = "consumer_state_consumer_state_id_gen",
+			sequenceName = "consumer_state_consumer_state_id_seq",
+			allocationSize = 1)
+	@Column(name = "consumer_state_id")
+	private Long consumerStateId;
 
-	@Column(name = "power_object_id", nullable = false)
-	private long powerObjectId;
+	@Column(name = "consumer_id", nullable = false)
+	private long consumerId;
 
 	@Column(name = "simulation_timestamp", nullable = false)
 	private LocalDateTime simulationTimeStamp;
-
-	@Column(name = "real_timestamp", nullable = false)
-	private LocalDateTime realTimeStamp;
 
 	@Column(name = "load_in_mw")
 	private float loadInMW;

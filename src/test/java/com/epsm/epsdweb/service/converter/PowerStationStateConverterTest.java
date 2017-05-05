@@ -46,10 +46,14 @@ public class PowerStationStateConverterTest {
 		source.getStates().put(SECOND_GENERATOR_NUMBER, state_2);
 		SavedPowerStationState  actual = converter.convert(asList(source)).get(0);
 
-		assertEquals(POWER_STATION_ID, actual.getPowerObjectId());
+		assertEquals(POWER_STATION_ID, actual.getPowerStationId());
 		assertEquals(SIMULATION_TIMESTAMP, actual.getSimulationTimeStamp());
-		assertEquals(REAL_TIME_TIMESTAMP, actual.getRealTimeStamp());
 		assertEquals(FREQUENCY, actual.getFrequency(), 0);
-		assertEquals(FIRST_GENERATOR_GENERATION + SECOND_GENERATOR_GENERATION, actual.getGenerationInMW(), 0);
+		assertEquals(FIRST_GENERATOR_NUMBER,  actual.getGeneratorStates().get(0).getGeneratorNumber(), 0);
+		assertEquals(SECOND_GENERATOR_NUMBER,  actual.getGeneratorStates().get(1).getGeneratorNumber(), 0);
+		assertEquals(FIRST_GENERATOR_GENERATION, actual.getGeneratorStates().get(0).getGenerationInMW(), 0);
+		assertEquals(SECOND_GENERATOR_GENERATION, actual.getGeneratorStates().get(1).getGenerationInMW(), 0);
+		assertEquals(actual, actual.getGeneratorStates().get(0).getSavedPowerStationState());
+		assertEquals(actual, actual.getGeneratorStates().get(1).getSavedPowerStationState());
 	}
 }

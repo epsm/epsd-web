@@ -30,19 +30,19 @@
     	</rollingPolicy>
 	</appender>
 
-	<logger name="com.epsm.epsdweb" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdweb" level="ERROR" additivity="false">
 		<appender-ref ref="web-application" />
 	</logger>
 	
-	<logger name="com.epsm.epsdCore" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsdcore" level="ERROR" additivity="false">
 		<appender-ref ref="core-application" />
 	</logger>
 	
-	<logger name="com.epsm.epsmcore.model.utils" level="DEBUG" additivity="false">
+	<logger name="com.epsm.epsmcore.model.utils" level="ERROR" additivity="false">
 		<appender-ref ref="web-application" />
 	</logger>
 
-	<root level="INFO">
+	<root level="ERROR">
 		<appender-ref ref="STDOUT"/>
 	</root>
 </configuration>

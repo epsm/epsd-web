@@ -15,11 +15,11 @@ public class ConsumerStateDaoTest extends AbstractDaoTest {
 	private ConsumerStateDao dao;
 	
 	@Test
-	public void getStatesReturnsStatesBetweenDateTimes(){
+	public void getConsumtionReturnsConsumptionBetweenDateTimes(){
 		LocalDateTime from = LocalDateTime.of(2010, 1, 1, 0, 0);
 		LocalDateTime to = LocalDateTime.of(2020, 1, 1, 0, 0);
 
-		List<ValueSource> actual = dao.getStates(from, to);
+		List<ValueSource> actual = dao.getConsumption(from, to);
 
 		assertEquals(2, actual.size());
 		assertEquals(LocalDateTime.of(2010, 1, 1, 0, 0), actual.get(0).getSimulationTimeStamp());
