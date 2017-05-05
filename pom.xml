@@ -149,7 +149,14 @@
 			<artifactId>epsd-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
+		<!-- Javax EL-->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 		<!-- Tests -->
 		<dependency>
 			<groupId>junit</groupId>
